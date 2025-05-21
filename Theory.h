@@ -1,0 +1,37 @@
+#pragma once
+#include <Eigen/Dense>
+#include <vector>
+
+class Theory {
+	private:
+    		//string gauge_alg;				// types of gauge algebra 
+								// -> data is needed..?
+    		Eigen::MatrixXi  intersection_form;          // intersection form
+		int T;
+
+	public:
+    		Theory();                      
+    		~Theory() = default;
+		void Initialize();
+
+    		/* -------- queries -------- */
+		Eigen::MatrixXi GetIntersectionForm() const;
+    		//string getAnomaly()          const { return anomaly; }
+   		double GetDeterminant();     
+		Eigen::VectorXd	GetEigenvalues();
+	   	double CheckUnimodularity();
+		Eigen::VectorXi GetSignature();
+		int GetT();	
+
+    		/* -------- modifiers -------*/
+    		void AddTensorMultiplet(int charge);                  // anomaly += charge
+    		//void AddTensorMultiplet(int charge, int anomalyPart); // anomaly += anomalyPart
+    		void intersect(int n, int m);
+		void not_intersect(int n, int m);
+		void DeleteTensorMultiplet();
+		void Blowdown(int n);
+			
+
+	friend std::ostream& operator<<(std::ostream& os, const Theory& th);
+};
+
