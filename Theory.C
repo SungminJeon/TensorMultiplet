@@ -119,7 +119,7 @@ double Theory::CheckUnimodularity()
 
           
 
-	return det; 
+	return std::llround(det); 
 }
 
 Eigen::VectorXi Theory::GetSignature()
@@ -245,4 +245,276 @@ void Theory::Blowdown(int n)
 		intersection_form = B;
 	}
 }	
+void Theory::AddLink(int n, int m, bool b)
+{
 
+	///////////////////////////////////////////////////////////////////////////////////
+	// Table for nodes and links 
+	// Nodes (curve, gauge algebra)
+	// 	 (-12, e_8)
+	// 	 (-11, e_8')
+	// 	 (-10, e_8'')
+	// 	 ( -9, e_8''')
+	// 	 ( -8, e_7)
+	// 	 ( -7, e_7')
+	// 	 ( -6, e_6)
+	// 	 ( -5, f_4)
+	// 	 ( -4, so_8)
+	// 	 ( -3, su_2)	
+	//
+	// Links (n,m) {tensormultiplets}
+	// 	 (1,1) {-1}
+	// 	 (2,2) {-1,-3,-1}
+	// 	 (3,3) {-1,-2,-3,-2,-1}
+	// 	 (3,2) {-1,-2,-3,-1}
+	// 	 (4,2) {-1,-2,-2,-3,-1}
+	// 	 (3,3) {-1,-3,-1,-5,-1,-3,-1} void
+	// 	 (3,4) {-1,-3,-1,-5,-1,-3,-2,-1} 
+	// 	 (3,5) {-1,-3,-1,-5,-1,-3,-2,-2,-1}
+	// 	 (4,4) {-1,-2,-3,-1,-5,-1,-3,-2,-1}
+	// 	 (4,5) {-1,-2,-3,-1,-5,-1,-3,-2,-2,-1}
+	// 	 (5,5) {-1,-2,-2,-3,-1,-5,-1,-3,-2,-2,-1}
+	//
+	//
+	////////////////////////////////////////////////////////////////////////////////////
+	if(b==0)
+	{
+		if (n==1 && m==1)
+		{
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-1);
+		}
+		if (n==2 && m==2)
+		{
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-1);
+		}
+		if (n==3 && m==3)
+		{
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-1);
+		}
+		if (n==4 && m==4)
+		{
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-5);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-1);
+		}
+		if (n==5 && m==5)
+		{
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-5);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-1);
+		}
+		if (n==3 && m==2)
+		{
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-1);
+		}
+		if (n==2 && m==3)
+		{
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-1);
+		}
+		if (n==4 && m==2)
+		{
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-1);
+		}
+		if (n==2 && m==4)
+		{
+
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-1);
+		}
+		if (n==3 && m==4)
+		{
+
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-5);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-1);
+		}
+		if (n==4 && m==3)
+		{
+
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-5);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-1);
+		}
+		if (n==3 && m==5)
+		{
+
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-5);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-1);
+		}
+		if (n==5 && m==3)
+		{
+
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-5);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-1);
+		}
+
+		if (n==4 && m==5)
+		{
+
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-5);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-1);
+		}
+		if (n==5 && m==4)
+		{
+
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-5);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-2);
+			AddTensorMultiplet(-1);
+		}
+
+	}
+	else if ( b==1)
+	{
+		if( n==3 && m==3)
+		{
+
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-5);
+			AddTensorMultiplet(-1);
+			AddTensorMultiplet(-3);
+			AddTensorMultiplet(-1);
+		}
+	}
+	else
+	{
+		std::cout << "\n///////////////    NO SUCH LINK EXISTS  ////////////////\n" <<std::endl;
+	}
+
+
+}
+
+bool Theory::IsSUGRA()
+{
+	bool b = 0;
+	double n = sqrt(std::abs(this->CheckUnimodularity()));
+	int timedir = 0;
+
+	for (int i = std::ceil(n-1); i < floor(n+1); i++)
+	{
+		if ( i*i == static_cast<int>(std::abs(this->CheckUnimodularity())) )
+		{
+			b = 1;
+		}
+		else
+		{
+			b = 0;
+		}
+	}
+
+	for (int i = 0; i < (this->GetSignature()).size();i++)
+	{
+		if ( (this->GetSignature())[i] == 1)
+		{
+			timedir ++;
+		}
+	}
+
+	if ( timedir == 1)
+	{
+		b = 1;
+	}
+	else if (timedir != 1)
+	{
+		b = 0;
+	}
+
+	return b;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+			
+
+	
+
+
+		

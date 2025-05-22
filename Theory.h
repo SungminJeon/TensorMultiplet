@@ -21,7 +21,8 @@ class Theory {
 		Eigen::VectorXd	GetEigenvalues();
 	   	double CheckUnimodularity();
 		Eigen::VectorXi GetSignature();
-		int GetT();	
+		int GetT();
+		bool IsSUGRA();	
 
     		/* -------- modifiers -------*/
     		void AddTensorMultiplet(int charge);                  // anomaly += charge
@@ -30,6 +31,8 @@ class Theory {
 		void not_intersect(int n, int m);
 		void DeleteTensorMultiplet();
 		void Blowdown(int n);
+		void AddLink(int n, int m, bool b=0);
+		
 			
 
 	friend std::ostream& operator<<(std::ostream& os, const Theory& th);
