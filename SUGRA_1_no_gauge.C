@@ -4,8 +4,6 @@
 int main()
 {
 	Theory th;
-	static const std::array<int,45> squares =
-	{1,4,9,16,25,36,49,64,81,100,121,144,169,196,225,256,289,324,361,400,441,484,529,576,625,676,729,784,841,900,961,1024,1089,1156,1225,1296,1369,1444,1521,1600,1681,1764,1849,1936,2025};
 	int Number = 0;
 	
 
@@ -80,40 +78,264 @@ int main()
 	for(int i : { -1, -2} )
 	{
 		th.AddTensorMultiplet(i);
-		for (int j = 1; j < th.GetT(); j++)
+		int T = th.GetT();
+		
+		for (int j = 1; j < T; j++)
 		{
-			th.intersect(j,th.GetT());
-			
-			//for check
-			std::cout << "              " th.GetDeterminant() << "  " << std::endl;
-			if (th.IsSUGRA() == 1)
+			th.intersect(j,T);
+			bool b = th.IsSUGRA();
+			//std::cout << th.IsSUGRA() << " \n";
+			if (b == 1)
 			{
 				Number++;
 				//std::cout << "Intersection form:\n" << th << "\n\n";
 				std::cout << Number <<"  Determinant : " << th.GetDeterminant() << " " << "( " << i << ',' << j << ")\n";
 				/*	<< "\nSignature:\n";
-				for (double v : th.GetSignature()) std::cout << v << '\n';
-				Number++;
-				std::cout <<"\n Number : " << Number << "\n" <<std::endl;
-				*/
+					for (double v : th.GetSignature()) std::cout << v << '\n';
+					Number++;
+					std::cout <<"\n Number : " << Number << "\n" <<std::endl;
+					*/
 			}
-			else if (th.IsSUGRA() == 0)
-			{
-				std::cout << "NotUnimodular : (" << i << ',' << j << ")";
-				std::cout << "  Determinant : " << th.GetDeterminant() << "\n\n";
+			else if (b == 0)
+			{	
+				std::cout << "Not SUGRA : (" << i << ',' << j << ")";
+				std::cout << "  Determinant : " << th.GetDeterminant() << "\n\n"; 
 
 			}
-			th.not_intersect(j,th.GetT());
+			th.not_intersect(j,T);
 
 
 		}
 		th.DeleteTensorMultiplet();
 	}
 
-/*	std::cout << "Intersection form:\n" << th << "\n\n";
-	std::cout << "Determinant : " << th.GetDeterminant()
-		<< "\nSignature:\n";
-*/
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+	std::cout << "//////////////////////////////////////////////////////" << std::endl;
+	std::cout << "//                     BASE 403                     //" << std::endl;
+	std::cout << "//////////////////////////////////////////////////////" << std::endl;
+
+
+
+	Theory th2;
+	Number = 0;
+
+	th2.AddTensorMultiplet(-6);
+	th2.AddLink(2,2);
+	th2.AddTensorMultiplet(-4);
+	th2.AddTensorMultiplet(-1); th2.AddTensorMultiplet(-4);
+	th2.AddTensorMultiplet(-1); th2.AddTensorMultiplet(-4);
+	th2.AddTensorMultiplet(-1); th2.AddTensorMultiplet(-4);
+	th2.AddTensorMultiplet(-1); th2.AddTensorMultiplet(-4);
+	th2.AddTensorMultiplet(-1); th2.AddTensorMultiplet(-4);
+	th2.AddTensorMultiplet(-1); th2.AddTensorMultiplet(-4);
+	th2.AddTensorMultiplet(-1); th2.AddTensorMultiplet(-4);
+	th2.AddTensorMultiplet(-1);
+	th2.AddTensorMultiplet(-4);
+	th2.AddTensorMultiplet(-1);
+	th2.AddTensorMultiplet(-4);
+	//side tensors
+	th2.AddTensorMultiplet(-1); th2.intersect(21,th2.GetT());
+	th2.AddTensorMultiplet(-4); th2.intersect(th2.GetT(),th2.GetT()-1);
+
+
+	for (int i = 1; i < th2.GetT()-2; i++)
+	{
+		th2.intersect(i,i+1);
+	}
+
+
+
+
+	//NOW SEARCHING FOR AT LEAST CONSISTENT STRUCTURE FOR SUGRA
+	for(int i : { -1, -2} )
+	{
+		th2.AddTensorMultiplet(i);
+		int T = th2.GetT();
+		for (int j = 1; j < T; j++)
+		{
+			th2.intersect(j,T);
+
+			bool b = th2.IsSUGRA();
+
+		if (b == 1)
+			{
+				Number++;
+				//std::cout << "Intersection form:\n" << th << "\n\n";
+				std::cout << Number <<"  Determinant : " << th2.GetDeterminant() << " " << "( " << i << ',' << j << ")\n";
+				/*	<< "\nSignature:\n";
+					for (double v : th.GetSignature()) std::cout << v << '\n';
+					Number++;
+					std::cout <<"\n Number : " << Number << "\n" <<std::endl;
+					*/
+			}
+			else if (b == 0)
+			{
+				std::cout << "Not SUGRA : (" << i << ',' << j << ")";
+				std::cout << "  Determinant : " << th2.GetDeterminant() << "\n\n";
+
+			}
+			th2.not_intersect(j,T);
+
+
+		}
+		th2.DeleteTensorMultiplet();
+	}
+
+
+/////////////////////////////////////////////////////////////////////////////////
+	std::cout << "//////////////////////////////////////////////////////" << std::endl;
+	std::cout << "//                     BASE 447                     //" << std::endl;
+	std::cout << "//////////////////////////////////////////////////////" << std::endl;
+
+
+	Theory th3;
+	Number = 0;
+
+	th3.AddTensorMultiplet(-12);
+	th3.AddLink(5,4);
+	th3.AddTensorMultiplet(-8);
+	th3.AddLink(3,3); th3.AddTensorMultiplet(-8);
+	th3.AddLink(3,3); th3.AddTensorMultiplet(-8);
+	th3.AddLink(3,3); th3.AddTensorMultiplet(-8);
+	th3.AddLink(3,3); th3.AddTensorMultiplet(-8);
+	th3.AddLink(3,3); th3.AddTensorMultiplet(-8);
+	th3.AddLink(3,3); th3.AddTensorMultiplet(-8);
+	th3.AddLink(3,3); th3.AddTensorMultiplet(-8);
+	th3.AddLink(3,3);
+	th3.AddT(-8);
+	th3.AddLink(3,2);
+	th3.AddT(-5);
+	// side tensor
+	th3.AddT(-1); th3.intersect(th3.GetT(),60);
+
+
+
+
+
+	for (int i = 1; i < th3.GetT()-1; i++)
+	{
+		th3.intersect(i,i+1);
+	}
+
+
+
+
+	//NOW SEARCHING FOR AT LEAST CONSISTENT STRUCTURE FOR SUGRA
+	for(int i : { -1, -2} )
+	{
+		th3.AddTensorMultiplet(i);
+		int T = th3.GetT();
+		for (int j = 1; j < T; j++)
+		{
+			th3.intersect(j,T);
+
+			bool b = th3.IsSUGRA();
+
+			if (b == 1)
+			{
+				Number++;
+				//std::cout << "Intersection form:\n" << th << "\n\n";
+				std::cout << Number <<"  Determinant : " << th3.GetDeterminant() << " " << "( " << i << ',' << j << ")\n";
+				/*	<< "\nSignature:\n";
+					for (double v : th.GetSignature()) std::cout << v << '\n';
+					Number++;
+					std::cout <<"\n Number : " << Number << "\n" <<std::endl;
+					*/
+			}
+			else if (b == 0)
+			{
+				std::cout << "Not SUGRA : (" << i << ',' << j << ")";
+				std::cout << "  Determinant : " << th3.GetDeterminant() << "\n\n";
+
+			}
+			th3.not_intersect(j,T);
+
+
+		}
+		th3.DeleteTensorMultiplet();
+	}
+
+/////////////////////////////////////////////////////////////////////////////////
+	std::cout << "//////////////////////////////////////////////////////" << std::endl;
+	std::cout << "//                     BASE 527                     //" << std::endl;
+	std::cout << "//////////////////////////////////////////////////////" << std::endl;
+
+
+	Theory th4;
+	Number = 0;
+
+	th4.AddTensorMultiplet(-12);
+	th4.AddLink(5,5);
+	th4.AddT(-12);
+	th4.AddLink(5,5); th4.AddT(-12);
+	th4.AddLink(5,5); th4.AddT(-12);
+	th4.AddLink(5,5); th4.AddT(-12);
+	th4.AddLink(5,5); th4.AddT(-12);
+	th4.AddLink(5,5); th4.AddT(-12);
+	th4.AddLink(5,5); th4.AddT(-12);
+	th4.AddLink(5,5); th4.AddT(-12);
+	th4.AddLink(5,5); th4.AddT(-12);
+	th4.AddLink(5,3);
+	th4.AddT(-4);
+
+	// side tensor
+	th4.AddT(-1); th4.intersect(th3.GetT(),13);
+
+
+
+
+
+	for (int i = 1; i < th4.GetT()-1; i++)
+	{
+		th4.intersect(i,i+1);
+	}
+
+
+
+
+	//NOW SEARCHING FOR AT LEAST CONSISTENT STRUCTURE FOR SUGRA
+	for(int i : { -1, -2} )
+	{
+		th4.AddTensorMultiplet(i);
+		int T = th4.GetT();
+		for (int j = 1; j < T; j++)
+		{
+			th4.intersect(j,T);
+
+			bool b = th4.IsSUGRA();
+
+			if (b == 1)
+			{
+				Number++;
+				//std::cout << "Intersection form:\n" << th << "\n\n";
+				std::cout << Number <<"  Determinant : " << th4.GetDeterminant() << " " << "( " << i << ',' << j << ")\n";
+				/*	<< "\nSignature:\n";
+					for (double v : th.GetSignature()) std::cout << v << '\n';
+					Number++;
+					std::cout <<"\n Number : " << Number << "\n" <<std::endl;
+					*/
+			}
+			else if (b == 0)
+			{
+				std::cout << "Not SUGRA : (" << i << ',' << j << ")";
+				std::cout << "  Determinant : " << th4.GetDeterminant() << "\n\n";
+
+			}
+			th4.not_intersect(j,T);
+
+
+		}
+		th4.DeleteTensorMultiplet();
+	}
+
+
+
 }
+
+
+
+
 
 		

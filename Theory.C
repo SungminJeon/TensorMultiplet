@@ -164,6 +164,20 @@ void Theory::AddTensorMultiplet(int charge)
 	intersection_form(T-1,T-1) = charge;
 
 }
+void Theory::AddT(int charge)
+{	
+	T++;
+	intersection_form.conservativeResize(T,T);
+	
+	for (int i = 0; i < T; i++)
+	{
+		intersection_form(T-1,i) = 0;
+		intersection_form(i,T-1) = 0;
+	}
+	intersection_form(T-1,T-1) = charge;
+
+}
+
 
 void Theory::intersect(int n, int m)
 {
@@ -460,21 +474,12 @@ void Theory::AddLink(int n, int m, bool b)
 
 bool Theory::IsSUGRA()
 {
-	bool b = 0;
-	double n = sqrt(std::abs(this->CheckUnimodularity()));
+	bool c = 0;
+	int n = std::llround(std::abs(this->GetDeterminant()));
+	int sqrtn = std::llround(std::sqrt((long double)n));
 	int timedir = 0;
 
-	for (int i = std::ceil(n-1); i < floor(n+1); i++)
-	{
-		if ( i*i == static_cast<int>(std::abs(this->CheckUnimodularity())) )
-		{
-			b = 1;
-		}
-		else
-		{
-			b = 0;
-		}
-	}
+	bool b = (sqrtn*sqrtn == n && n > 0);
 
 	for (int i = 0; i < (this->GetSignature()).size();i++)
 	{
@@ -486,14 +491,15 @@ bool Theory::IsSUGRA()
 
 	if ( timedir == 1)
 	{
-		b = 1;
+		c = 1;
 	}
 	else if (timedir != 1)
 	{
-		b = 0;
+		c = 0;
 	}
 
-	return b;
+
+	return b&&c;
 }
 
 

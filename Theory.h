@@ -25,7 +25,8 @@ class Theory {
 		bool IsSUGRA();	
 
     		/* -------- modifiers -------*/
-    		void AddTensorMultiplet(int charge);                  // anomaly += charge
+    		void AddTensorMultiplet(int charge);
+		void AddT(int charge);		// anomaly += charge
     		//void AddTensorMultiplet(int charge, int anomalyPart); // anomaly += anomalyPart
     		void intersect(int n, int m);
 		void not_intersect(int n, int m);
