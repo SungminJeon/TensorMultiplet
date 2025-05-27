@@ -75,14 +75,14 @@ int main()
 
 
 	//NOW SEARCHING FOR AT LEAST CONSISTENT STRUCTURE FOR SUGRA
-	for(int i : { -1, -2} )
+	for(int i : {-1, -2} )
 	{
 		th.AddTensorMultiplet(i);
 		int T = th.GetT();
 		
 		for (int j = 1; j < T; j++)
 		{
-			th.intersect(j,T);
+			th.intersect(j,T,2);
 			bool b = th.IsSUGRA();
 			//std::cout << th.IsSUGRA() << " \n";
 			if (b == 1)

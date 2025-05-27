@@ -28,7 +28,7 @@ class Theory {
     		void AddTensorMultiplet(int charge);
 		void AddT(int charge);		// anomaly += charge
     		//void AddTensorMultiplet(int charge, int anomalyPart); // anomaly += anomalyPart
-    		void intersect(int n, int m);
+    		void intersect(int n, int m, int k=1);
 		void not_intersect(int n, int m);
 		void DeleteTensorMultiplet();
 		void Blowdown(int n);

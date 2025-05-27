@@ -179,10 +179,10 @@ void Theory::AddT(int charge)
 }
 
 
-void Theory::intersect(int n, int m)
+void Theory::intersect(int n, int m, int k)
 {
-	intersection_form(n-1, m-1) = 1;
-	intersection_form(m-1, n-1) = 1;
+	intersection_form(n-1, m-1) = k;
+	intersection_form(m-1, n-1) = k;
 
 }
 void Theory::not_intersect(int n, int m)
