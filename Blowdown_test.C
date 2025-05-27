@@ -95,30 +95,24 @@ int main()
 			th.intersect(j,T);
 			bool b = th.IsSUGRA();
 			Theory test = th;
+			//int T = test.GetT();
 			//std::cout << th.IsSUGRA() << " \n";
 			if (b == 1)
 			{
 				
-				int o = 0;
-				std::vector<int> v;
 
 
 				for( int l= 0; l < test.GetT(); l++)
 				{
-
-					
-
-					if ((test.GetIntersectionForm())(l,l) == -1)
+					if ( (test.GetIntersectionForm())(l,l) == -1 )
 					{
-						v.push_back(l+1);
+						test.Blowdown(l+1);
+						l = -1;
 					}
-
-				}
-
-				for( int k : v )
-				{
-					o++;
-					test.Blowdown(k-o +1);
+					else if ( l >= test.GetT() )
+					{
+						break;
+					}
 				}
 
 
