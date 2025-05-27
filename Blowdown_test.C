@@ -98,16 +98,26 @@ int main()
 			if (b == 1)
 			{
 				Theory test = th;
+				int o = 0;
+				std::vector<int> v;
 
 
 				for( int l= 0; l < test.GetT(); l++)
 				{
 
 					
+
 					if ((test.GetIntersectionForm())(l,l) == -1)
 					{
-						test.Blowdown(l+1);
+						v.push_back(l+1);
 					}
+
+				}
+
+				for( int k : v )
+				{
+					o++;
+					test.Blowdown(k-o +1);
 				}
 
 
