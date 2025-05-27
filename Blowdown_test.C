@@ -94,10 +94,11 @@ int main()
 		{
 			th.intersect(j,T);
 			bool b = th.IsSUGRA();
+			Theory test = th;
 			//std::cout << th.IsSUGRA() << " \n";
 			if (b == 1)
 			{
-				Theory test = th;
+				
 				int o = 0;
 				std::vector<int> v;
 
@@ -148,7 +149,7 @@ int main()
 				return 1;
 			}
 
-			out << th.GetIntersectionForm() << '\n';
+			out << test.GetIntersectionForm() << '\n';
 			out.close();
 			//std::cout << "intersection_form saved\n";
 
