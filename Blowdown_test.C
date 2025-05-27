@@ -1,11 +1,21 @@
 #include "Theory.h"
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <filesystem>
+#include <sstream>
+
+namespace fs = std::filesystem;
+
 
 int main()
 {
 	Theory th;
 	int Number = 0;
-	
+	int base = 360;
+	// for file
+	fs::path out_dir = std::string("./LST_Blowdown_") + std::to_string(base);
+
 
 
 
@@ -87,19 +97,24 @@ int main()
 			//std::cout << th.IsSUGRA() << " \n";
 			if (b == 1)
 			{
+				Theory test = th;
 
 
-				for( int l= 0; l < th.GetT(); l++)
+				for( int l= 0; l < test.GetT(); l++)
 				{
-					if ((th.GetIntersectionForm())[l,l] == -1)
+
+					
+					if ((test.GetIntersectionForm())(l,l) == -1)
 					{
-						th.Blowdown(l+1);
+						test.Blowdown(l+1);
 					}
 				}
 
-//				Number++;
-				//std::cout << "Intersection form:\n" << th << "\n\n";
-//				std::cout << Number <<"  Determinant : " << th.GetDeterminant() << " " << "( " << i << ',' << j << ")\n";
+
+
+				Number++;
+//				std::cout << "Intersection form:\n" << test.GetIntersectionForm() << "\n\n";
+				std::cout << Number <<"  Determinant : " << th.GetDeterminant() << " " << "( " << i << ',' << j << ")     :" << test.GetDeterminant() << "\n";
 				/*	<< "\nSignature:\n";
 					for (double v : th.GetSignature()) std::cout << v << '\n';
 					Number++;
@@ -112,6 +127,24 @@ int main()
 				std::cout << "  Determinant : " << th.GetDeterminant() << "\n\n"; 
 
 			}
+
+			// file open
+			//
+			std::ostringstream oss;
+			oss << "LST_Blowdown_" << base << "_(" << i << "," << j << ").txt";
+			fs::path filepath = out_dir / oss.str();
+			std::ofstream out(filepath);
+			if(!out) { std::cerr << "Fail to open a file\n";
+				return 1;
+			}
+
+			out << th.GetIntersectionForm() << '\n';
+			out.close();
+			//std::cout << "intersection_form saved\n";
+
+
+
+
 			th.not_intersect(j,T);
 
 
