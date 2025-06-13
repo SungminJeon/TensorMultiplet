@@ -73,6 +73,7 @@ int main()
 	for(int i=1;i<th.GetT()-2;++i) th.intersect(i,i+1);
 
 
+	Theory test2;
 
 	//NOW SEARCHING FOR AT LEAST CONSISTENT STRUCTURE FOR SUGRA
 	for(int i : {-1, -2} )
@@ -82,14 +83,16 @@ int main()
 		
 		for (int j = 1; j < T; j++)
 		{
-			th.intersect(j,T,2);
-			bool b = th.IsSUGRA();
+			th.intersect(j,T);
+
+			test2 = th;
+			bool b = test2.IsHirzebruch();
 			//std::cout << th.IsSUGRA() << " \n";
 			if (b == 1)
 			{
 				Number++;
 				//std::cout << "Intersection form:\n" << th << "\n\n";
-				std::cout << Number <<"  Determinant : " << th.GetDeterminant() << " " << "( " << i << ',' << j << ")\n";
+				std::cout << Number <<"  Determinant : " << test2.GetDeterminant() << " " << "( " << i << ',' << j << ")\n";
 				/*	<< "\nSignature:\n";
 					for (double v : th.GetSignature()) std::cout << v << '\n';
 					Number++;
@@ -99,7 +102,9 @@ int main()
 			else if (b == 0)
 			{	
 				std::cout << "Not SUGRA : (" << i << ',' << j << ")";
-				std::cout << "  Determinant : " << th.GetDeterminant() << "\n\n"; 
+				std::cout << "  Determinant : " << test2.GetDeterminant() << "\n\n";
+			       	//std::cout << test2.GetIntersectionForm() << std::endl;
+				std::cout << "# OF TIME DIRECTION : " << test2.TimeDirection() << std::endl; 	
 
 			}
 			th.not_intersect(j,T);
@@ -155,15 +160,17 @@ int main()
 		int T = th2.GetT();
 		for (int j = 1; j < T; j++)
 		{
-			th2.intersect(j,T);
+			th2.intersect(j,T,2);
 
-			bool b = th2.IsSUGRA();
+			test2 = th2;
+
+			bool b = test2.IsHirzebruch();
 
 		if (b == 1)
 			{
 				Number++;
 				//std::cout << "Intersection form:\n" << th << "\n\n";
-				std::cout << Number <<"  Determinant : " << th2.GetDeterminant() << " " << "( " << i << ',' << j << ")\n";
+				std::cout << Number <<"  Determinant : " << test2.GetDeterminant() << " " << "( " << i << ',' << j << ")\n";
 				/*	<< "\nSignature:\n";
 					for (double v : th.GetSignature()) std::cout << v << '\n';
 					Number++;
@@ -173,7 +180,8 @@ int main()
 			else if (b == 0)
 			{
 				std::cout << "Not SUGRA : (" << i << ',' << j << ")";
-				std::cout << "  Determinant : " << th2.GetDeterminant() << "\n\n";
+				std::cout << "  Determinant : " << test2.GetDeterminant() << "\n\n";
+				std::cout << "# OF TIME DIRECTION : " << test2.TimeDirection() << std::endl;
 
 			}
 			th2.not_intersect(j,T);
@@ -229,15 +237,17 @@ int main()
 		int T = th3.GetT();
 		for (int j = 1; j < T; j++)
 		{
-			th3.intersect(j,T);
+			th3.intersect(j,T,2);
 
-			bool b = th3.IsSUGRA();
+			test2 = th3;
+
+			bool b = test2.IsHirzebruch();
 
 			if (b == 1)
 			{
 				Number++;
 				//std::cout << "Intersection form:\n" << th << "\n\n";
-				std::cout << Number <<"  Determinant : " << th3.GetDeterminant() << " " << "( " << i << ',' << j << ")\n";
+				std::cout << Number <<"  Determinant : " << test2.GetDeterminant() << " " << "( " << i << ',' << j << ")\n";
 				/*	<< "\nSignature:\n";
 					for (double v : th.GetSignature()) std::cout << v << '\n';
 					Number++;
@@ -247,7 +257,8 @@ int main()
 			else if (b == 0)
 			{
 				std::cout << "Not SUGRA : (" << i << ',' << j << ")";
-				std::cout << "  Determinant : " << th3.GetDeterminant() << "\n\n";
+				std::cout << "  Determinant : " << test2.GetDeterminant() << "\n\n";
+				std::cout << "# OF TIME DIRECTION" << test2.TimeDirection() << std::endl;
 
 			}
 			th3.not_intersect(j,T);
@@ -281,7 +292,7 @@ int main()
 	th4.AddT(-4);
 
 	// side tensor
-	th4.AddT(-1); th4.intersect(th3.GetT(),13);
+	th4.AddT(-1); th4.intersect(th4.GetT(),13);
 
 
 
@@ -304,13 +315,15 @@ int main()
 		{
 			th4.intersect(j,T);
 
-			bool b = th4.IsSUGRA();
+			test2 = th4;
+
+			bool b = test2.IsHirzebruch();
 
 			if (b == 1)
 			{
 				Number++;
 				//std::cout << "Intersection form:\n" << th << "\n\n";
-				std::cout << Number <<"  Determinant : " << th4.GetDeterminant() << " " << "( " << i << ',' << j << ")\n";
+				std::cout << Number <<"  Determinant : " << test2.GetDeterminant() << " " << "( " << i << ',' << j << ")\n";
 				/*	<< "\nSignature:\n";
 					for (double v : th.GetSignature()) std::cout << v << '\n';
 					Number++;
@@ -320,7 +333,8 @@ int main()
 			else if (b == 0)
 			{
 				std::cout << "Not SUGRA : (" << i << ',' << j << ")";
-				std::cout << "  Determinant : " << th4.GetDeterminant() << "\n\n";
+				std::cout << "  Determinant : " << test2.GetDeterminant() << "\n\n";
+				std::cout << "# OF TIME DIRECTION : " << test2.TimeDirection() << std::endl;
 
 			}
 			th4.not_intersect(j,T);

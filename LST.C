@@ -18,7 +18,7 @@ int main()
     std::cout << "Determinant : " << th.GetDeterminant() << "\nEigenvalues:\n";
     for(double v : th.GetEigenvalues()) std::cout << v << '\n';
 
-
+/*
     th.Initialize();
     std::cout << "Intersection form for debugging\n" << th.GetIntersectionForm() <<std::endl;
 
@@ -29,7 +29,7 @@ int main()
     for(int i=1;i<9;++i) th.intersect(i,i+1);
 
     th.intersect(3,10);
-
+*/
     std::cout << "Intersection form:\n" << th << "\n\n";
     std::cout << "Determinant : " << th.GetDeterminant() << "\nEigenvalues:\n";
     for(double v : th.GetEigenvalues()) std::cout << v << '\n';
@@ -37,7 +37,7 @@ int main()
     std::cout << "Signature\n" << std::endl;
     for(int i : th.GetSignature()) std::cout << i << '\n';
 
-    std::cout<<"AFTER BLOWDOWN A CURVE\n"<<std::endl;
-    th.Blowdown(2);
+    std::cout<<"AFTER BLOWDOWN ALL CURVES\n"<<std::endl;
+    th.CompleteBlowdown();
     std::cout << th.GetIntersectionForm() << std::endl;
 }

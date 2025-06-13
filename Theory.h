@@ -17,12 +17,15 @@ class Theory {
     		/* -------- queries -------- */
 		Eigen::MatrixXi GetIntersectionForm() const;
     		//string getAnomaly()          const { return anomaly; }
-   		double GetDeterminant();     
+   		double GetDeterminant();
+	   	int GetExactDet();	
 		Eigen::VectorXd	GetEigenvalues();
-	   	double CheckUnimodularity();
+	   	double IsUnimodular();
 		Eigen::VectorXi GetSignature();
 		int GetT();
-		bool IsSUGRA();	
+		int TimeDirection();
+		bool IsSUGRA();
+		bool IsHirzebruch();	
 
     		/* -------- modifiers -------*/
     		void AddTensorMultiplet(int charge);
@@ -32,6 +35,8 @@ class Theory {
 		void not_intersect(int n, int m);
 		void DeleteTensorMultiplet();
 		void Blowdown(int n);
+		void CompleteBlowdown();
+		void LSTBlowdown();
 		void AddLink(int n, int m, bool b=0);
 		
 			

@@ -102,23 +102,15 @@ int main()
 				
 
 
-				for( int l= 0; l < test.GetT(); l++)
-				{
-					if ( (test.GetIntersectionForm())(l,l) == -1 )
-					{
-						test.Blowdown(l+1);
-						l = -1;
-					}
-					else if ( l >= test.GetT() )
-					{
-						break;
-					}
-				}
+				bool l = test.IsHirzebruch();
+				//test.CompleteBlowdown();
+				
+				std::cout << "Intersection form after full blowdown  :\n" << test.GetIntersectionForm() << "\n\n";
 
 
 
 				Number++;
-//				std::cout << "Intersection form:\n" << test.GetIntersectionForm() << "\n\n";
+				//std::cout << "Intersection form:\n" << test.GetIntersectionForm() << "\n\n";
 				std::cout << Number <<"  Determinant : " << th.GetDeterminant() << " " << "( " << i << ',' << j << ")     :" << test.GetDeterminant() << "\n";
 				/*	<< "\nSignature:\n";
 					for (double v : th.GetSignature()) std::cout << v << '\n';
@@ -129,8 +121,8 @@ int main()
 			else if (b == 0)
 			{	
 				std::cout << "Not SUGRA : (" << i << ',' << j << ")";
-				std::cout << "  Determinant : " << th.GetDeterminant() << "\n\n"; 
-
+				std::cout << "  Determinant : " << test.GetDeterminant() << "\n\n"; 
+				std::cout << "  Signature : " << test.GetSignature() << "\n\n"; 
 			}
 
 			// file open
