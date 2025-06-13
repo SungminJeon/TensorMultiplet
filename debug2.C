@@ -13,7 +13,7 @@ int main() {
 		th.AddTensorMultiplet(i);
 
 
-	for(int i=1;i<10;++i) th.intersect(i,i+1);
+	for(int i=1;i<9;++i) th.intersect(i,i+1);
 
 	th.intersect(3,10);
 

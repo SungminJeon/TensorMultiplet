@@ -642,12 +642,14 @@ bool Theory::IsHirzebruch()
 	bool b;
 
 	this -> LSTBlowdown();
+	std::cout << intersection_form << std::endl;
 	for ( int i  = 0; i < T; i++)
 	{
 	
 		if ( this -> GetIntersectionForm()(i,i) == -1 )
 		{
-			
+			//std::cout << " BLOWDOWN : " << i << std::endl;
+			//std::cout << intersection_form <<std::endl;
 			b = this->IsSUGRA();
 
 			if (b == 1)
@@ -668,6 +670,7 @@ bool Theory::IsHirzebruch()
 					this -> Blowdown(i+1);
 					i = -1;
 				}
+	
 				
 					
 			}
