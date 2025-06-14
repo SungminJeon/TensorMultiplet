@@ -349,6 +349,10 @@ void Theory::Blowdown(int n)
 		{
 			std::cout << "No intersecting curves" << std::endl;
 		}
+		else if (vec.size() > 2)
+		{
+			std::cout << "Inconsistent base" << std::endl;
+		}
 				
 
 
@@ -613,19 +617,41 @@ void Theory::LSTBlowdown()
 {
 
 	bool b;
+	bool c;
+	std::vector<int> v;
 	for( int i = 0; i < T-1; i++)
 	{
 		if(intersection_form(i,i) == -1 && intersection_form(i,T-1) == 0 )
 		{
 			
 			b = this -> IsSUGRA();
-			if (b == 1)
+			for (int j = 0; j < T ; j++)
+			{
+				if (intersection_form(i,j) == 1)
+				{
+					v.push_back(j);
+				}
+			}
+
+			if (v.size() < 3)
+			{
+				c = 1;
+			}
+			else
+			{
+				c = 0;
+			}
+
+
+			
+			if (b == 1 && c == 1)
 			{
 				this -> Blowdown(i+1);
 				i = -1;
-				//std::cout << "BLOWDOWN" << std::endl;
+				//std::cout << " Blowdown " << std::endl;
+				//std::cout << intersection_form << std::endl;
 			}
-			else if ( b == 0 )
+			else if ( b == 0 || c == 0)
 			{
 				//std::cout << "NOT SUGRA ANYMORE" << std::endl;
 
@@ -642,7 +668,7 @@ bool Theory::IsHirzebruch()
 	bool b;
 
 	this -> LSTBlowdown();
-	std::cout << intersection_form << std::endl;
+	//std::cout << intersection_form << std::endl;
 	for ( int i  = 0; i < T; i++)
 	{
 	

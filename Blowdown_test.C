@@ -12,7 +12,7 @@ int main()
 {
 	Theory th;
 	int Number = 0;
-	int base = 360;
+	int base = 527;
 	// for file
 	fs::path out_dir = std::string("./LST_Blowdown_") + std::to_string(base);
 
@@ -62,30 +62,32 @@ int main()
 	/// LST:360 no gauge, add only one tensor multiplet -> -1, -2 curve
 	/// ////////////////////////////////////////////////////////////////////////////////           
 
-	th.AddTensorMultiplet(-8);
-	th.AddLink(4,5);
-	th.AddTensorMultiplet(-12);
-	th.AddLink(5,5); th.AddTensorMultiplet(-12);
-	th.AddLink(5,5); th.AddTensorMultiplet(-12);
-	th.AddLink(5,5); th.AddTensorMultiplet(-12);
-	th.AddLink(5,5); th.AddTensorMultiplet(-12);
-	th.AddLink(5,5); th.AddTensorMultiplet(-12);
-	th.AddLink(5,5); th.AddTensorMultiplet(-12);
-	th.AddLink(4,2);
-	th.AddTensorMultiplet(-4);
-	th.AddTensorMultiplet(-1);
-	th.AddTensorMultiplet(-4);
-	// side tensors
-	th.AddTensorMultiplet(-1); th.intersect(12,th.GetT());
-	th.AddTensorMultiplet(-1); th.intersect(84,th.GetT());
 
+	th.AddT(-12);
+	th.AddLink(5,5);
+	th.AddT(-12);
+	th.AddLink(5,5); th.AddT(-12);
+	th.AddLink(5,5); th.AddT(-12);
+	th.AddLink(5,5); th.AddT(-12);
+	th.AddLink(5,5); th.AddT(-12);
+	th.AddLink(5,5); th.AddT(-12);
+	th.AddLink(5,5); th.AddT(-12);
+	th.AddLink(5,5); th.AddT(-12);
+	th.AddLink(5,5); th.AddT(-12);
+	th.AddLink(5,3);
+	th.AddT(-4);
 
-	for(int i=1;i<th.GetT()-2;++i) th.intersect(i,i+1);
-
+	//side tensor
+	th.AddT(-1); th.intersect(th.GetT(),13);
+	
+	for (int i=1; i<th.GetT()-1; i++)
+	{
+		th.intersect(i,i+1);
+	}
 
 
 	//NOW SEARCHING FOR AT LEAST CONSISTENT STRUCTURE FOR SUGRA
-	for(int i : {-1, -2} )
+	for(int i : {-1} )
 	{
 		th.AddTensorMultiplet(i);
 		int T = th.GetT();
@@ -93,8 +95,8 @@ int main()
 		for (int j = 1; j < T; j++)
 		{
 			th.intersect(j,T);
-			bool b = th.IsSUGRA();
 			Theory test = th;
+			bool b = test.IsHirzebruch();
 			//int T = test.GetT();
 			//std::cout << th.IsSUGRA() << " \n";
 			if (b == 1)
@@ -102,7 +104,7 @@ int main()
 				
 
 
-				bool l = test.IsHirzebruch();
+				
 				//test.CompleteBlowdown();
 				
 				std::cout << "Intersection form after full blowdown  :\n" << test.GetIntersectionForm() << "\n\n";
@@ -121,8 +123,9 @@ int main()
 			else if (b == 0)
 			{	
 				std::cout << "Not SUGRA : (" << i << ',' << j << ")";
-				std::cout << "  Determinant : " << test.GetDeterminant() << "\n\n"; 
-				std::cout << "  Signature : " << test.GetSignature() << "\n\n"; 
+				std::cout << "  Determinant : " << test.GetDeterminant() << "\n\n";
+				std::cout << " # OF TIME DIRECTION : " << test.TimeDirection() << std::endl;	
+				//std::cout << "  Signature : " << test.GetSignature() << "\n\n"; 
 			}
 
 			// file open

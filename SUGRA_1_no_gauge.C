@@ -76,7 +76,7 @@ int main()
 	Theory test2;
 
 	//NOW SEARCHING FOR AT LEAST CONSISTENT STRUCTURE FOR SUGRA
-	for(int i : {-1, -2} )
+	for(int i : {-1} )
 	{
 		th.AddTensorMultiplet(i);
 		int T = th.GetT();
@@ -154,7 +154,7 @@ int main()
 
 
 	//NOW SEARCHING FOR AT LEAST CONSISTENT STRUCTURE FOR SUGRA
-	for(int i : { -1, -2} )
+	for(int i : { -1} )
 	{
 		th2.AddTensorMultiplet(i);
 		int T = th2.GetT();
@@ -231,7 +231,7 @@ int main()
 
 
 	//NOW SEARCHING FOR AT LEAST CONSISTENT STRUCTURE FOR SUGRA
-	for(int i : { -1, -2} )
+	for(int i : { -1} )
 	{
 		th3.AddTensorMultiplet(i);
 		int T = th3.GetT();
