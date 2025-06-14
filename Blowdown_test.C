@@ -12,7 +12,7 @@ int main()
 {
 	Theory th;
 	int Number = 0;
-	int base = 527;
+	int base = 360;
 	// for file
 	fs::path out_dir = std::string("./LST_Blowdown_") + std::to_string(base);
 
@@ -61,29 +61,27 @@ int main()
 	////////////////////////////////////////////////////////////////////////////////////
 	/// LST:360 no gauge, add only one tensor multiplet -> -1, -2 curve
 	/// ////////////////////////////////////////////////////////////////////////////////           
+	th.AddTensorMultiplet(-8);
+	th.AddLink(4,5);
+	th.AddTensorMultiplet(-12);
+	th.AddLink(5,5); th.AddTensorMultiplet(-12);
+	th.AddLink(5,5); th.AddTensorMultiplet(-12);
+	th.AddLink(5,5); th.AddTensorMultiplet(-12);
+	th.AddLink(5,5); th.AddTensorMultiplet(-12);
+	th.AddLink(5,5); th.AddTensorMultiplet(-12);
+	th.AddLink(5,5); th.AddTensorMultiplet(-12);
+	th.AddLink(4,2);
+	th.AddTensorMultiplet(-4);
+	th.AddTensorMultiplet(-1);
+	th.AddTensorMultiplet(-4);
+	// side tensors
+	th.AddTensorMultiplet(-1); th.intersect(12,th.GetT());
+	th.AddTensorMultiplet(-1); th.intersect(84,th.GetT());
 
 
-	th.AddT(-12);
-	th.AddLink(5,5);
-	th.AddT(-12);
-	th.AddLink(5,5); th.AddT(-12);
-	th.AddLink(5,5); th.AddT(-12);
-	th.AddLink(5,5); th.AddT(-12);
-	th.AddLink(5,5); th.AddT(-12);
-	th.AddLink(5,5); th.AddT(-12);
-	th.AddLink(5,5); th.AddT(-12);
-	th.AddLink(5,5); th.AddT(-12);
-	th.AddLink(5,5); th.AddT(-12);
-	th.AddLink(5,3);
-	th.AddT(-4);
+	for(int i=1;i<th.GetT()-2;++i) th.intersect(i,i+1);
 
-	//side tensor
-	th.AddT(-1); th.intersect(th.GetT(),13);
-	
-	for (int i=1; i<th.GetT()-1; i++)
-	{
-		th.intersect(i,i+1);
-	}
+
 
 
 	//NOW SEARCHING FOR AT LEAST CONSISTENT STRUCTURE FOR SUGRA

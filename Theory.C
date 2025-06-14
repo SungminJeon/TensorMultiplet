@@ -625,6 +625,7 @@ void Theory::LSTBlowdown()
 		{
 			
 			b = this -> IsSUGRA();
+			v.clear();
 			for (int j = 0; j < T ; j++)
 			{
 				if (intersection_form(i,j) == 1)

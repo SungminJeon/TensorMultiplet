@@ -132,7 +132,8 @@ int main()
 		for (int j = 1; j < T; j++)
 		{
 			th.intersect(j,T);
-			Theory test = th;
+			Theory* test;
+			test = new Theory(th);
 
 			std::vector<Eigen::MatrixXi> seq;
 			
@@ -142,15 +143,16 @@ int main()
 
 			std::cout << j << std::endl;
 			
-			for( int i = 0; i < test.GetT()-1; i++)
+			for( int i = 0; i < test->GetT()-1; i++)
 			{
-				if(test.GetIntersectionForm()(i,i) == -1 && test.GetIntersectionForm()(i,test.GetT()-1) == 0 )
+				if(test->GetIntersectionForm()(i,i) == -1 && test->GetIntersectionForm()(i,test->GetT()-1) == 0 )
 				{
 
-					b = test.IsSUGRA();
-					for (int j = 0; j < test.GetT() ; j++)
+					b = test->IsSUGRA();
+					v.clear();
+					for (int j = 0; j < test->GetT() ; j++)
 					{
-						if (test.GetIntersectionForm()(i,j) == 1)
+						if (test->GetIntersectionForm()(i,j) == 1)
 						{
 							v.push_back(j);
 						}
@@ -169,22 +171,24 @@ int main()
 
 					if (b == 1 && c == 1)
 					{
-						test.Blowdown(i+1);
-						seq.push_back(test.GetIntersectionForm());
+						test->Blowdown(i+1);
+						seq.push_back(test->GetIntersectionForm());
 						i = -1;
 						//std::cout << " Blowdown " << std::endl;
 						//std::cout << intersection_form << std::endl;
 					}
 					else if ( b == 0 || c == 0)
 					{
-						//std::cout << "NOT SUGRA ANYMORE" << std::endl;
-						seq.push_back(test.GetIntersectionForm());
+						std::cout << "NOT SUGRA ANYMORE" << std::endl;
+						seq.push_back(test->GetIntersectionForm());
 
 						break;
 					}	
 				}
+				
 
 			}
+			delete test;
 
 			save_blowdown_sequence(j,seq);
 
