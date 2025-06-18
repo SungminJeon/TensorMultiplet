@@ -52,14 +52,14 @@ int main ()
 
 	Theory th;
 	int Number = 0;
-	int base = 282;
+	int base = 316;
 
 	fs::path out_dir = std::string("./Bl_SUGRA_") + std::to_string(base);
 
 
 		
-	th.AddTensorMultiplet(-8);
-	th.AddLink(4,5);
+	th.AddTensorMultiplet(-12);
+	th.AddLink(5,5);
 	th.AddTensorMultiplet(-12);
 	th.AddLink(5,5); th.AddTensorMultiplet(-12);
 	th.AddLink(5,5); th.AddTensorMultiplet(-12);
@@ -67,16 +67,18 @@ int main ()
 	th.AddLink(5,5); th.AddTensorMultiplet(-12);
 	th.AddLink(5,5); th.AddTensorMultiplet(-12);
 	th.AddLink(5,5); th.AddTensorMultiplet(-12);
-	th.AddLink(4,2);
+	th.AddLink(5,5); th.AddTensorMultiplet(-12);
+	th.AddLink(5,5); th.AddTensorMultiplet(-12);
+
+	th.AddLink(5,3);
 	th.AddTensorMultiplet(-4);
-	th.AddTensorMultiplet(-1);
-	th.AddTensorMultiplet(-4);
+	
 	// side tensors
-	th.AddTensorMultiplet(-1); th.intersect(12,th.GetT());
-	th.AddTensorMultiplet(-1); th.intersect(84,th.GetT());
+	th.AddTensorMultiplet(-1); th.intersect(13,th.GetT());
+	
 
 
-	for(int i=1;i<th.GetT()-2;++i) th.intersect(i,i+1);
+	for(int i=1;i<th.GetT()-1;++i) th.intersect(i,i+1);
 		
 
 	
