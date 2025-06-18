@@ -36,7 +36,7 @@ int Theory::GetT()
 	return T;
 }
 
-Eigen::VectorXd Theory::GetEigenvalues() {
+Eigen::VectorXd Theory::GetEigenvalues2() {
 
 	Eigen::MatrixXd Ad = intersection_form.cast<double>();
 	Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> es(Ad);
@@ -44,6 +44,7 @@ Eigen::VectorXd Theory::GetEigenvalues() {
 	Eigen::MatrixXi A   = intersection_form;	
 	int nullity = 0;
 	
+
 	// DETERMINE THE NULLITY OF THE INTERSECTION FORM (i.e. number of null directions)
 	for (int i = 0; i < T; i++) 
 	{
@@ -69,6 +70,8 @@ Eigen::VectorXd Theory::GetEigenvalues() {
 			}
 		}
 	}
+
+	
 
 	for (int i = 0; i < T; i++)
 	{
@@ -103,7 +106,32 @@ Eigen::VectorXd Theory::GetEigenvalues() {
 	}
 
 	return vec;
-}	
+}
+Eigen::VectorXd Theory::GetEigenvalues() {
+    // ❶ 안전 체크
+    if(intersection_form.rows() != intersection_form.cols()) 
+        throw std::runtime_error("intersection_form is not square.");
+
+    const int n = intersection_form.rows();
+
+    // ❷ 수치 고윳값
+    Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> es(intersection_form.cast<double>());
+    if(es.info() != Eigen::Success) 
+        throw std::runtime_error("Eigen decomposition failed.");
+
+    Eigen::VectorXd vec = es.eigenvalues();
+
+    // ❸ 정수 rank -> nullity
+    Eigen::FullPivLU<Eigen::MatrixXd> lu(intersection_form.cast<double>());
+    int nullity = n - lu.rank();
+
+    // ❹ 정렬 & 0 덮어쓰기
+    std::sort(vec.data(), vec.data()+n, 
+              [](double a, double b){ return std::abs(a) < std::abs(b); });
+    vec.head(nullity).setZero();
+
+    return vec;
+}
 double Theory::IsUnimodular()
 {	
 	double det = 1;
@@ -357,7 +385,180 @@ void Theory::Blowdown(int n)
 
 
 	}
+}
+
+bool Theory::Blowdown2(int n)
+{
+	std::vector<int> v;
+	bool b = 1;
+
+	if(intersection_form(n-1,n-1) != -1)
+	{
+		std::cout << "THIS CURVE CANNOT BE BLOWN DOWN\n" <<std::endl;
+		
+	}
+	else
+	{
+
+
+		std::vector<int> vec;
+		for ( int a = 0; a < T ;a++ )
+		{
+			if ( intersection_form(a,n-1) == 1 )
+			{
+				vec.push_back(a);
+			}
+		}	
+		if ( vec.size() >= 2 )
+		{
+			for (int a =0; a < vec.size(); a++)
+			{
+				if ( intersection_form(vec[a],vec[a]) >= 0)
+				{
+					b = 0;
+					break;
+				}
+			}
+
+
+			if ( b == 1 )
+			{
+				T--;
+				Eigen::MatrixXi B = Eigen::MatrixXi::Zero(T,T);
+				for (int i=0; i<T; i++)
+				{
+					for (int j=0; j<T; j++)
+					{
+						if ( i < n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i,j);
+						}
+						if ( i >= n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i+1,j);
+						}
+						if ( i < n-1 && j >= n-1)
+						{	
+							B(i,j) = intersection_form(i,j+1);
+						}
+						else if ( i >= n-1 && j >= n-1)
+						{
+							B(i,j) = intersection_form(i+1,j+1);
+						}
+					}
+				}
+
+
+				for (int k=0; k < T+1; k++)
+				{
+
+
+					if( intersection_form(n-1,k) == 1 )
+					{	
+						if ( k < n-1 )
+						{
+							v.push_back(k);
+							B(k,k) += 1;					
+
+						}
+						if ( k > n-1 )
+						{
+							v.push_back(k-1);
+							B(k-1,k-1) +=1;
+						}
+					}
+				}
+
+
+				for (int a2 = 0; a2 < v.size() ;a2++)
+				{
+					for (int a3 = 0; a3 < a2; a3++)
+					{
+						B(v[a2],v[a3])++;
+						B(v[a3],v[a2])++;
+					}
+				}	
+
+				intersection_form = B;
+
+			}
+		}
+		else if ( vec.size() == 1)
+		{
+			if ( !(intersection_form(vec[0],vec[0]) >= 0) )
+			{
+				T--;
+				Eigen::MatrixXi B = Eigen::MatrixXi::Zero(T,T);
+				for (int i=0; i<T; i++)
+				{
+					for (int j=0; j<T; j++)
+					{
+						if ( i < n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i,j);
+						}
+						if ( i >= n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i+1,j);
+						}
+						if ( i < n-1 && j >= n-1)
+						{	
+							B(i,j) = intersection_form(i,j+1);
+						}
+						else if ( i >= n-1 && j >= n-1)
+						{
+							B(i,j) = intersection_form(i+1,j+1);
+						}
+					}
+				}
+
+
+				for (int k=0; k < T+1; k++)
+				{
+
+
+					if( intersection_form(n-1,k) == 1 )
+					{	
+						if ( k < n-1 )
+						{
+							v.push_back(k);
+							B(k,k) += 1;					
+
+						}
+						if ( k > n-1 )
+						{
+							v.push_back(k-1);
+							B(k-1,k-1) +=1;
+						}
+					}
+				}
+
+
+				if (v.size() > 1)
+				{
+					B(v[0],v[1])++;
+					B(v[1],v[0])++;
+				}	
+
+				intersection_form = B;
+
+			}
+		}
+		else if (vec.size() == 0)
+		{
+			std::cout << "No intersecting curves" << std::endl;
+		}
+		else if (b == 0)
+		{
+			std::cout << "Inconsistent base" << std::endl;
+		}
+				
+
+		return b;
+
+	}
 }	
+
 void Theory::AddLink(int n, int m, bool b)
 {
 
@@ -609,6 +810,12 @@ void Theory::CompleteBlowdown()
 		{
 			this->Blowdown(i+1);
 			i = -1;
+			std::cout << intersection_form << std::endl;
+			std::cout << this->GetSignature() << std::endl;
+			if (T < 4)
+			{
+				break;
+			}
 		}
 	}
 }
@@ -662,6 +869,54 @@ void Theory::LSTBlowdown()
 		
 	}
 }
+void Theory::ForcedBlowdown()
+{
+
+	bool c;
+	std::vector<int> v;
+	for( int i = 0; i < T-1; i++)
+	{
+		if(intersection_form(i,i) == -1)
+		{
+			v.clear();
+			for (int j = 0; j < T ; j++)
+			{
+				if (intersection_form(i,j) == 1)
+				{
+					v.push_back(j);
+				}
+			}
+
+			if (v.size() < 3)
+			{
+				c = 1;
+			}
+			else
+			{
+				c = 0;
+			}
+
+
+			
+			if (c == 1)
+			{
+				this -> Blowdown(i+1);
+				i = -1;
+				//std::cout << " Blowdown " << std::endl;
+				//std::cout << intersection_form << std::endl;
+				//std::cout << this->GetSignature() << std::endl;
+			}
+			else if (c == 0)
+			{
+				//std::cout << "NOT SUGRA ANYMORE" << std::endl;
+
+				break;
+			}	
+		}
+		
+	}
+}
+
 
 bool Theory::IsHirzebruch()
 {

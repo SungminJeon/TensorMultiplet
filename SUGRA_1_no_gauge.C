@@ -79,14 +79,19 @@ int main()
 	for(int i : {-1} )
 	{
 		th.AddTensorMultiplet(i);
-		int T = th.GetT();
+		th.AddT(-1);
 		
-		for (int j = 1; j < T; j++)
+		int T = th.GetT();
+		th.intersect(T,T-1);
+		
+		for (int j = 1; j < T-1; j++)
 		{
-			th.intersect(j,T);
+			th.intersect(j,T-1);
 
 			test2 = th;
+			
 			bool b = test2.IsHirzebruch();
+			std::cout << test2.GetIntersectionForm() << std::endl;
 			//std::cout << th.IsSUGRA() << " \n";
 			if (b == 1)
 			{
@@ -107,7 +112,7 @@ int main()
 				std::cout << "# OF TIME DIRECTION : " << test2.TimeDirection() << std::endl; 	
 
 			}
-			th.not_intersect(j,T);
+			th.not_intersect(j,T-1);
 
 
 		}

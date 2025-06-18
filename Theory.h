@@ -20,6 +20,7 @@ class Theory {
    		double GetDeterminant();
 	   	int GetExactDet();	
 		Eigen::VectorXd	GetEigenvalues();
+		Eigen::VectorXd GetEigenvalues2();
 	   	double IsUnimodular();
 		Eigen::VectorXi GetSignature();
 		int GetT();
@@ -35,8 +36,10 @@ class Theory {
 		void not_intersect(int n, int m);
 		void DeleteTensorMultiplet();
 		void Blowdown(int n);
+		bool Blowdown2(int n);
 		void CompleteBlowdown();
 		void LSTBlowdown();
+		void ForcedBlowdown();
 		void AddLink(int n, int m, bool b=0);
 		
 			

@@ -127,13 +127,15 @@ int main()
 	for(int k : {-1} )
 	{
 		th.AddTensorMultiplet(k);
-		int T = th.GetT();
+		//int T = th.GetT();
 		
-		for (int j = 1; j < T; j++)
+		for (int j = 1; j < th.GetT(); j++)
 		{
-			th.intersect(j,T);
+			th.intersect(j,th.GetT());
 			Theory* test;
 			test = new Theory(th);
+
+		
 
 			std::vector<Eigen::MatrixXi> seq;
 			
@@ -141,12 +143,15 @@ int main()
 			bool c;
 			std::vector<int> v;
 
-			std::cout << j << std::endl;
-			
+			std::cout << "INTERSECTION CURVE " << j << std::endl;
+			std::cout << "EIGENVALUES : \n" << test->GetEigenvalues() << std::endl;
+		       	std::cout << "TimeDirection : " << test->TimeDirection() << std::endl;	
 			for( int i = 0; i < test->GetT()-1; i++)
 			{
 				if(test->GetIntersectionForm()(i,i) == -1 && test->GetIntersectionForm()(i,test->GetT()-1) == 0 )
 				{
+
+					
 
 					b = test->IsSUGRA();
 					v.clear();
@@ -171,8 +176,12 @@ int main()
 
 					if (b == 1 && c == 1)
 					{
-						test->Blowdown(i+1);
+						test->Blowdown2(i+1);
 						seq.push_back(test->GetIntersectionForm());
+
+						std::cout << " Blowdowned " << std::endl;
+						std::cout <<"Time direction for consistent base : " <<  test->TimeDirection() << std::endl;
+
 						i = -1;
 						//std::cout << " Blowdown " << std::endl;
 						//std::cout << intersection_form << std::endl;
@@ -180,6 +189,21 @@ int main()
 					else if ( b == 0 || c == 0)
 					{
 						std::cout << "NOT SUGRA ANYMORE" << std::endl;
+						std::cout << test->GetEigenvalues() << std::endl;
+
+						
+
+						for (int m = 0; m < test->GetT(); m++)
+						{
+							if ( test->GetEigenvalues()[m] > 0 )
+							{
+								std::cout << " EV : " << test->GetEigenvalues()[m] << ", " << m << std::endl;
+							}
+						}
+
+						
+						std::cout << test -> TimeDirection() << std::endl;
+
 						seq.push_back(test->GetIntersectionForm());
 
 						break;
@@ -195,7 +219,7 @@ int main()
 
 
 
-			th.not_intersect(j,T);
+			th.not_intersect(j,th.GetT());
 
 
 		}
