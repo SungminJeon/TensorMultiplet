@@ -60,17 +60,20 @@ Eigen::VectorXd Theory::GetEigenvalues2() {
 		
 		}
 		
+		std::cout << A << std::endl;
 		//subtract all the other leading non-zeros
 		for (int k = i+1; k < T; k++ )
 		{
 			if ( A(k,i) > 0 || A(k,i) < 0 )
 			{
 				A.row(k) = A.row(k)*A(i,i)-A(k,i)*A.row(i);
+				std::cout << A << std::endl;
 
 			}
 		}
 	}
 
+	std::cout << A<< std::endl;
 	
 
 	for (int i = 0; i < T; i++)
@@ -595,7 +598,6 @@ void Theory::AddLink(int n, int m, bool b)
 	{
 		if (n==1 && m==1)
 		{
-			AddTensorMultiplet(-1);
 			AddTensorMultiplet(-1);
 		}
 		if (n==2 && m==2)

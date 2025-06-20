@@ -180,4 +180,43 @@ int main() {
 
 
 
+
+	std::cout << " Test for the signature method " << std::endl;
+	Theory th4;
+
+
+	th4.AddT(-4);
+	th4.AddT(-1);
+	th4.AddT(-4);
+	th4.AddLink(1,1); th4.AddT(-4);
+	th4.AddLink(1,1); th4.AddT(-4);
+	th4.AddLink(1,1); th4.AddT(-4);
+	th4.AddLink(1,1); th4.AddT(-4);
+	th4.AddLink(1,1); th4.AddT(-4);
+	th4.AddLink(1,1); th4.AddT(-4);
+	th4.AddT(-1);
+	th4.AddT(-2);
+	for (int i = 1; i < th4.GetT() ;i++)
+	{
+		th4.intersect(i,i+1);
+	}
+	th4.AddT(-1); th4.intersect(th4.GetT(),2);
+	th4.AddT(-4); th4.intersect(th4.GetT(),16);
+	th4.AddT(-4); th4.intersect(th4.GetT(),th4.GetT()-2);
+
+
+	std::cout << th4.GetIntersectionForm() <<std::endl;
+
+
+	std::cout << "evs 1 " <<std::endl;
+	std::cout << th4.GetEigenvalues() << std::endl;
+	std::cout << "evs 2 " << std::endl;
+	std::cout << th4.GetEigenvalues2() << std::endl;
+
+
+
+
+
+
+
 }
