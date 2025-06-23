@@ -94,6 +94,8 @@ int main()
 		{
 			th.intersect(j,T);
 			Theory test = th;
+
+			std::cout << th.GetExactDet() << " " << th.TimeDirection() << std::endl;
 			bool b = test.IsHirzebruch();
 			//int T = test.GetT();
 			//std::cout << th.IsSUGRA() << " \n";

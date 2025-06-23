@@ -135,7 +135,7 @@ Eigen::VectorXd Theory::GetEigenvalues() {
 
     return vec;
 }
-double Theory::IsUnimodular()
+int Theory::IsUnimodular()
 {	
 	double det = 1;
 	Eigen::VectorXd V = this->GetEigenvalues();
@@ -561,6 +561,170 @@ bool Theory::Blowdown2(int n)
 
 	}
 }	
+bool Theory::Blowdown3(int n)
+{
+	std::vector<int> v;
+	bool b = 1;
+
+	if(intersection_form(n-1,n-1) != -1)
+	{
+		std::cout << "THIS CURVE CANNOT BE BLOWN DOWN\n" <<std::endl;
+		
+	}
+	else
+	{
+
+
+		std::vector<int> vec;
+		for ( int a = 0; a < T ;a++ )
+		{
+			if ( intersection_form(a,n-1) == 1 )
+			{
+				vec.push_back(a);
+			}
+		}	
+		if ( vec.size() >= 2 )
+		{
+			
+			
+
+			if ( b == 1 )
+			{
+				T--;
+				Eigen::MatrixXi B = Eigen::MatrixXi::Zero(T,T);
+				for (int i=0; i<T; i++)
+				{
+					for (int j=0; j<T; j++)
+					{
+						if ( i < n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i,j);
+						}
+						if ( i >= n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i+1,j);
+						}
+						if ( i < n-1 && j >= n-1)
+						{	
+							B(i,j) = intersection_form(i,j+1);
+						}
+						else if ( i >= n-1 && j >= n-1)
+						{
+							B(i,j) = intersection_form(i+1,j+1);
+						}
+					}
+				}
+
+
+				for (int k=0; k < T+1; k++)
+				{
+
+
+					if( intersection_form(n-1,k) == 1 )
+					{	
+						if ( k < n-1 )
+						{
+							v.push_back(k);
+							B(k,k) += 1;					
+
+						}
+						if ( k > n-1 )
+						{
+							v.push_back(k-1);
+							B(k-1,k-1) +=1;
+						}
+					}
+				}
+
+
+				for (int a2 = 0; a2 < v.size() ;a2++)
+				{
+					for (int a3 = 0; a3 < a2; a3++)
+					{
+						B(v[a2],v[a3])++;
+						B(v[a3],v[a2])++;
+					}
+				}	
+
+				intersection_form = B;
+
+			}
+		}
+		else if ( vec.size() == 1)
+		{
+			if ( !(intersection_form(vec[0],vec[0]) >= 0) )
+			{
+				T--;
+				Eigen::MatrixXi B = Eigen::MatrixXi::Zero(T,T);
+				for (int i=0; i<T; i++)
+				{
+					for (int j=0; j<T; j++)
+					{
+						if ( i < n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i,j);
+						}
+						if ( i >= n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i+1,j);
+						}
+						if ( i < n-1 && j >= n-1)
+						{	
+							B(i,j) = intersection_form(i,j+1);
+						}
+						else if ( i >= n-1 && j >= n-1)
+						{
+							B(i,j) = intersection_form(i+1,j+1);
+						}
+					}
+				}
+
+
+				for (int k=0; k < T+1; k++)
+				{
+
+
+					if( intersection_form(n-1,k) == 1 )
+					{	
+						if ( k < n-1 )
+						{
+							v.push_back(k);
+							B(k,k) += 1;					
+
+						}
+						if ( k > n-1 )
+						{
+							v.push_back(k-1);
+							B(k-1,k-1) +=1;
+						}
+					}
+				}
+
+
+				if (v.size() > 1)
+				{
+					B(v[0],v[1])++;
+					B(v[1],v[0])++;
+				}	
+
+				intersection_form = B;
+
+			}
+		}
+		else if (vec.size() == 0)
+		{
+			std::cout << "No intersecting curves" << std::endl;
+		}
+		else if (b == 0)
+		{
+			std::cout << "Inconsistent base" << std::endl;
+		}
+				
+
+		return b;
+
+	}
+}	
 
 void Theory::AddLink(int n, int m, bool b)
 {
@@ -777,7 +941,7 @@ void Theory::AddLink(int n, int m, bool b)
 bool Theory::IsSUGRA()
 {
 	bool c = 0;
-	int n = std::llround(std::abs(this->GetDeterminant()));
+	int n = std::llround(std::abs(this->IsUnimodular()));
 	int sqrtn = std::llround(std::sqrt((long double)n));
 	int timedir = 0;
 
@@ -1002,6 +1166,36 @@ int Theory::TimeDirection()
 	return timedir;
 }
 
+int Theory::NullDirection()
+{
+	int nulldir = 0;
+
+	for (int i = 0; i <(this->GetSignature()).size(); i++)
+	{
+		if ((this->GetSignature())[i] == 0)
+		{
+			nulldir++;
+		}
+	}
+	return nulldir;
+}
+int Theory::SpaceDirection()
+{
+	int spacedir = 0;
+
+	for (int i = 0; i <(this->GetSignature()).size(); i++)
+	{
+		if ((this->GetSignature())[i] == -1)
+		{
+			spacedir++;
+		}
+	}
+	return spacedir;
+}
+void Theory::SetElement(int n, int m, int k)
+{
+	intersection_form(n,m) = k;
+}
 
 
 

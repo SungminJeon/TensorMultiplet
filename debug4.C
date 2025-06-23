@@ -32,7 +32,7 @@ int main() {
 
 	//std::cout << th.GetIntersectionForm() <<std::endl;
 
-        th.CompleteBlowdown();
+        th.SetElement(0,0,123);
 
 	//th.Blowdown(th.GetT());
 

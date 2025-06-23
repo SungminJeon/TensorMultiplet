@@ -21,10 +21,12 @@ class Theory {
 	   	int GetExactDet();	
 		Eigen::VectorXd	GetEigenvalues();
 		Eigen::VectorXd GetEigenvalues2();
-	   	double IsUnimodular();
+	   	int IsUnimodular();
 		Eigen::VectorXi GetSignature();
 		int GetT();
 		int TimeDirection();
+		int NullDirection();
+		int SpaceDirection(); 
 		bool IsSUGRA();
 		bool IsHirzebruch();	
 
@@ -37,10 +39,12 @@ class Theory {
 		void DeleteTensorMultiplet();
 		void Blowdown(int n);
 		bool Blowdown2(int n);
+		bool Blowdown3(int n);
 		void CompleteBlowdown();
 		void LSTBlowdown();
 		void ForcedBlowdown();
 		void AddLink(int n, int m, bool b=0);
+		void SetElement(int n, int m, int k);
 		
 			
 
