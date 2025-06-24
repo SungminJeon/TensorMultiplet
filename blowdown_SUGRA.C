@@ -81,57 +81,67 @@ int main()
 	}
 	th.intersect(10,3);
 
+
+	std::cout << th.GetIntersectionForm() << std::endl;
+
 	
 		
 	
 	Theory test = th;				
 
-/*
+
 	for( int l= 0; l < test.GetT(); l++)
 	{
-		if ( (test.GetIntersectionForm())(l,l) == -1 )
+
+		//std::cout << l << std::endl;
+		if ( test.GetIntersectionForm()(l,l) == -1 )
 		{
-			if(!(test.GetIntersectionForm())(l-1,l-1) >= 0 || (test.GetIntersectionForm())(l+1,l+1) >= 0)
+
+			bool b = test.Blowdown2(l+1);
+			bool c = test.IsSUGRA();
+		//	std::cout << l << std::endl;
+			if (b == 1 && c ==1 )
 			{
-
-
-				test.Blowdown(l+1);
+				std::cout << test.GetIntersectionForm() << std::endl;
 				l = -1;
 			}
-			else
+			else if ( c == 0)
 			{
-				l++;
+				std::cout << "NOT SUGRA " << std::endl;
+				break;
 			}
-			
+
 		}
-		else if ( l >= test.GetT() )
-		{
-			break;
-		}
+		
 	}
 
-*/
-	bool b = test.IsHirzebruch();
+	std::cout << "after full blowdown " << std::endl;
+	std::cout << test.GetIntersectionForm() <<std::endl;
+
+
+
+
+//	bool b = test.IsHirzebruch();
 	//test.CompleteBlowdown();
 	//bool b  = test.IsSUGRA();
 
-	if ( b == 1)
+/*	if ( b == 1)
 	{
 
 
 
 	std::cout << "Intersection form:\n" << test.GetIntersectionForm() << "\n\n";
 	std::cout << b <<"  Determinant : " << th.GetDeterminant() << " after blowdown    :" << test.GetDeterminant() << "\n";
-	/*	<< "\nSignature:\n";
+		<< "\nSignature:\n";
 		for (double v : th.GetSignature()) std::cout << v << '\n';
 		Number++;
 		std::cout <<"\n Number : " << Number << "\n" <<std::endl;
-		*/
-	}
+		
+	} */
 
 //	th.CompleteBlowdown();
 //	std::cout << "Intersection form:\n" << th.GetIntersectionForm() << "\n\n";
-			
+	
 			
 
 			
