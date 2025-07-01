@@ -546,9 +546,14 @@ bool Theory::Blowdown2(int n)
 				intersection_form = B;
 
 			}
+			else 
+			{
+				b = 0;
+			}
 		}
 		else if (vec.size() == 0)
 		{
+			b = 0;
 			std::cout << "No intersecting curves" << std::endl;
 		}
 		else if (b == 0)
