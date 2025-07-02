@@ -294,7 +294,35 @@ int main() {
 
 
 */
+	std::cout << "......................................................................." << std::endl;
+	std::cout << "......................................................................." << std::endl;
+	std::cout << "......................................................................." << std::endl;
+	std::cout << ".............               TEST FOR B0Q          ....................." << std::endl;
+	std::cout << "......................................................................." << std::endl;
+	std::cout << "......................................................................." << std::endl;
+	std::cout << "......................................................................." << std::endl;
 
+
+
+	Theory th5;
+	
+	th5.AddT(-12);
+	th5.AddLink(5,5);
+	th5.AddT(-12);
+	for(int i =1; i < th5.GetT(); i++)
+	{
+		th5.intersect(i,i+1);
+	}
+
+	th5.Setb0Q();
+
+	std::cout << " Intersection Form " << std::endl;
+	std::cout << th5.GetIntersectionForm() << std::endl;
+	std::cout << " b0Q's " << std::endl;
+//	std::cout << th5.Getb0Q() << std::endl;
+
+	std::cout << " intersection matrix with b0Q " << std::endl;
+	std::cout << th5.GetIFb0Q() << std::endl;
 
 
 }

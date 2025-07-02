@@ -1202,6 +1202,42 @@ void Theory::SetElement(int n, int m, int k)
 	intersection_form(n,m) = k;
 }
 
+void Theory::Setb0Q()
+{
+
+	b0_comp.clear();
+
+	for (int i = 0; i < T; i++)
+	{
+		b0_comp.push_back(intersection_form(i,i)+2);   // so, one must use this method to initial bases. DO NOT USE THIS METHOD in procedure of blowdown
+	}
+
+	int t = this->SpaceDirection();
+	b0_comp.push_back(9-t);
+	
+}
+
+std::vector<int> Theory::Getb0Q()
+{
+	return b0_comp;
+}
+
+Eigen::MatrixXi Theory::GetIFb0Q()
+{
+	Eigen::MatrixXi m = intersection_form;
+	m.conservativeResize(T+1,T+1);
+
+	for(int i =0; i<T; i++)
+	{
+		m(i,T) = b0_comp[i];
+		m(T,i) = b0_comp[i];
+	}
+
+	m(T,T) = b0_comp[T];
+
+	return m;
+}
+
 
 
 

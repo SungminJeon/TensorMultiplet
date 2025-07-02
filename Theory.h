@@ -8,6 +8,7 @@ class Theory {
 								// -> data is needed..?
     		Eigen::MatrixXi  intersection_form;          // intersection form
 		int T;
+		std::vector<int>  b0_comp;
 
 	public:
     		Theory();                      
@@ -45,6 +46,9 @@ class Theory {
 		void ForcedBlowdown();
 		void AddLink(int n, int m, bool b=0);
 		void SetElement(int n, int m, int k);
+		void Setb0Q();
+		std::vector<int> Getb0Q();
+		Eigen::MatrixXi GetIFb0Q();
 		
 			
 
