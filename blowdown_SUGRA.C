@@ -97,7 +97,7 @@ int main()
 		if ( test.GetIntersectionForm()(l,l) == -1 )
 		{
 
-			bool b = test.Blowdown2(l+1);
+			bool b = test.Blowdown4(l+1);
 			bool c = test.IsSUGRA();
 		//	std::cout << l << std::endl;
 			if (b == 1 && c ==1 )

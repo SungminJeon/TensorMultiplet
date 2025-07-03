@@ -325,4 +325,45 @@ int main() {
 	std::cout << th5.GetIFb0Q() << std::endl;
 
 
+
+
+
+	std::cout << "......................................................................." << std::endl;
+	std::cout << "......................................................................." << std::endl;
+	std::cout << "......................................................................." << std::endl;
+	std::cout << ".............         TEST FOR BLOWDOWN4          ....................." << std::endl;
+	std::cout << "......................................................................." << std::endl;
+	std::cout << "......................................................................." << std::endl;
+	std::cout << "......................................................................." << std::endl;
+
+
+
+//	th5.Initialize();
+
+	Theory th6;	
+	th6.AddT(-12);
+	th6.AddT(-12);
+	th6.AddT(-1);
+	th6.AddT(-12);
+	
+	th6.intersect(1,3,2);
+	th6.intersect(2,3,3);
+	
+
+	std::cout << " for debug " << std::endl;
+
+	th6.Blowdown4(3);
+	th6.Setb0Q();
+	std::cout << " for debug " << std::endl;
+
+
+	std::cout << " Intersection Form " << std::endl;
+	std::cout << th6.GetIntersectionForm() << std::endl;
+	std::cout << " b0Q's " << std::endl;
+//	std::cout << th5.Getb0Q() << std::endl;
+
+	std::cout << " intersection matrix with b0Q " << std::endl;
+	std::cout << th6.GetIFb0Q() << std::endl;
+
+
 }

@@ -39,8 +39,9 @@ class Theory {
 		void not_intersect(int n, int m);
 		void DeleteTensorMultiplet();
 		void Blowdown(int n);
-		bool Blowdown2(int n);
+		bool Blowdown2(int n);			//formal blowdown with only 1 intersection 
 		bool Blowdown3(int n);
+		bool Blowdown4(int n);			//formal blowdown with bigger than 1 intersection
 		void CompleteBlowdown();
 		void LSTBlowdown();
 		void ForcedBlowdown();
