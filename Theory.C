@@ -1374,7 +1374,7 @@ bool Theory::Blowdown4(int n)
 				{
 
 
-					if( intersection_form(n-1,k) == 1 )
+					if( intersection_form(n-1,k) > 0 )
 					{	
 						if ( k < n-1 )
 						{
@@ -1423,6 +1423,205 @@ bool Theory::Blowdown4(int n)
 	}
 }
 
+
+bool Theory::Blowdown5(int n) 			//THIS METHOD IS FOR BLOWING DOWN b0Q COMPONENT 
+{
+	
+
+	std::vector<int> v;
+	std::vector<int> vcont;
+	bool b = 1;
+
+	if(intersection_form(n-1,n-1) != -1)
+	{
+		std::cout << "THIS CURVE CANNOT BE BLOWN DOWN\n" <<std::endl;
+
+	}
+	else
+	{
+
+
+		std::vector<int> vec;
+		for ( int a = 0; a < T ;a++ )
+		{
+			if ( intersection_form(a,n-1) > 0 )
+			{
+				vec.push_back(a);
+			}
+		}	
+		if ( vec.size() >= 2 )
+		{
+			for (int a =0; a < vec.size(); a++)
+			{
+				if ( intersection_form(vec[a],vec[a]) >= 0)
+				{
+					b = 0;
+					break;
+				}
+			}
+
+
+			if ( b == 1 )
+			{
+				T--;
+				Eigen::MatrixXi B = Eigen::MatrixXi::Zero(T,T);
+				
+
+				for (int i=0; i<T; i++)
+				{
+					for (int j=0; j<T; j++)
+					{
+						if ( i < n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i,j);
+						}
+						if ( i >= n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i+1,j);
+						}
+						if ( i < n-1 && j >= n-1)
+						{	
+							B(i,j) = intersection_form(i,j+1);
+						}
+						else if ( i >= n-1 && j >= n-1)
+						{
+							B(i,j) = intersection_form(i+1,j+1);
+						}
+					}
+				}
+
+
+				b0_comp[T+1]++;
+				b0_comp.erase(b0_comp.begin() + n-1);
+				
+				for (int k=0; k < T+1; k++)
+				{
+
+					if( intersection_form(n-1,k) > 0 )
+					{	
+						if ( k < n-1 )
+						{
+							v.push_back(k);
+							vcont.push_back(intersection_form(n-1,k));
+							b0_comp[k]+=intersection_form(n-1,k);
+							B(k,k) += intersection_form(n-1,k);					
+
+						}
+						if ( k > n-1 )
+						{
+							v.push_back(k-1);
+							vcont.push_back(intersection_form(n-1,k));
+							b0_comp[k-1]+=intersection_form(n-1,k);
+							B(k-1,k-1) += intersection_form(n-1,k);
+						}
+					}
+					
+					
+				}
+
+
+				for (int a2 = 0; a2 < v.size() ;a2++)
+				{
+					for (int a3 = 0; a3 < a2; a3++)
+					{
+						B(v[a2],v[a3]) = vcont[a2]*vcont[a3];
+						B(v[a3],v[a2]) = vcont[a2]*vcont[a3];
+					}
+				}	
+
+				intersection_form = B;
+
+			}
+		}
+		else if ( vec.size() == 1)
+		{
+			if ( !(intersection_form(vec[0],vec[0]) >= 0) )
+			{
+				T--;
+				Eigen::MatrixXi B = Eigen::MatrixXi::Zero(T,T);
+				for (int i=0; i<T; i++)
+				{
+					for (int j=0; j<T; j++)
+					{
+						if ( i < n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i,j);
+						}
+						if ( i >= n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i+1,j);
+						}
+						if ( i < n-1 && j >= n-1)
+						{	
+							B(i,j) = intersection_form(i,j+1);
+						}
+						else if ( i >= n-1 && j >= n-1)
+						{
+							B(i,j) = intersection_form(i+1,j+1);
+						}
+					}
+				}
+
+				
+				b0_comp[T+1]++;
+
+				b0_comp.erase(b0_comp.begin() + n-1);
+				
+
+				for (int k=0; k < T+1; k++)
+				{
+
+
+					if( intersection_form(n-1,k) > 0)
+					{	
+						if ( k < n-1 )
+						{
+							v.push_back(k);
+							vcont.push_back(intersection_form(n-1,k));
+							b0_comp[k]+=intersection_form(n-1,k);
+							B(k,k) += intersection_form(n-1,k);					
+
+						}
+						if ( k > n-1 )
+						{
+							v.push_back(k-1);
+							vcont.push_back(intersection_form(n-1,k));
+							b0_comp[k-1]+=intersection_form(n-1,k);
+							B(k-1,k-1) +=intersection_form(n-1,k);
+						}
+					}
+				}
+
+
+				if (v.size() > 1)
+				{
+					B(v[0],v[1])++;
+					B(v[1],v[0])++;
+				}	
+
+				intersection_form = B;
+
+			}
+			else 
+			{
+				b = 0;
+			}
+		}
+		else if (vec.size() == 0)
+		{
+			b = 0;
+			std::cout << "No intersecting curves" << std::endl;
+		}
+		else if (b == 0)
+		{
+			std::cout << "Inconsistent base" << std::endl;
+		}
+				
+
+		return b;
+
+	}
+}
 
 
 

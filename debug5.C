@@ -345,15 +345,27 @@ int main() {
 	th6.AddT(-12);
 	th6.AddT(-1);
 	th6.AddT(-12);
+	th6.AddT(-1);
 	
 	th6.intersect(1,3,2);
 	th6.intersect(2,3,3);
+	th6.intersect(4,5,2);
 	
 
 	std::cout << " for debug " << std::endl;
 
-	th6.Blowdown4(3);
 	th6.Setb0Q();
+	std::cout << " intersection matrix with b0Q " << std::endl;
+	std::cout << th6.GetIFb0Q() << std::endl;
+
+
+	th6.Blowdown5(3);
+	std::cout << " intersection matrix with b0Q " << std::endl;
+	std::cout << th6.GetIFb0Q() << std::endl;
+
+
+	th6.Blowdown5(4);
+	
 	std::cout << " for debug " << std::endl;
 
 
