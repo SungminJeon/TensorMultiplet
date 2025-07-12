@@ -338,7 +338,8 @@ int main() {
 
 
 
-//	th5.Initialize();
+	th5.Initialize();
+	std::cout << "INITIALIZE" << th5.GetIntersectionForm() << std::endl;
 
 	Theory th6;	
 	th6.AddT(-12);
@@ -376,6 +377,60 @@ int main() {
 
 	std::cout << " intersection matrix with b0Q " << std::endl;
 	std::cout << th6.GetIFb0Q() << std::endl;
+
+	std::cout << "......................................................................." << std::endl;
+	std::cout << "......................................................................." << std::endl;
+	std::cout << "......................................................................." << std::endl;
+	std::cout << ".............       TEST FOR AT, AL, AST          ....................." << std::endl;
+	std::cout << "......................................................................." << std::endl;
+	std::cout << "......................................................................." << std::endl;
+	std::cout << "......................................................................." << std::endl;
+
+
+
+	th6.Initialize();
+
+	std::cout << " base 91 " << std::endl;
+
+	th6.AT(-1);
+	th6.AT(-1);
+	th6.AT(-12);
+	th6.AL(5,5);
+	th6.ATS(-1,-12);
+	th6.AL(5,5); th6.AT(-12);
+	th6.AL(5,5); th6.AT(-12);
+	th6.AL(5,5); th6.AT(-12);
+	th6.AL(4,2);
+	th6.AT(-4);
+	th6.AL(1,1);
+	th6.AT(-4);
+
+	th6.ATE(-1,10,30);
+
+
+	th6.Setb0Q();
+	std::cout << " intersection matrix with b0Q " << std::endl;
+	std::cout << th6.GetIFb0Q() << std::endl;
+
+
+	th6.Blowdown5(3);
+	std::cout << " intersection matrix with b0Q " << std::endl;
+	std::cout << th6.GetIFb0Q() << std::endl;
+
+
+	th6.Blowdown5(4);
+	
+	std::cout << " for debug " << std::endl;
+
+
+	std::cout << " Intersection Form " << std::endl;
+	std::cout << th6.GetIntersectionForm() << std::endl;
+	std::cout << " b0Q's " << std::endl;
+//	std::cout << th5.Getb0Q() << std::endl;
+
+	std::cout << " intersection matrix with b0Q " << std::endl;
+	std::cout << th6.GetIFb0Q() << std::endl;
+
 
 
 }

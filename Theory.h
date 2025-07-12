@@ -45,13 +45,19 @@ class Theory {
 		bool Blowdown5(int n);
 		void CompleteBlowdown();
 		void LSTBlowdown();
-		void ForcedBlowdown();
+		void FBlowdown();
 		void AddLink(int n, int m, bool b=0);
 		void SetElement(int n, int m, int k);
 		void Setb0Q();
 		std::vector<int> Getb0Q();
 		Eigen::MatrixXi GetIFb0Q();
-		
+		// Methods for adding link, node, side link, extra tensor and minimal lst
+		void AL(int n, int m, bool b=0);
+		void AT(int n);
+		void ATS(int n, int m);
+		void ATS2(int n, int m, int l);	
+		void ATE(int n, int m, int l=1);
+		void ALSTE(int m, int l=1);
 			
 
 	friend std::ostream& operator<<(std::ostream& os, const Theory& th);

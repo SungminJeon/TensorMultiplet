@@ -9,39 +9,6 @@ int main()
 	Theory th;
 	Theory* test = new Theory(th);
 
-/*
-	test->AddT(-8);
-	test->AddLink(4,5);
-	test->AddT(-12);
-	test->AddLink(5,5); test-> AddT(-12);
-	test->AddLink(5,5); test-> AddT(-12);
-	test->AddLink(5,5); test-> AddT(-12);
-	test->AddLink(5,5); test-> AddT(-12);
-	test->AddLink(5,5); test-> AddT(-12);
-	test->AddLink(5,5);
-	test->AddT(-12);
-	test->AddLink(4,2);
-	test->AddT(-4);
-	test->AddT(-1);
-	test->AddT(-4);
-
-
-	test->AddT(-1); test->intersect(test->GetT(),12);
-	test->AddT(-1); test->intersect(test->GetT(),84);
-
-	for (int i = 1; i < test->GetT()-2; i++)
-	{
-		test->intersect(i,i+1);
-	}
-
-	test->AddT(-1);
-	//test->AddT(-1); test->intersect(test->GetT(),test->GetT()-1);
-
-
-	std::cout << test->GetIntersectionForm() << std::endl;
-
-*/
-
 
 	test->AddT(-12);
 	test->AddLink(5,3);
