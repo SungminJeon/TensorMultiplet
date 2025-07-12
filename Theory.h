@@ -46,6 +46,7 @@ class Theory {
 		void CompleteBlowdown();
 		void LSTBlowdown();
 		void FBlowdown();
+		void ForcedBlowdown();
 		void AddLink(int n, int m, bool b=0);
 		void SetElement(int n, int m, int k);
 		void Setb0Q();

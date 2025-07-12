@@ -1,125 +1,69 @@
 #include <iostream>
 #include "Theory.h"
 #include <vector>
+#include <fstream>
 
 int main()
 {
 
-
-	Theory th;
-	Theory* test = new Theory(th);
+	int base;
 
 
-	test->AddT(-12);
-	test->AddLink(5,3);
-	test->AddT(-6);
 
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
 	
-	test->AddLink(2,2); test->AddT(-6);
-	test->AddLink(2,2); test->AddT(-6);
-	test->AddLink(2,2); test->AddT(-6);
-	test->AddLink(2,2); test->AddT(-6);
-	test->AddLink(2,2); test->AddT(-6);
-	test->AddLink(2,2); test->AddT(-6);
+	base = 1;
+
+	Theory* TEST = new Theory();
 
 
+	TEST->AT(-1);
+	TEST->AT(-12);
+	TEST->AL(4,2);
+	TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AT(-1);
+	TEST->AT(-3);
 
-	test->AddLink(3,5);
-	test->AddT(-12);
+	std::cout << TEST->GetIntersectionForm() << std::endl;
 
 
-	for (int i = 1; i < test->GetT(); i++)
+	for (int i = 1; i <= TEST->GetT(); i++ )
 	{
-		test->intersect(i,i+1);
-	}
+		TEST->ATE(-1,i);
+		std::cout << TEST->GetIntersectionForm() << std::endl;
+		TEST->Setb0Q();
 
-	test->AddT(-1);
-//	test->AddT(-1); test->intersect(test->GetT(), test->GetT()-1);
+		Theory B(*TEST);
 
-	for (int enode1 : {-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2})
-	{
-		for (int enode2 : {-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2})
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
 		{
+			std::cout << "SUGRA CANDIDATE FOUND" << std::endl;
+			B.FBlowdown();
 
-			test->SetElement(0,0,enode1);
-			//std::cout << test->GetIntersectionForm()(0,0) <<std::endl;
-			test->SetElement(test->GetT()-2,test->GetT()-2,enode2);
+			std::cout << B.GetIFb0Q() << std::endl;
 
-		//	std::cout << test->GetIntersectionForm() << std::endl;
-			
-		
-			for (int j = 1; j < test->GetT(); j++)
-			{
-				test->intersect(test->GetT(),j);
-
-				//std::cout << test->GetIntersectionForm() <<std::endl;
-				bool b = test->IsSUGRA();
-
-
-				if (b == 1)
-				{
-					std::cout << "SUGRA FOUND (enode1,enode2) : ("<< enode1 << ", " << enode2 << ") intersect : "  << j << " DET : " << test->IsUnimodular() << " time direction : " << test->TimeDirection() <<  std::endl;
-
-					//std::cout << test->GetIntersectionForm() << std::endl;
-
-					Theory forbl(*test);
-					for (int bl = 0; bl < forbl.GetT()-1; bl++)
-					{
-					
-						
-						if (forbl.GetIntersectionForm()(bl,bl) == -1 && forbl.GetIntersectionForm()(bl,forbl.GetT()-1) == 0)
-						{
-							bool c = forbl.Blowdown2(bl+1);
-
-							//std::cout << forbl.GetIntersectionForm() << std::endl;
-							//std::cout << c << std::endl;
-
-							bool cons = forbl.IsUnimodular();
-
-							if ( c == 1 && cons ==1 )
-							{
-								bl = -1;
-							}
-							else if ( cons == 0 )
-							{
-								std::cout << "//////    BLOWDOWN CONSISTENCY VIOLATION     ///// " <<std::endl;
-								break;
-							}
-						
-							
-						
-						}
-					}
-
-					if ( forbl.IsSUGRA() == 1 )
-					{
-						std::cout << forbl.GetIntersectionForm() <<std::endl;
-					}
-					else if (forbl.IsSUGRA() == 0)
-					{
-						std::cout << "//////    BLOWDOWN CONSISTENCY VIOLATION     ///// " <<std::endl;
-					}
-
-				}
-				
-
-
-
-
-
-				
-				else if (b == 0)
-				{
-					std::cout << "**NOT SUGRA** (enode1,enode2) : ("<< enode1 << ", "<< enode2 << ") intersect : "  << j << " DET : " << test->IsUnimodular() << " time direction : " << test->TimeDirection() <<  std::endl;
-	
-				}
-
-				test->not_intersect(test->GetT(),j);
-			}
 		}
+		else 
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+			break;
+		}
+
+		TEST->DeleteTensorMultiplet();
 	}
 
-	delete test;
+
+
+
+
+	delete TEST;
 }
 
 

@@ -1069,6 +1069,34 @@ void Theory::FBlowdown()
 		
 	}
 }
+void Theory::ForcedBlowdown()
+{
+
+	bool c;
+	for( int i = 0; i < T; i++)
+	{
+		if(intersection_form(i,i) == -1 )
+
+		{
+			c = this->Blowdown5(i+1);
+
+			if (c == 1)
+			{
+				i = -1;
+				//std::cout << " Blowdown " << std::endl;
+				//std::cout << intersection_form << std::endl;
+				//std::cout << this->GetSignature() << std::endl;
+			}
+			else if (c == 0)
+			{
+				//std::cout << "NOT SUGRA ANYMORE" << std::endl;
+
+				break;
+			}	
+		}
+		
+	}
+}
 
 
 bool Theory::IsHirzebruch()
