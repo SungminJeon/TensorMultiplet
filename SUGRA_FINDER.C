@@ -304,7 +304,6 @@ int main() {
 	TEST->AT(-12);
 	TEST->AT(-1);
 	TEST->AT(-2);
-	TEST->AT(-2);
 
 	std::cout << TEST->GetIntersectionForm() << std::endl;
 
@@ -345,6 +344,1388 @@ int main() {
 
 		TEST->DeleteTensorMultiplet();
 	}
+
+
+
+	TEST->Initialize();
+	base = 6;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-8);
+	TEST->AL(3,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+	TEST->AL(2,2);
+	TEST->AT(-6);
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 7;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-8);
+	TEST->AL(3,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+	TEST->AL(2,3);
+	TEST->AT(-8);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+
+	TEST->Initialize();
+	base = 8;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-12);
+	TEST->AL(4,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+	TEST->AL(2,2);
+	TEST->AT(-6);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 9;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-4);
+	TEST->AT(-1);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+	TEST->AL(2,4);
+	TEST->AT(-12);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+
+	TEST->Initialize();
+	base = 10;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-8);
+	TEST->AL(3,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+	TEST->AL(2,2);
+	TEST->AT(-6);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 11;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-12);
+	TEST->AL(4,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+	TEST->AL(2,3);
+	TEST->AT(-8);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 12;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-8);
+	TEST->AL(3,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+	TEST->AL(2,3);
+	TEST->AT(-8);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 13;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-12);
+	TEST->AL(4,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+	TEST->AL(2,4);
+	TEST->AT(-12);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 14;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-12);
+	TEST->AL(4,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+	TEST->AL(2,2);
+	TEST->AT(-6);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 15;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-12);
+	TEST->AL(4,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+	TEST->AL(2,3);
+	TEST->AT(-8);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 16;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-8);
+	TEST->AL(3,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+
+	TEST->AL(2,3);
+	TEST->AT(-8);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 17;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-12);
+	TEST->AL(4,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+
+
+	TEST->AL(2,4);
+	TEST->AT(-12);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 18;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-12);
+	TEST->AL(4,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+
+	TEST->AL(2,2);
+	TEST->AT(-6);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 19;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-12);
+	TEST->AL(4,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+
+	TEST->AL(2,3);
+	TEST->AT(-8);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 20;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-12);
+	TEST->AL(4,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+
+	TEST->AL(2,4);
+	TEST->AT(-12);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 21;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-12);
+	TEST->AL(4,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+
+	TEST->AL(2,2);
+	TEST->AT(-6);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 22;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-12);
+	TEST->AL(4,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+
+	TEST->AL(2,3);
+	TEST->AT(-8);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 23;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-12);
+	TEST->AL(4,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+
+	TEST->AL(2,4);
+	TEST->AT(-12);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 24;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-12);
+	TEST->AL(4,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+
+	TEST->AL(2,2);
+	TEST->AT(-6);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
+	TEST->Initialize();
+	base = 25;
+
+	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
+
+
+
+	TEST->AT(-12);
+	TEST->AL(4,2);
+	TEST->AT(-4);
+
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+	TEST->AL(1,1); TEST->AT(-4);
+
+
+	TEST->AL(2,3);
+	TEST->AT(-8);
+
+
+
+
+
+
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
+
+	
+
+	for (int i = 1; i <= TEST->GetT(); i++ )
+	{
+		TEST->ATE(-1,i);
+		TEST->Setb0Q();
+
+		Theory B(*TEST);
+
+		bool c = B.IsSUGRA();
+
+		if ( c == 1)
+		{
+			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
+			B.FBlowdown();
+
+			std::cout << B.GetIFb0Q() << std::endl;
+
+			int d = B.GetExactDet();
+			int sig = B.TimeDirection();
+
+			ofs << base << ',' << i << ',' << B.GetT() << ','
+				<< d    << ',' << sig << ','
+				<< matrix_field(B.GetIFb0Q()) << '\n';
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
+
+		}
+		else if( c==0)
+		{
+			std::cout << "NOT SUGRA" << std::endl;
+	
+		}
+
+		TEST->DeleteTensorMultiplet();
+	}
+
 
 
 	delete TEST;

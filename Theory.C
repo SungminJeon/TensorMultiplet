@@ -1035,7 +1035,6 @@ void Theory::LSTBlowdown()
 			{
 				//std::cout << "NOT SUGRA ANYMORE" << std::endl;
 
-				break;
 			}	
 		}
 		
@@ -1091,7 +1090,6 @@ void Theory::ForcedBlowdown()
 			{
 				//std::cout << "NOT SUGRA ANYMORE" << std::endl;
 
-				break;
 			}	
 		}
 		
