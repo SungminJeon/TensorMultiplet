@@ -1995,14 +1995,15 @@ void Theory::ATS2(int n, int m, int l)
 		AddT(m);
 		AddT(l);
 		intersect(T-1,T);
-		intersect(T-2,T);
+		intersect(T-2,T-1);
 	}
 	else
 	{
 		AddT(n);
 		AddT(m);
+		AddT(l);
 		intersect(T-1,T);
-		intersect(T-2,T);
+		intersect(T-2,T-1);
 		intersect(T-3,T);
 	}
 }
