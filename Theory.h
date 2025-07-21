@@ -56,7 +56,8 @@ class Theory {
 		void AL(int n, int m, bool b=0);
 		void AT(int n);
 		void ATS(int n, int m);
-		void ATS2(int n, int m, int l);	
+		void ATS2(int n, int m, int l);
+		void ATS3(int n, int m, int l, int k);	
 		void ATE(int n, int m, int l=1);
 		void ALSTE(int m, int l=1);
 			

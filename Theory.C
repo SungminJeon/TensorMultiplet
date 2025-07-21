@@ -2007,6 +2007,30 @@ void Theory::ATS2(int n, int m, int l)
 		intersect(T-3,T);
 	}
 }
+void Theory::ATS3(int n, int m, int l, int k)
+{
+	if (T==0)
+	{
+		AddT(n);
+		AddT(m);
+		AddT(l);
+		AddT(k);
+		intersect(T-1,T);
+		intersect(T-2,T-1);
+		intersect(T-3,T-2);
+	}
+	else
+	{
+		AddT(n);
+		AddT(m);
+		AddT(l);
+		AddT(k);
+		intersect(T-1,T);
+		intersect(T-2,T-1);
+		intersect(T-3,T-2);
+		intersect(T-4,T);
+	}
+}
 
 
 void Theory::ATE(int n, int m, int l)
