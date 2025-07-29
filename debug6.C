@@ -65,6 +65,9 @@ int main() {
 		else if(c==0)
 		{
 			std::cout << " NOT SUGRA" << std::endl;
+
+			B.ForcedBlowdown();
+			std::cout << B.GetIFb0Q() << std::endl;
 		}
 		
 		
