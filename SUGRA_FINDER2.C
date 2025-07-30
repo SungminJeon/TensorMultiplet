@@ -1746,7 +1746,7 @@ int main() {
 	TEST->AL(3,3);
 	TEST->ATS2(-2,-1,-8);	
 	TEST->AT(-1);
-	TEST-AT(-2);
+	TEST->AT(-2);
 
 
 
@@ -1816,7 +1816,7 @@ int main() {
 	TEST->AL(3,3);
 	TEST->ATS(-1,-8);	
 	TEST->AT(-1);
-	TEST-AT(-2);
+	TEST->AT(-2);
 	TEST->AT(-2);
 
 
@@ -1886,7 +1886,7 @@ int main() {
 
 
 	TEST->AT(-1);
-	TEST-AT(-2);
+	TEST->AT(-2);
 	TEST->AT(-2);
 	TEST->AT(-2);
 
@@ -1958,7 +1958,7 @@ int main() {
 	TEST->AL(3,3); 
 	TEST->ATS(-1,-8);
 	TEST->AL(3,3);
-	TEST-AT(-6);
+	TEST->AT(-6);
 
 
 
@@ -3486,7 +3486,7 @@ int main() {
 
 	TEST->AT(-6);
 	TEST->AL(3,3);
-	TEST->ATS(-8);
+	TEST->AT(-8);
 	TEST->AL(4,5);
 	TEST->AT(-12);
 
@@ -3557,7 +3557,7 @@ int main() {
 
 	TEST->AT(-6);
 	TEST->AL(3,3);
-	TEST->ATS(-8);
+	TEST->AT(-8);
 	TEST->AL(4,5);
 	TEST->AT(-12);
 
@@ -3629,7 +3629,7 @@ int main() {
 	
 	TEST->AT(-6);
 	TEST->AL(3,3);
-	TEST->ATS(-8);
+	TEST->AT(-8);
 	TEST->AL(4,5);
 	TEST->AT(-12);
 
@@ -3704,7 +3704,7 @@ int main() {
 		
 	TEST->AT(-6);
 	TEST->AL(3,3);
-	TEST->ATS(-8);
+	TEST->AT(-8);
 	TEST->AL(4,5);
 	TEST->AT(-12);
 
@@ -3776,7 +3776,7 @@ int main() {
 
 	TEST->AT(-6);
 	TEST->AL(3,3);
-	TEST->ATS(-8);
+	TEST->AT(-8);
 	TEST->AL(4,5);
 	TEST->AT(-12);
 
