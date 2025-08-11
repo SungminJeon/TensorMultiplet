@@ -992,52 +992,53 @@ void Theory::CompleteBlowdown()
 	}
 }
 
-void Theory::LSTBlowdown()
+void Theory::LSTBlowdown(int ext)
 {
 
-	bool b;
-	bool c;
-	std::vector<int> v;
-	for( int i = 0; i < T-1; i++)
+
+
+	bool k;
+	if ( ext == 0 )
 	{
-		if(intersection_form(i,i) == -1 && intersection_form(i,T-1) == 0 )
+		//in this case, we are blowing down LST base only//
+
+		this->ForcedBlowdown();
+	}
+
+	else if ( ext == 1)
+	{
+		//in this case, there exists one external curve.. 
+
+		for (int i = 2; i <= T; i++)
 		{
-			
-			b = this -> IsSUGRA();
-			v.clear();
-			for (int j = 0; j < T ; j++)
+			if (intersection_form(0,i-1) == 0 && intersection_form(i-1,i-1) == -1)
 			{
-				if (intersection_form(i,j) == 1)
-				{
-					v.push_back(j);
-				}
+				k = this -> Blowdown5(i);
+				i = 0;
 			}
-
-			if (v.size() < 3)
-			{
-				c = 1;
-			}
-			else
-			{
-				c = 0;
-			}
-
-
-			
-			if (b == 1 && c == 1)
-			{
-				this -> Blowdown(i+1);
-				i = -1;
-				//std::cout << " Blowdown " << std::endl;
-				//std::cout << intersection_form << std::endl;
-			}
-			else if ( b == 0 || c == 0)
-			{
-				//std::cout << "NOT SUGRA ANYMORE" << std::endl;
-
-			}	
 		}
-		
+	}
+	else if ( ext == 2)
+	{
+		for (int i = 2; i <= T-1; i++)
+		{
+			if (intersection_form(0,i-1) == 0 && intersection_form(i-1,i-1) == -1)
+			{
+				k = this->Blowdown5(i);
+				i = 1;
+			}
+		}
+	}
+	else if ( ext == 3)
+	{
+		for (int i = 2; i <=T-3; i++)
+		{
+			if (intersection_form(0,i-1) == 0 && intersection_form(i-1, T-1) == 0 && intersection_form(i-1,T-2) == 0 && intersection_form(i-1,i-1) == -1)
+			{
+				k = this->Blowdown5(i);
+				i = 1;
+			}
+		}
 	}
 }
 void Theory::FBlowdown()
@@ -1055,7 +1056,7 @@ void Theory::FBlowdown()
 			{
 				i = -1;
 				//std::cout << " Blowdown " << std::endl;
-				//std::cout << intersection_form << std::endl;
+				std::cout << this->GetIFb0Q() << std::endl;
 				//std::cout << this->GetSignature() << std::endl;
 			}
 			else if (c == 0)
@@ -1085,6 +1086,10 @@ void Theory::ForcedBlowdown()
 				//std::cout << " Blowdown " << std::endl;
 				//std::cout << intersection_form << std::endl;
 				//std::cout << this->GetSignature() << std::endl;
+				if ( T == 3)
+				{
+					break;
+				}
 			}
 			else if (c == 0)
 			{
@@ -1102,7 +1107,7 @@ bool Theory::IsHirzebruch()
 
 	bool b;
 
-	this -> LSTBlowdown();
+	this -> LSTBlowdown(0);
 	//std::cout << intersection_form << std::endl;
 	for ( int i  = 0; i < T; i++)
 	{
@@ -1459,6 +1464,205 @@ bool Theory::Blowdown5(int n) 			//THIS METHOD IS FOR BLOWING DOWN b0Q COMPONENT
 		}	
 		if ( vec.size() >= 2 )
 		{
+			/*	
+			for (int a =0; a < vec.size(); a++)
+			{
+				if ( intersection_form(vec[a],vec[a]) >= 0)
+				{
+					b = 0;
+					break;
+				}
+			}
+			*/
+
+			if ( b == 1 )
+			{
+				T--;
+				Eigen::MatrixXi B = Eigen::MatrixXi::Zero(T,T);
+				
+
+				for (int i=0; i<T; i++)
+				{
+					for (int j=0; j<T; j++)
+					{
+						if ( i < n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i,j);
+						}
+						if ( i >= n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i+1,j);
+						}
+						if ( i < n-1 && j >= n-1)
+						{	
+							B(i,j) = intersection_form(i,j+1);
+						}
+						else if ( i >= n-1 && j >= n-1)
+						{
+							B(i,j) = intersection_form(i+1,j+1);
+						}
+					}
+				}
+
+
+				b0_comp[T+1]++;
+				b0_comp.erase(b0_comp.begin() + n-1);
+				
+				for (int k=0; k < T+1; k++)
+				{
+
+					if( intersection_form(n-1,k) > 0 )
+					{	
+						if ( k < n-1 )
+						{
+							v.push_back(k);
+							vcont.push_back(intersection_form(n-1,k));
+							b0_comp[k]+=intersection_form(n-1,k);
+							B(k,k) += intersection_form(n-1,k);					
+
+						}
+						if ( k > n-1 )
+						{
+							v.push_back(k-1);
+							vcont.push_back(intersection_form(n-1,k));
+							b0_comp[k-1]+=intersection_form(n-1,k);
+							B(k-1,k-1) += intersection_form(n-1,k);
+						}
+					}
+					
+					
+				}
+
+
+				for (int a2 = 0; a2 < v.size() ;a2++)
+				{
+					for (int a3 = 0; a3 < a2; a3++)
+					{
+						B(v[a2],v[a3]) = vcont[a2]*vcont[a3];
+						B(v[a3],v[a2]) = vcont[a2]*vcont[a3];
+					}
+				}	
+
+				intersection_form = B;
+
+			}
+		}
+		else if ( vec.size() == 1)
+		{
+			if ( !(intersection_form(vec[0],vec[0]) >= 0) )
+			{
+				T--;
+				Eigen::MatrixXi B = Eigen::MatrixXi::Zero(T,T);
+				for (int i=0; i<T; i++)
+				{
+					for (int j=0; j<T; j++)
+					{
+						if ( i < n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i,j);
+						}
+						if ( i >= n-1 && j < n-1 )
+						{
+							B(i,j) = intersection_form(i+1,j);
+						}
+						if ( i < n-1 && j >= n-1)
+						{	
+							B(i,j) = intersection_form(i,j+1);
+						}
+						else if ( i >= n-1 && j >= n-1)
+						{
+							B(i,j) = intersection_form(i+1,j+1);
+						}
+					}
+				}
+
+				
+				b0_comp[T+1]++;
+
+				b0_comp.erase(b0_comp.begin() + n-1);
+				
+
+				for (int k=0; k < T+1; k++)
+				{
+
+
+					if( intersection_form(n-1,k) > 0)
+					{	
+						if ( k < n-1 )
+						{
+							v.push_back(k);
+							vcont.push_back(intersection_form(n-1,k));
+							b0_comp[k]+=intersection_form(n-1,k);
+							B(k,k) += intersection_form(n-1,k);					
+
+						}
+						if ( k > n-1 )
+						{
+							v.push_back(k-1);
+							vcont.push_back(intersection_form(n-1,k));
+							b0_comp[k-1]+=intersection_form(n-1,k);
+							B(k-1,k-1) +=intersection_form(n-1,k);
+						}
+					}
+				}
+
+
+				if (v.size() > 1)
+				{
+					B(v[0],v[1])++;
+					B(v[1],v[0])++;
+				}	
+
+				intersection_form = B;
+
+			}
+			else 
+			{
+				b = 0;
+			}
+		}
+		else if (vec.size() == 0)
+		{
+			b = 0;
+			std::cout << "No intersecting curves" << std::endl;
+		}
+		else if (b == 0)
+		{
+			std::cout << "Inconsistent base" << std::endl;
+		}
+				
+
+		return b;
+
+	}
+}
+bool Theory::Blowdown6(int n) 			//THIS METHOD IS FOR BLOWING DOWN b0Q COMPONENT 
+{
+	
+
+	std::vector<int> v;
+	std::vector<int> vcont;
+	bool b = 1;
+
+	if(intersection_form(n-1,n-1) != -1)
+	{
+		std::cout << "THIS CURVE CANNOT BE BLOWN DOWN\n" <<std::endl;
+
+	}
+	else
+	{
+
+
+		std::vector<int> vec;
+		for ( int a = 0; a < T ;a++ )
+		{
+			if ( intersection_form(a,n-1) > 0 )
+			{
+				vec.push_back(a);
+			}
+		}	
+		if ( vec.size() >= 2 )
+		{
 			for (int a =0; a < vec.size(); a++)
 			{
 				if ( intersection_form(vec[a],vec[a]) >= 0)
@@ -1630,6 +1834,7 @@ bool Theory::Blowdown5(int n) 			//THIS METHOD IS FOR BLOWING DOWN b0Q COMPONENT
 
 	}
 }
+
 
 void Theory::AL(int n, int m, bool b)
 {

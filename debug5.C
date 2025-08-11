@@ -413,7 +413,7 @@ int main() {
 	std::cout << th6.GetIFb0Q() << std::endl;
 
 
-	th6.Blowdown5(3);
+	th6.Blowdown5(1);
 	std::cout << " intersection matrix with b0Q " << std::endl;
 	std::cout << th6.GetIFb0Q() << std::endl;
 

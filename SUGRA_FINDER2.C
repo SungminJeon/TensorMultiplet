@@ -50,6 +50,7 @@ int main() {
 
 	Theory* TEST = new Theory();
 
+	/*
 	base = 197;
 
 	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
@@ -86,7 +87,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 			std::cout << B.GetIFb0Q() << std::endl;
 
 			int d = B.GetExactDet();
@@ -146,7 +147,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 			
@@ -209,7 +210,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -271,7 +272,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -334,7 +335,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -401,7 +402,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -470,7 +471,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -540,7 +541,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -608,7 +609,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -677,7 +678,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -746,7 +747,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -816,7 +817,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -882,7 +883,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -949,7 +950,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -1018,7 +1019,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -1088,7 +1089,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -1159,7 +1160,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -1229,7 +1230,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -1296,7 +1297,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -1364,7 +1365,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -1428,7 +1429,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -1496,7 +1497,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -1564,7 +1565,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -1631,7 +1632,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -1701,7 +1702,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -1770,7 +1771,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -1841,7 +1842,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -1910,7 +1911,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -1981,7 +1982,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -2052,7 +2053,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -2125,7 +2126,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -2195,7 +2196,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -2267,7 +2268,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -2337,7 +2338,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -2411,7 +2412,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -2483,7 +2484,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -2554,7 +2555,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -2631,7 +2632,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -2710,7 +2711,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -2782,7 +2783,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -2861,7 +2862,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -2933,7 +2934,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -3015,7 +3016,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -3094,7 +3095,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -3169,7 +3170,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -3237,7 +3238,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -3311,7 +3312,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -3381,7 +3382,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -3454,7 +3455,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -3524,7 +3525,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -3594,7 +3595,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -3669,7 +3670,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -3742,7 +3743,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -3815,7 +3816,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -3889,7 +3890,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -3967,7 +3968,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -4042,7 +4043,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -4117,7 +4118,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -4191,7 +4192,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -4264,7 +4265,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -4333,7 +4334,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -4402,7 +4403,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -4469,7 +4470,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -4539,7 +4540,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -4607,7 +4608,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -4676,7 +4677,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -4747,7 +4748,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -4818,7 +4819,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -4891,7 +4892,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -4961,7 +4962,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -5033,7 +5034,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -5105,7 +5106,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -5178,7 +5179,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -5248,7 +5249,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -5324,7 +5325,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -5395,7 +5396,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -5465,7 +5466,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -5542,7 +5543,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -5612,7 +5613,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -5678,7 +5679,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -5750,7 +5751,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -5825,7 +5826,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -5897,7 +5898,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -5969,7 +5970,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -6043,7 +6044,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -6114,7 +6115,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -6183,7 +6184,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -6257,7 +6258,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -6329,7 +6330,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -6399,7 +6400,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -6476,7 +6477,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -6547,7 +6548,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -6619,7 +6620,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -6687,7 +6688,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -6757,7 +6758,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -6833,7 +6834,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -6902,7 +6903,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -6973,7 +6974,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -7048,7 +7049,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -7119,7 +7120,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -7192,7 +7193,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -7265,7 +7266,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -7335,7 +7336,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -7411,7 +7412,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -7479,7 +7480,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -7549,7 +7550,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -7622,7 +7623,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -7694,7 +7695,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -7761,7 +7762,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -7834,7 +7835,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -7913,7 +7914,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -7990,7 +7991,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -8063,7 +8064,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -8136,7 +8137,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -8201,7 +8202,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -8274,7 +8275,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -8346,7 +8347,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -8415,7 +8416,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -8484,7 +8485,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -8559,7 +8560,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -8633,7 +8634,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -8712,7 +8713,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -8785,7 +8786,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -8859,7 +8860,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -8933,7 +8934,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -9004,7 +9005,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -9077,7 +9078,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -9151,7 +9152,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -9225,7 +9226,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -9298,7 +9299,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -9374,7 +9375,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -9451,7 +9452,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -9529,7 +9530,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -9611,7 +9612,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -9693,7 +9694,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -9775,7 +9776,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -9854,7 +9855,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -9929,7 +9930,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -10002,7 +10003,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -10077,7 +10078,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -10150,7 +10151,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -10225,7 +10226,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -10298,7 +10299,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -10370,7 +10371,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -10446,7 +10447,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -10522,7 +10523,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -10598,7 +10599,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -10676,7 +10677,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -10755,7 +10756,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -10831,7 +10832,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -10908,7 +10909,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -10985,7 +10986,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -11062,7 +11063,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -11137,7 +11138,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -11214,7 +11215,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -11239,7 +11240,7 @@ int main() {
 	}
 
 
-
+*/
 
 
 	
@@ -11287,7 +11288,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -11362,7 +11363,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -11441,7 +11442,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -11518,7 +11519,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -11596,7 +11597,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -11676,7 +11677,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -11760,7 +11761,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -11843,7 +11844,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -11922,7 +11923,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -12001,7 +12002,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -12079,7 +12080,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -12156,7 +12157,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -12235,7 +12236,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -12314,7 +12315,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -12391,7 +12392,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -12475,7 +12476,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -12553,7 +12554,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -12634,7 +12635,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -12714,7 +12715,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -12792,7 +12793,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -12871,7 +12872,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -12952,7 +12953,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -13033,7 +13034,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -13113,7 +13114,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -13192,7 +13193,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -13275,7 +13276,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -13361,7 +13362,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -13440,7 +13441,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -13517,7 +13518,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -13598,7 +13599,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -13679,7 +13680,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -13762,7 +13763,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -13844,7 +13845,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -13920,7 +13921,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -14001,7 +14002,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -14086,7 +14087,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -14170,7 +14171,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -14254,7 +14255,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -14341,7 +14342,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -14424,7 +14425,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 
@@ -14507,7 +14508,7 @@ int main() {
 		if ( c == 1)
 		{
 			std::cout << "SUGRA CANDIDATE FOUND (i= " << i << " )\n" << std::endl;
-			B.FBlowdown();
+			B.LSTBlowdown(2);
 
 			std::cout << B.GetIFb0Q() << std::endl;
 

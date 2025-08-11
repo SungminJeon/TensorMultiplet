@@ -43,8 +43,9 @@ class Theory {
 		bool Blowdown3(int n);
 		bool Blowdown4(int n);			//formal blowdown with bigger than 1 intersection
 		bool Blowdown5(int n);
+		bool Blowdown6(int n);
 		void CompleteBlowdown();
-		void LSTBlowdown();
+		void LSTBlowdown(int ext);
 		void FBlowdown();
 		void ForcedBlowdown();
 		void AddLink(int n, int m, bool b=0);
