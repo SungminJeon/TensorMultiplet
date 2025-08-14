@@ -349,6 +349,7 @@ int main() {
 	th6.AddT(-1);
 	
 	th6.intersect(1,3,2);
+	th6.intersect(1,2);
 	th6.intersect(2,3,3);
 	th6.intersect(4,5,2);
 	

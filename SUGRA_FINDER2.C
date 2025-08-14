@@ -50,7 +50,7 @@ int main() {
 
 	Theory* TEST = new Theory();
 
-	/*
+	
 	base = 197;
 
 	std::cout << " //////////////// base number : " << base << " /////////////////////////// " << std::endl;  
@@ -11240,7 +11240,7 @@ int main() {
 	}
 
 
-*/
+
 
 
 	

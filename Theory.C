@@ -1538,8 +1538,8 @@ bool Theory::Blowdown5(int n) 			//THIS METHOD IS FOR BLOWING DOWN b0Q COMPONENT
 				{
 					for (int a3 = 0; a3 < a2; a3++)
 					{
-						B(v[a2],v[a3]) = vcont[a2]*vcont[a3];
-						B(v[a3],v[a2]) = vcont[a2]*vcont[a3];
+						B(v[a2],v[a3]) = +vcont[a2]*vcont[a3];
+						B(v[a3],v[a2]) = +vcont[a2]*vcont[a3];
 					}
 				}	
 

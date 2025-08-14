@@ -105,6 +105,25 @@ int main() {
 	std::cout << TEST->GetIFb0Q() << std::endl;
 
 
+
+	std::cout << "Blowdown test .......................... " << std::endl;
+
+	TEST->Initialize();
+	TEST->AT(-1);
+	TEST->AT(-12);
+	TEST->AT(-14);
+
+	TEST->intersect(1,3);
+	TEST->Setb0Q();
+
+	std::cout << TEST->GetIFb0Q() << std::endl;
+
+	TEST->Blowdown5(1);
+	std::cout << TEST->GetIFb0Q() << std::endl;
+
+	
+
+
 	delete TEST;
 
 
