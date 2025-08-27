@@ -2,7 +2,7 @@
 #include <Eigen/Dense>
 #include <vector>
 
-class Theory {
+class Tensor {
 	private:
     		//string gauge_alg;				// types of gauge algebra 
 								// -> data is needed..?
@@ -11,8 +11,8 @@ class Theory {
 		std::vector<int>  b0_comp;
 
 	public:
-    		Theory();                      
-    		~Theory() = default;
+    		Tensor();                      
+    		~Tensor() = default;
 		void Initialize();
 
     		/* -------- queries -------- */
@@ -57,6 +57,6 @@ class Theory {
 		void ALSTE(int m, int l=1);
 			
 
-	friend std::ostream& operator<<(std::ostream& os, const Theory& th);
+	friend std::ostream& operator<<(std::ostream& os, const Tensor& th);
 };
 

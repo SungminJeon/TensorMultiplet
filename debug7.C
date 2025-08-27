@@ -1,12 +1,12 @@
 #include <iostream>
-#include "Theory.h"
+#include "Tensor.h"
 
 
 int main () {
 
 
 	int bn = 0;
-	Theory* TEST = new Theory();
+	Tensor* TEST = new Tensor();
 
 	int base = 175;
 
@@ -41,7 +41,7 @@ int main () {
 
 	
 
-	TEST->ATE(-1,81);
+	TEST->ATE(-1,78);
 
 
 	TEST->Setb0Q();
@@ -75,7 +75,7 @@ int main () {
 	for (int i = 0; i < TEST->GetT(); i++)
 	{
 
-		if ( TEST->GetIntersectionForm()(i,TEST->GetT()-1) == 0 && TEST->GetIntersectionForm()(i,i) == -1 )
+		if ( TEST->GetIntersectionForm()(i,i) == -1 )
 		{
 			TEST->Blowdown5(i+1);
 			i = -1;

@@ -8,7 +8,7 @@ set -e
 CXX=g++
 CXXFLAGS="-std=c++17 -O2 -Wall -Wextra"
 OUT=SUGRA_FINDER2               # 실행 파일 이름
-SRC=("SUGRA_FINDER2.C" "Theory.C")   # 소스 파일 목록
+SRC=("SUGRA_FINDER2.C" "Tensor.C")   # 소스 파일 목록
 
 # Eigen 헤더 경로(보통 /usr/include/eigen3)
 EIGEN_INC=$(pkg-config --cflags eigen3 2>/dev/null || echo "-I/usr/include/eigen3")

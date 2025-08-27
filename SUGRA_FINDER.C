@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Theory.h"
+#include "Tensor.h"
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -48,7 +48,7 @@ int main() {
 	int base;
 
 
-	Theory* TEST = new Theory();
+	Tensor* TEST = new Theory();
 
 
 	/*
@@ -78,7 +78,7 @@ int main() {
 		
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -136,7 +136,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -196,7 +196,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -255,7 +255,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -316,7 +316,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -380,7 +380,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -447,7 +447,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -515,7 +515,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -583,7 +583,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -652,7 +652,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -719,7 +719,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -787,7 +787,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -854,7 +854,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -922,7 +922,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -990,7 +990,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -1060,7 +1060,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -1130,7 +1130,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -1200,7 +1200,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -1270,7 +1270,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -1340,7 +1340,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -1411,7 +1411,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -1482,7 +1482,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -1553,7 +1553,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -1625,7 +1625,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -1697,7 +1697,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -1764,7 +1764,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -1837,7 +1837,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -1907,7 +1907,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -1982,7 +1982,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -2051,7 +2051,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -2126,7 +2126,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -2201,7 +2201,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -2272,7 +2272,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -2343,7 +2343,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -2413,7 +2413,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -2488,7 +2488,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -2565,7 +2565,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -2635,7 +2635,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -2707,7 +2707,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -2777,7 +2777,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -2847,7 +2847,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -2917,7 +2917,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -2987,7 +2987,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -3058,7 +3058,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -3129,7 +3129,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -3199,7 +3199,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -3269,7 +3269,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -3340,7 +3340,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -3412,7 +3412,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -3482,7 +3482,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -3554,7 +3554,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -3625,7 +3625,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -3698,7 +3698,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -3773,7 +3773,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -3845,7 +3845,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -3918,7 +3918,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -3991,7 +3991,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -4062,7 +4062,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -4136,7 +4136,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -4209,7 +4209,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -4280,7 +4280,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -4353,7 +4353,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -4423,7 +4423,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -4492,7 +4492,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -4564,7 +4564,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -4634,7 +4634,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -4705,7 +4705,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -4776,7 +4776,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -4848,7 +4848,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -4920,7 +4920,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -4991,7 +4991,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -5062,7 +5062,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -5134,7 +5134,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -5207,7 +5207,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -5278,7 +5278,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -5349,7 +5349,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -5420,7 +5420,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -5491,7 +5491,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -5563,7 +5563,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -5635,7 +5635,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -5713,7 +5713,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -5786,7 +5786,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -5859,7 +5859,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -5932,7 +5932,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -6003,7 +6003,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -6076,7 +6076,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -6141,7 +6141,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -6212,7 +6212,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -6285,7 +6285,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -6358,7 +6358,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -6430,7 +6430,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -6499,7 +6499,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -6569,7 +6569,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -6640,7 +6640,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -6716,7 +6716,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -6789,7 +6789,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -6863,7 +6863,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -6934,7 +6934,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -7006,7 +7006,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -7078,7 +7078,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -7152,7 +7152,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -7222,7 +7222,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -7295,7 +7295,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -7365,7 +7365,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -7440,7 +7440,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -7513,7 +7513,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -7584,7 +7584,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -7655,7 +7655,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -7727,7 +7727,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -7802,7 +7802,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -7874,7 +7874,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -7948,7 +7948,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -8019,7 +8019,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -8090,7 +8090,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -8161,7 +8161,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -8234,7 +8234,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -8309,7 +8309,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -8382,7 +8382,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -8456,7 +8456,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -8531,7 +8531,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -8607,7 +8607,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -8684,7 +8684,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -8757,7 +8757,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -8832,7 +8832,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -8907,7 +8907,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -8979,7 +8979,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -9051,7 +9051,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -9129,7 +9129,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -9202,7 +9202,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -9278,7 +9278,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -9353,7 +9353,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -9424,7 +9424,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -9498,7 +9498,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -9572,7 +9572,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -9646,7 +9646,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -9718,7 +9718,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -9788,7 +9788,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -9861,7 +9861,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -9932,7 +9932,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -10005,7 +10005,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -10078,7 +10078,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -10154,7 +10154,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -10227,7 +10227,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -10300,7 +10300,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -10377,7 +10377,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -10453,7 +10453,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -10530,7 +10530,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -10608,7 +10608,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -10686,7 +10686,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -10761,7 +10761,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -10838,7 +10838,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -10915,7 +10915,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -10990,7 +10990,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -11069,7 +11069,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -11145,7 +11145,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -11221,7 +11221,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -11298,7 +11298,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -11379,7 +11379,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -11454,7 +11454,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -11529,7 +11529,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -11608,7 +11608,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -11682,7 +11682,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -11757,7 +11757,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -11834,7 +11834,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -11917,7 +11917,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -12000,7 +12000,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -12074,7 +12074,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -12152,7 +12152,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -12227,7 +12227,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -12303,7 +12303,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -12380,7 +12380,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -12455,7 +12455,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -12533,7 +12533,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -12612,7 +12612,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -12687,7 +12687,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -12766,7 +12766,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -12843,7 +12843,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -12922,7 +12922,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -13001,7 +13001,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -13080,7 +13080,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -13156,7 +13156,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -13233,7 +13233,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -13314,7 +13314,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -13388,7 +13388,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -13463,7 +13463,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -13538,7 +13538,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -13613,7 +13613,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -13689,7 +13689,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -13765,7 +13765,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -13841,7 +13841,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -13917,7 +13917,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -13994,7 +13994,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -14071,7 +14071,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -14149,7 +14149,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -14229,7 +14229,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
@@ -14309,7 +14309,7 @@ int main() {
 		TEST->ATE(-1,i);
 		TEST->Setb0Q();
 
-		Theory B(*TEST);
+		Tensor B(*TEST);
 
 		bool c = B.IsSUGRA();
 
