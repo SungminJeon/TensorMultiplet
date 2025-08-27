@@ -28,8 +28,7 @@ class Theory {
 		int TimeDirection();
 		int NullDirection();
 		int SpaceDirection(); 
-		bool IsSUGRA();
-		bool IsHirzebruch();	
+		bool IsSUGRA();	
 
     		/* -------- modifiers -------*/
     		void AddTensorMultiplet(int charge);
@@ -38,17 +37,12 @@ class Theory {
     		void intersect(int n, int m, int k=1);
 		void not_intersect(int n, int m);
 		void DeleteTensorMultiplet();
-		void Blowdown(int n);
-		bool Blowdown2(int n);			//formal blowdown with only 1 intersection 
-		bool Blowdown3(int n);
-		bool Blowdown4(int n);			//formal blowdown with bigger than 1 intersection
 		bool Blowdown5(int n);
 		bool Blowdown6(int n);
 		void CompleteBlowdown();
 		void LSTBlowdown(int ext);
 		void FBlowdown();
 		void ForcedBlowdown();
-		void AddLink(int n, int m, bool b=0);
 		void SetElement(int n, int m, int k);
 		void Setb0Q();
 		std::vector<int> Getb0Q();
