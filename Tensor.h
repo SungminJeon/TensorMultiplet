@@ -18,17 +18,17 @@ class Tensor {
     		/* -------- queries -------- */
 		Eigen::MatrixXi GetIntersectionForm() const;
     		//string getAnomaly()          const { return anomaly; }
-   		double GetDeterminant();
-	   	int GetExactDet();	
-		Eigen::VectorXd	GetEigenvalues();
-		Eigen::VectorXd GetEigenvalues2();
-	   	int IsUnimodular();
-		Eigen::VectorXi GetSignature();
-		int GetT();
-		int TimeDirection();
-		int NullDirection();
-		int SpaceDirection(); 
-		bool IsSUGRA();	
+   		double GetDeterminant() const;
+	   	int GetExactDet() const;	
+		Eigen::VectorXd	GetEigenvalues() const;
+		Eigen::VectorXd GetEigenvalues2() const;
+	   	int IsUnimodular() const;
+		Eigen::VectorXi GetSignature() const;
+		int GetT() const;
+		int TimeDirection() const;
+		int NullDirection() const;
+		int SpaceDirection() const; 
+		bool IsSUGRA() const;	
 
     		/* -------- modifiers -------*/
     		void AddTensorMultiplet(int charge);

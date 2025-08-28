@@ -28,16 +28,16 @@ Eigen::MatrixXi Tensor::GetIntersectionForm() const {
 	return intersection_form;
 }
 
-double Tensor::GetDeterminant() {
+double Tensor::GetDeterminant() const {
 
 	return intersection_form.cast<double>().determinant();
 }
-int Tensor::GetT() 
+int Tensor::GetT() const 
 {
 	return T;
 }
 
-Eigen::VectorXd Tensor::GetEigenvalues2() {
+Eigen::VectorXd Tensor::GetEigenvalues2() const {
 
 	Eigen::MatrixXd Ad = intersection_form.cast<double>();
 	Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> es(Ad);
@@ -111,7 +111,7 @@ Eigen::VectorXd Tensor::GetEigenvalues2() {
 
 	return vec;
 }
-Eigen::VectorXd Tensor::GetEigenvalues() {
+Eigen::VectorXd Tensor::GetEigenvalues() const {
     // ❶ 안전 체크
     if(intersection_form.rows() != intersection_form.cols()) 
         throw std::runtime_error("intersection_form is not square.");
@@ -136,7 +136,7 @@ Eigen::VectorXd Tensor::GetEigenvalues() {
 
     return vec;
 }
-int Tensor::IsUnimodular()
+int Tensor::IsUnimodular() const
 {	
 	double det = 1;
 	Eigen::VectorXd V = this->GetEigenvalues();
@@ -153,7 +153,7 @@ int Tensor::IsUnimodular()
 
 	return std::llround(det); 
 }
-int Tensor::GetExactDet()
+int Tensor::GetExactDet() const
 {		
 	
 	return std::llround(this->GetDeterminant());
@@ -161,7 +161,7 @@ int Tensor::GetExactDet()
 
 }
 
-Eigen::VectorXi Tensor::GetSignature()
+Eigen::VectorXi Tensor::GetSignature() const
 {
 	Eigen::VectorXd v = this->GetEigenvalues();
 	for (int i = 0; i < T; i++)
@@ -234,7 +234,7 @@ void Tensor::DeleteTensorMultiplet()
 	T--;
 	intersection_form.conservativeResize(T,T);
 }
-bool Tensor::IsSUGRA()
+bool Tensor::IsSUGRA() const
 {
 	bool c = 0;
 	int n = std::llround(std::abs(this->IsUnimodular()));
@@ -392,7 +392,7 @@ void Tensor::ForcedBlowdown()
 }
 
 
-int Tensor::TimeDirection()
+int Tensor::TimeDirection() const
 {
 	int timedir = 0;
 
@@ -408,7 +408,7 @@ int Tensor::TimeDirection()
 	return timedir;
 }
 
-int Tensor::NullDirection()
+int Tensor::NullDirection() const
 {
 	int nulldir = 0;
 
@@ -421,7 +421,7 @@ int Tensor::NullDirection()
 	}
 	return nulldir;
 }
-int Tensor::SpaceDirection()
+int Tensor::SpaceDirection() const
 {
 	int spacedir = 0;
 
@@ -908,298 +908,583 @@ void Tensor::AL(int n, int m, bool b)
 	//
 	//
 	////////////////////////////////////////////////////////////////////////////////////
-	if(b==0)
+
+	if( T > 0)
 	{
-		if (n==1 && m==1)
+		if(b==0)
 		{
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-		}
-		if (n==2 && m==2)
-		{
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
+
+			if (n==1 && m==1)
+			{
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+			if (n==2 && m==2)
+			{
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+
+			}
+			if (n==3 && m==3)
+			{
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+
+			}
+			if (n==4 && m==4)
+			{
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+
+			}
+			if (n==5 && m==5)
+			{
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+
+
+			}
+			if (n==3 && m==2)
+			{
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+
+			}
+			if (n==2 && m==3)
+			{
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+
+			}
+			if (n==4 && m==2)
+			{
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+			if (n==2 && m==4)
+			{
+
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+			if (n==3 && m==4)
+			{
+
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+			if (n==4 && m==3)
+			{
+
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+			if (n==3 && m==5)
+			{
+
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+			if (n==5 && m==3)
+			{
+
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+
+			if (n==4 && m==5)
+			{
+
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+			if (n==5 && m==4)
+			{
+
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
 
 		}
-		if (n==3 && m==3)
+		else if ( b==1)
 		{
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
+			if( n==3 && m==3)
+			{
+
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+		}
+		else
+		{
+			std::cout << "\n///////////////    NO SUCH LINK EXISTS  ////////////////\n" <<std::endl;
+		}
+	}
+	else if(T==0)
+	{
+
+		if(b==0)
+		{
+
+			if (n==1 && m==1)
+			{
+				AddTensorMultiplet(-1);
+			}
+			if (n==2 && m==2)
+			{
+				AddTensorMultiplet(-1);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+
+			}
+			if (n==3 && m==3)
+			{
+				AddTensorMultiplet(-1);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+
+			}
+			if (n==4 && m==4)
+			{
+				AddTensorMultiplet(-1);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+
+			}
+			if (n==5 && m==5)
+			{
+				AddTensorMultiplet(-1);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+
+
+			}
+			if (n==3 && m==2)
+			{
+				AddTensorMultiplet(-1);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+
+			}
+			if (n==2 && m==3)
+			{
+				AddTensorMultiplet(-1);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+
+			}
+			if (n==4 && m==2)
+			{
+				AddTensorMultiplet(-1);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+			if (n==2 && m==4)
+			{
+
+				AddTensorMultiplet(-1);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+			if (n==3 && m==4)
+			{
+
+				AddTensorMultiplet(-1);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+			if (n==4 && m==3)
+			{
+
+				AddTensorMultiplet(-1);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+			if (n==3 && m==5)
+			{
+
+				AddTensorMultiplet(-1);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+			if (n==5 && m==3)
+			{
+
+				AddTensorMultiplet(-1);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+
+			if (n==4 && m==5)
+			{
+
+				AddTensorMultiplet(-1);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
+			if (n==5 && m==4)
+			{
+
+				AddTensorMultiplet(-1);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-2);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
 
 		}
-		if (n==4 && m==4)
+		else if ( b==1)
 		{
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-5);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
+			if( n==3 && m==3)
+			{
 
+				AddTensorMultiplet(-1);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-5);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+				AddTensorMultiplet(-3);
+				intersect(T-1,T);
+				AddTensorMultiplet(-1);
+				intersect(T-1,T);
+			}
 		}
-		if (n==5 && m==5)
+		else
 		{
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-5);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-
-
-		}
-		if (n==3 && m==2)
-		{
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-
-		}
-		if (n==2 && m==3)
-		{
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-
-		}
-		if (n==4 && m==2)
-		{
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-		}
-		if (n==2 && m==4)
-		{
-
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-		}
-		if (n==3 && m==4)
-		{
-
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-5);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-		}
-		if (n==4 && m==3)
-		{
-
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-5);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-		}
-		if (n==3 && m==5)
-		{
-
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-5);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-		}
-		if (n==5 && m==3)
-		{
-
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-5);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-		}
-
-		if (n==4 && m==5)
-		{
-
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-5);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-		}
-		if (n==5 && m==4)
-		{
-
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-5);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-2);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
+			std::cout << "\n///////////////    NO SUCH LINK EXISTS  ////////////////\n" <<std::endl;
 		}
 
 	}
-	else if ( b==1)
-	{
-		if( n==3 && m==3)
-		{
-
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-5);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-			AddTensorMultiplet(-3);
-			intersect(T-1,T);
-			AddTensorMultiplet(-1);
-			intersect(T-1,T);
-		}
-	}
-	else
-	{
-		std::cout << "\n///////////////    NO SUCH LINK EXISTS  ////////////////\n" <<std::endl;
-	}
-
 
 }
 
