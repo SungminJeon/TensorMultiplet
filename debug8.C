@@ -30,6 +30,12 @@ int main() {
 	std::cout << TEST->GetIntersectionForm() << std::endl;
 
 
+
+	TEST->Initialize();
+
+	TEST->AL(2,2);
+
+	std::cout << TEST->GetIntersectionForm() << std::endl;
 	delete TEST;
 
 
