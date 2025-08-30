@@ -5,6 +5,7 @@
 #include <utility>
 #include <stdexcept>
 #include <iostream>
+#include <algorithm>
 
 // ---- 종류 & 스펙 헬퍼 ----
 enum class Kind { SideLink, InteriorLink, Node };
@@ -25,13 +26,13 @@ inline Tensor build_tensor(const Spec& sp){
     Tensor t;
     switch (sp.kind){
         case Kind::SideLink:
-            // s(12) 같은 파라미터 내용은 신경 안 쓰고, 곡선 2개만 만든다.
+            // s(12) 등 파라미터 내용은 현재 무시: 곡선 2개만 만든다.
             t.AT(-1); t.AT(-2);
             break;
         case Kind::InteriorLink: {
             int a = sp.param / 10, b = sp.param % 10;
             if (a<=0 || b<=0) throw std::invalid_argument("i(p): two-digit positive required");
-            t.AL(a,b);
+            t.AL(a,b); // AL은 너 코드 그대로 사용
             break;
         }
         case Kind::Node:
@@ -129,7 +130,30 @@ private:
     }
 };
 
-// ===================== 그래프 TheoryGraph (초간단) =====================
+// ===================== 그래프 TheoryGraph (포트/가중치 확장) =====================
+
+// 포트 라벨
+enum class Port : int { Left=0, Right=1, Custom=2 };
+
+// 가중치 간선
+struct EdgeW {
+    int  u, v;     // 노드 id
+    Port pu, pv;   // u의 포트, v의 포트
+    int  w;        // 글루잉 강도(대칭 오프대각에 +w)
+};
+
+// 기본 포트 선택 정책 (필요하면 강화 가능)
+inline int pickPortIndex(Kind k, const Tensor& t, Port which){
+    int sz = t.SpaceDirection(); // 포트 수에 대한 근사치
+    if (sz <= 0) return -1;
+    switch(which){
+        case Port::Left:   return 0;
+        case Port::Right:  return std::max(0, sz-1);
+        case Port::Custom: return (sz>=2 ? 1 : 0); // 임시: 가운데 느낌
+    }
+    return -1;
+}
+
 struct NodeRef { int id; };
 
 class TheoryGraph {
@@ -141,16 +165,27 @@ public:
         return NodeRef{id};
     }
 
-    // 자동 포트만 지원 (오버라이드 없음)
+    // 자동 포트(우↔좌), weight=1
     void connect(NodeRef a, NodeRef b){
         if (forbidden_(kinds_[a.id], kinds_[b.id]))
             throw std::invalid_argument("Forbidden adjacency s-i");
-        edges_.push_back({a.id,b.id});
+        edgesW_.push_back( EdgeW{a.id,b.id,Port::Right,Port::Left,1} );
+    }
+
+    // 포트/가중치 명시 연결
+    void connect(NodeRef a, Port pa, NodeRef b, Port pb, int weight=1){
+        if (forbidden_(kinds_[a.id], kinds_[b.id]))
+            throw std::invalid_argument("Forbidden adjacency s-i");
+        if (weight <= 0) throw std::invalid_argument("weight must be positive");
+        edgesW_.push_back( EdgeW{a.id,b.id,pa,pb,weight} );
     }
 
     void print() const {
         std::cout << "TheoryGraph:\n";
-        for (auto& e : edges_) std::cout << "  " << e.first << " -- " << e.second << "\n";
+        for (auto& e : edgesW_){
+            std::cout << "  " << e.u << "(" << (int)e.pu << ") --(" << e.w
+                      << ")-- " << e.v << "(" << (int)e.pv << ")\n";
+        }
     }
 
     auto IF(int node) const { return nodes_.at(node).GetIntersectionForm(); }
@@ -159,29 +194,37 @@ public:
         PrintMatrixSafe(IF(node), os);
     }
 
-    // 전 노드 IF 블록대각합 + 간선마다 오프대각 +1 (간단 글루잉)
-    Eigen::MatrixXi ComposeIF_UnitGluing() const {
+    // 전 노드 IF 블록대각합 + 포트/가중치 반영
+    Eigen::MatrixXi ComposeIF_Gluing() const {
         const int N = (int)nodes_.size();
         if (N==0) return Eigen::MatrixXi();
 
+        // 1) 블록 대각합
         std::vector<Eigen::MatrixXi> blocks; blocks.reserve(N);
         std::vector<int> sz; sz.reserve(N);
-        for (auto& t : nodes_){ auto M=t.GetIntersectionForm(); blocks.push_back(M); sz.push_back(M.rows()); }
+        for (auto& t : nodes_) { auto M=t.GetIntersectionForm(); blocks.push_back(M); sz.push_back(M.rows()); }
         Eigen::MatrixXi G = BlockDiag_(blocks);
 
-        // prefix offsets
+        // 2) prefix offsets
         std::vector<int> off(N+1,0);
         for (int i=0;i<N;++i) off[i+1]=off[i]+sz[i];
 
-        // 자동 포트 규칙: (u: right=sz[u]-1) ↔ (v: left=0)
-        for (auto [u,v] : edges_){
-            int pu = (sz[u]>0? sz[u]-1: -1);
-            int pv = (sz[v]>0? 0       : -1);
-            if (pu<0 || pv<0) continue;
-            G(off[u]+pu, off[v]+pv) += 1;
-            G(off[v]+pv, off[u]+pu) += 1;
+        // 3) 간선마다 포트/가중치 반영
+        for (const auto& e : edgesW_){
+            int iu = pickPortIndex(kinds_[e.u], nodes_[e.u], e.pu);
+            int iv = pickPortIndex(kinds_[e.v], nodes_[e.v], e.pv);
+            if (iu<0 || iv<0 || iu>=sz[e.u] || iv>=sz[e.v]) continue; // 방어
+            int I = off[e.u] + iu;
+            int J = off[e.v] + iv;
+            G(I,J) += e.w;
+            G(J,I) += e.w;
         }
         return G;
+    }
+
+    // 호환: 예전 이름 유지(단, 내부는 가중 글루잉 사용)
+    Eigen::MatrixXi ComposeIF_UnitGluing() const {
+        return ComposeIF_Gluing();
     }
 
     int nodeCount() const { return (int)nodes_.size(); }
@@ -189,7 +232,7 @@ public:
 private:
     std::vector<Tensor> nodes_;
     std::vector<Kind>   kinds_;
-    std::vector<std::pair<int,int>> edges_;
+    std::vector<EdgeW>  edgesW_;
 
     static bool forbidden_(Kind a, Kind b){
         return ( (a==Kind::SideLink && b==Kind::InteriorLink) ||
