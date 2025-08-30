@@ -6,6 +6,8 @@
 #include <stdexcept>
 #include <iostream>
 #include <algorithm>
+#include <map>
+#include <sstream>
 
 // ---- 종류 & 스펙 헬퍼 ----
 enum class Kind { SideLink, InteriorLink, Node };
@@ -162,6 +164,7 @@ public:
         int id = (int)nodes_.size();
         nodes_.push_back(build_tensor(sp));
         kinds_.push_back(sp.kind);
+	params_.push_back(sp.param);
         return NodeRef{id};
     }
 
@@ -229,9 +232,179 @@ public:
 
     int nodeCount() const { return (int)nodes_.size(); }
 
-private:
+
+
+void printLinearWithSides() const {
+    if (nodes_.empty()) { std::cout << "(empty graph)\n"; return; }
+
+    auto isMain = [&](int id){
+        return kinds_[id] == Kind::Node || kinds_[id] == Kind::InteriorLink;
+    };
+    auto isSide = [&](int id){
+        return kinds_[id] == Kind::SideLink;
+    };
+
+    const int N = (int)nodes_.size();
+    std::vector<std::vector<std::pair<int,int>>> adjMain(N); // (to, weightSum)
+
+    // (min(u,v),max(u,v)) -> weight sum
+    std::map<std::pair<int,int>, int> wMain;
+
+    // 메인–메인 간선 집계
+    for (const auto& e : edgesW_) {
+        int u = e.u, v = e.v, w = e.w;
+        if (isMain(u) && isMain(v)) {
+            auto key = std::minmax(u,v);
+            wMain[key] += w;
+        }
+    }
+    for (auto &kv : wMain) {
+        int a = kv.first.first;
+        int b = kv.first.second;
+        int w = kv.second;
+        adjMain[a].emplace_back(b, w);
+        adjMain[b].emplace_back(a, w);
+    }
+
+    // 메인 컴포넌트 선형화
+    std::vector<char> vis(N,0);
+    std::vector<std::vector<int>> components;
+    for (int i=0;i<N;++i){
+        if (!isMain(i) || vis[i]) continue;
+        std::vector<int> stack = {i};
+        vis[i]=1;
+        std::vector<int> order;
+        while(!stack.empty()){
+            int u = stack.back(); stack.pop_back();
+            order.push_back(u);
+            for (auto &p : adjMain[u]){
+                int v = p.first;
+                if (!vis[v]){ vis[v]=1; stack.push_back(v); }
+            }
+        }
+        std::sort(order.begin(), order.end());
+        components.push_back(std::move(order));
+    }
+
+    // 메인 노드에 붙은 Side 집계
+    struct SideInfo { int count=0; int wsum=0; std::vector<int> sampleIds; };
+    std::unordered_map<int, SideInfo> sideMap; // mainId -> info
+    for (const auto& e : edgesW_) {
+        int u=e.u, v=e.v, w=e.w;
+        if (isSide(u) && isMain(v)) {
+            auto &info = sideMap[v];
+            info.count += 1; info.wsum += w;
+            if (info.sampleIds.size()<3) info.sampleIds.push_back(u);
+        } else if (isSide(v) && isMain(u)) {
+            auto &info = sideMap[u];
+            info.count += 1; info.wsum += w;
+            if (info.sampleIds.size()<3) info.sampleIds.push_back(v);
+        }
+    }
+
+    auto labelNode = [&](int id){
+	    std::ostringstream ss;
+	    char kchar = '?';
+	    switch (kinds_[id]) {
+		    case Kind::SideLink:     kchar = 's'; break;
+		    case Kind::InteriorLink: kchar = 'i'; break;
+		    case Kind::Node:         kchar = 'n'; break;
+	    }
+	    ss << kchar << params_[id];   // 붙여쓰기 형식
+	    return ss.str();   
+    };
+
+
+    auto betweenWeight = [&](int a, int b)->int{
+	    auto key = std::minmax(a,b);
+        auto it = wMain.find(key);
+        return (it==wMain.end()? 0 : it->second);
+    };
+
+    std::cout << "Linear-with-sides layout:\n";
+    if (components.empty()){
+        std::cout << "[no main nodes]\n";
+        return;
+    }
+
+    for (size_t ci=0; ci<components.size(); ++ci){
+        const auto& seq = components[ci];
+        if (seq.empty()) continue;
+
+        // 칸 폭 계산
+        std::vector<std::string> labels; labels.reserve(seq.size());
+        size_t cell = 7;
+        for (int id : seq){
+            auto L = labelNode(id);
+            labels.push_back(L);
+            cell = std::max(cell, L.size()+2);
+        }
+
+        // 위줄: 사이드 라벨
+        std::ostringstream top;
+        for (size_t k=0;k<seq.size();++k){
+            int id = seq[k];
+            std::string s(cell, ' ');
+            auto it = sideMap.find(id);
+            if (it != sideMap.end() && it->second.count>0){
+                const auto& info = it->second;
+                std::ostringstream tmp;
+                if (!info.sampleIds.empty()){
+                    tmp << "s{";
+                    for (size_t t=0;t<info.sampleIds.size();++t){
+                        if (t) tmp << ",";
+                        tmp << info.sampleIds[t];
+                    }
+                    if ((int)info.sampleIds.size() < info.count) tmp << ",...";
+                    tmp << "}";
+                } else {
+                    tmp << "s×" << info.count;
+                }
+                std::string ss = tmp.str();
+                if (ss.size()<cell) ss += std::string(cell - ss.size(), ' ');
+                s = ss;
+            }
+            top << s;
+            if (k+1<seq.size()) top << " ";
+        }
+
+        // 중간줄: 사이드-메인 연결(|)
+        std::ostringstream mid;
+        for (size_t k=0;k<seq.size();++k){
+            int id = seq[k];
+            std::string s(cell, ' ');
+            if (sideMap.count(id) && sideMap.at(id).count>0){
+                size_t pos = std::min(cell-1, cell/2);
+                s[pos] = '|';
+            }
+            mid << s;
+            if (k+1<seq.size()) mid << " ";
+        }
+
+        // 아래줄: 메인 라벨 + 메인 간선 가중치
+        std::ostringstream bot;
+        for (size_t k=0;k<seq.size();++k){
+            std::string s = labels[k];
+            if (s.size()<cell) s += std::string(cell - s.size(), ' ');
+            bot << s;
+            if (k+1<seq.size()){
+                int w = betweenWeight(seq[k], seq[k+1]);
+                if (w>0) bot << "--x" << w << "--";
+                else     bot << "      ";
+            }
+        }
+
+        if (ci>0) std::cout << "\n";
+        std::cout << top.str() << "\n";
+        std::cout << mid.str() << "\n";
+        std::cout << bot.str() << "\n";
+    }
+}
+
+    private:
     std::vector<Tensor> nodes_;
     std::vector<Kind>   kinds_;
+    std::vector<int>    params_;
     std::vector<EdgeW>  edgesW_;
 
     static bool forbidden_(Kind a, Kind b){
