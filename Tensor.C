@@ -1577,6 +1577,11 @@ void Tensor::ALSTE(int m, int l)
 	intersect(m,T,l);
 }
 
+void Tensor::SetIF(Eigen::MatrixXi M)
+{
+	intersection_form = M;
+	T = M.size();
+}
 
 
 

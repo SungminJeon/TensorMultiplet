@@ -55,6 +55,7 @@ class Tensor {
 		void ATS3(int n, int m, int l, int k);	
 		void ATE(int n, int m, int l=1);
 		void ALSTE(int m, int l=1);
+		void SetIF(Eigen::MatrixXi M);
 			
 
 	friend std::ostream& operator<<(std::ostream& os, const Tensor& th);
