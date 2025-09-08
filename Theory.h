@@ -30,7 +30,42 @@ inline Tensor build_tensor(const Spec& sp){
 	switch (sp.kind){
 		case Kind::SideLink:
 			// s(12) 등 파라미터 내용은 현재 무시: 곡선 2개만 만든다.
-			t.AT(-2); t.AT(-1);
+			// instantons
+			if (sp.param == 1) {t.AT(-1);}
+			else if (sp.param == 12 ) {t.AT(-1); t.AT(-2);}
+			else if (sp.param == 122 ) {t.AT(-1); t.AT(-2); t.AT(-2);}	
+			else if (sp.param == 1222 ) {t.AT(-1); t.AT(-2); t.AT(-2); t.AT(-2);}	
+			else if (sp.param == 12222 ) {t.AT(-1); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2);}	
+			else if (sp.param == 122222 ) {t.AT(-1); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2);}	
+			else if (sp.param == 1222222 ) {t.AT(-1); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2);}	
+			else if (sp.param == 12222222 ) {t.AT(-1); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2);}
+			else if (sp.param == 122222222 ) {t.AT(-1); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2);}
+			else if (sp.param == 1222222222 ) {t.AT(-1); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2);}
+			// interiors
+			else if (sp.param == 11 ) { t.AL(1,1); }
+			else if (sp.param == 22 ) { t.AL(2,2); }
+			else if (sp.param == 33 ) { t.AL(3,3); }
+			else if (sp.param == 44 ) { t.AL(4,4); }
+			else if (sp.param == 55 ) { t.AL(5,5); }
+			else if (sp.param == 331 ) { t.AL(3,3,1); }
+			else if (sp.param == 32 ) { t.AL(3,2); }
+			else if (sp.param == 23 ) { t.AL(2,3); }
+			else if (sp.param == 42 ) { t.AL(4,2); }
+			else if (sp.param == 24 ) { t.AL(2,4); }
+			else if (sp.param == 43 ) { t.AL(4,3); }
+			else if (sp.param == 34 ) { t.AL(3,4); }
+			else if (sp.param == 53 ) { t.AL(5,3); }
+			else if (sp.param == 35 ) { t.AL(3,5); }
+			else if (sp.param == 54 ) { t.AL(5,4); }
+			else if (sp.param == 45 ) { t.AL(4,5); }
+
+			// alkali 2 links with no -5 
+
+			else if (sp.param == 91 ) { t.AL(5,3); }
+			else if (sp.param == 92 ) { t.AL(5,3); }
+			else if (sp.param == 93 ) { t.AL(5,3); }
+			else if (sp.param == 53 ) { t.AL(5,3); }
+
 			break;
 		case Kind::InteriorLink: 
 			{

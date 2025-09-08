@@ -1579,8 +1579,14 @@ void Tensor::ALSTE(int m, int l)
 
 void Tensor::SetIF(Eigen::MatrixXi M)
 {
+	this -> Initialize();
+	int size = M.rows();
+
+	intersection_form = Eigen::MatrixXi::Zero(size,size);
+	
 	intersection_form = M;
-	T = M.size();
+
+	T = size;
 }
 
 
