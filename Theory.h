@@ -61,10 +61,21 @@ inline Tensor build_tensor(const Spec& sp){
 
 			// alkali 2 links with no -5 
 
-			else if (sp.param == 91 ) { t.AL(5,3); }
-			else if (sp.param == 92 ) { t.AL(5,3); }
-			else if (sp.param == 93 ) { t.AL(5,3); }
-			else if (sp.param == 53 ) { t.AL(5,3); }
+			else if (sp.param == 91 ) { t.AT(-1); t.ATS(-2,-3); t.AT(-1); }
+			else if (sp.param == 92 ) { t.AT(-1); t.AT(-2); t.AT(-2,-3); t.AT(-1); }
+			else if (sp.param == 93 ) { t.AT(-1); t.ATS(-2,-3); t.AT(-2); t.AT(-1); }
+			
+			// alkali 1 links with no -5
+
+			else if (sp.param == 94) {t.AT(-3); t.ATS(-2,-2); t.AT(-1); }
+			else if (sp.param == 95) {t.AT(-2 }
+			else if (sp.param == 96) { }
+			else if (sp.param == 97) { }
+			else if (sp.param == 98) { }
+			else if (sp.param == 99) { }
+			else if (sp.param == 100) { }
+
+
 
 			break;
 		case Kind::InteriorLink: 
