@@ -169,51 +169,6 @@ inline Tensor build_tensor(const Spec& sp){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			
-
-
-
 			break;
 		case Kind::InteriorLink: 
 			{
