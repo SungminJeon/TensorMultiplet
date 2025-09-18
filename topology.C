@@ -45,6 +45,7 @@ int main() {
 
 	int num = 0;
 	int num2 = 0;
+	int num3 = 0;
 
 	for (int i = 0; i < Nparams; i++)
 	{
@@ -58,7 +59,7 @@ int main() {
 			auto S1 = G.add(s(params[i]));   // 사이드 링크 #1  (AT(-1), AT(-2)로 구성)
 			auto N = G.add(n_(n));  
 
-			G.connect(S1, N);
+			try {G.connect(S1, N);} catch (const std::invalid_argument&) {continue;}
 
 			
 			Eigen::MatrixXi glued = G.ComposeIF_UnitGluing();
@@ -85,7 +86,7 @@ int main() {
 
 	for (int i = 0; i < Nparams; i++)
 	{
-		for (int j = 0; j < Nparams; j++)
+		for (int j = 0; j <= i; j++)
 		{
 			for ( int n: { 4, 6, 8, 12 } )
 			{
@@ -98,8 +99,8 @@ int main() {
 				auto N = G.add(n_(n));  
 				auto S2 = G.add(s(params[j]));
 
-				G.connect(S1, N);
-				G.connect(S2, N);
+				try {G.connect(S1, N);} catch (const std::invalid_argument&) {continue;}
+				try {G.connect(S2, N);} catch (const std::invalid_argument&) {continue;}
 
 
 				Eigen::MatrixXi glued = G.ComposeIF_UnitGluing();
@@ -124,7 +125,58 @@ int main() {
 		}
 	}
 
+	for (int i = 0; i < Nparams; i++)
+	{
+		for (int j = 0; j <= i; j++)
+		{
+
+			for (int k = 0; k <= j; k++)
+			{
+				for ( int n: { 4, 6, 8, 12 } )
+				{
+
+					TheoryGraph G;
+					Tensor g;
+
+
+					auto S1 = G.add(s(params[i]));   // 사이드 링크 #1  (AT(-1), AT(-2)로 구성)
+					auto N = G.add(n_(n));  
+					auto S2 = G.add(s(params[j]));
+					auto S3 = G.add(s(params[k]));
+
+					try {G.connect(S1, N);} catch (const std::invalid_argument&) {continue;}
+					try {G.connect(S2, N);} catch (const std::invalid_argument&) {continue;}
+					try {G.connect(S3, N);} catch (const std::invalid_argument&) {continue;}
+
+
+	
+					Eigen::MatrixXi glued = G.ComposeIF_UnitGluing();
+
+					g.SetIF(glued);
+					g.Setb0Q();
+
+					if ( g.TimeDirection() == 0 && g.NullDirection() == 0)
+					{
+						g.ForcedBlowdown();
+						if ( g.NullDirection() == 0 && g.TimeDirection() == 0)
+						{
+							num3++;
+							std::cout << "SCFT found " << std::endl;
+							std::cout << g.GetIntersectionForm() << std::endl;
+
+							std::cout << "=== Graph Edges ===\n";
+							G.printLinearWithSides();
+						}
+					}
+				}
+			}
+		}
+	}
+	
+
+
 	std::cout << "total SCFT s-n: " << num << std::endl;
-       	std::cout << "total SCFT s-n-s: " << num2 << std::endl;	
+       	std::cout << "total SCFT s-n-s: " << num2 << std::endl;
+	std::cout << "total SCFT s-n-s: " << num3 << std::endl;	
 
 }

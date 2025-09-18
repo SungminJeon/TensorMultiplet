@@ -335,9 +335,9 @@ void Tensor::FBlowdown()
 {
 
 	bool c;
-	for( int i = 0; i < T-1; i++)
+	for( int i = 0; i < T; i++)
 	{
-		if(intersection_form(i,i) == -1 && intersection_form(i,T-1) == 0 )
+		if(intersection_form(i,i) == -1 )
 
 		{
 			c = this->Blowdown5(i+1);
@@ -346,7 +346,7 @@ void Tensor::FBlowdown()
 			{
 				i = -1;
 				//std::cout << " Blowdown " << std::endl;
-				std::cout << this->GetIFb0Q() << std::endl;
+				//std::cout << this->GetIFb0Q() << std::endl;
 				//std::cout << this->GetSignature() << std::endl;
 			}
 			else if (c == 0)
@@ -376,7 +376,7 @@ void Tensor::ForcedBlowdown()
 				//std::cout << " Blowdown " << std::endl;
 				//std::cout << intersection_form << std::endl;
 				//std::cout << this->GetSignature() << std::endl;
-				if ( T == 3)
+				if ( T == 1)
 				{
 					break;
 				}

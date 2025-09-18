@@ -323,6 +323,26 @@ public:
     void connect(NodeRef a, NodeRef b){
         if (forbidden_(kinds_[a.id], kinds_[b.id]))
             throw std::invalid_argument("Forbidden adjacency s-i");
+
+
+ 	// 기본 포트
+        Port pa = Port::Right, pb = Port::Left;
+
+        // a/b 중 사이드와 노드 식별
+        int sideIdx=-1, nodeIdx=-1; Port sideP=pa, nodeP=pb;
+        if (kinds_[a.id]==Kind::SideLink && kinds_[b.id]==Kind::Node) {
+            sideIdx=a.id; nodeIdx=b.id; sideP=pa; nodeP=pb;
+        } else if (kinds_[b.id]==Kind::SideLink && kinds_[a.id]==Kind::Node) {
+            sideIdx=b.id; nodeIdx=a.id; sideP=pb; nodeP=pa;
+        }
+
+        if (sideIdx!=-1) {
+            int sideParam = params_[sideIdx];
+            int nodeParam = params_[nodeIdx];
+            if (isBannedPair_(sideParam,nodeParam) ||
+                isBannedPortPair_(sideParam,nodeParam, sideP, nodeP))
+                throw std::invalid_argument("Porting rule (hardcoded) violated");
+        }
         edgesW_.push_back( EdgeW{a.id,b.id,Port::Right,Port::Left,1} );
     }
 
@@ -331,8 +351,27 @@ public:
         if (forbidden_(kinds_[a.id], kinds_[b.id]))
             throw std::invalid_argument("Forbidden adjacency s-i");
         if (weight <= 0) throw std::invalid_argument("weight must be positive");
+
+
+
+ 	// a/b 중 사이드와 노드 식별 + 포트 정확히 맵핑
+        int sideIdx=-1, nodeIdx=-1; Port sideP=pa, nodeP=pb;
+        if (kinds_[a.id]==Kind::SideLink && kinds_[b.id]==Kind::Node) {
+            sideIdx=a.id; nodeIdx=b.id; sideP=pa; nodeP=pb;
+        } else if (kinds_[b.id]==Kind::SideLink && kinds_[a.id]==Kind::Node) {
+            sideIdx=b.id; nodeIdx=a.id; sideP=pb; nodeP=pa;
+        }
+
+        if (sideIdx!=-1) {
+            int sideParam = params_[sideIdx];
+            int nodeParam = params_[nodeIdx];
+            if (isBannedPair_(sideParam,nodeParam) ||
+                isBannedPortPair_(sideParam,nodeParam, sideP, nodeP))
+                throw std::invalid_argument("Porting rule (hardcoded) violated");
+        }
         edgesW_.push_back( EdgeW{a.id,b.id,pa,pb,weight} );
     }
+
 
     void print() const {
         std::cout << "TheoryGraph:\n";
@@ -651,5 +690,152 @@ private:
         }
         return out.block(0,0,off,off);
     }
+
+
+    // 사이드-노드 "전체 금지" (포트 상관없이 금지)
+    static inline bool isBannedPair_(int sideParam, int nodeParam) {
+        
+        // 예시들 — 필요에 맞게 바꿔/추가
+	
+	if (sideParam == 11 && nodeParam > 4)   return true;
+	if (sideParam == 1 && nodeParam > 4)   return true;
+	if (sideParam == 22 && nodeParam > 6)   return true;
+	if (sideParam == 33 && nodeParam > 8)   return true;
+	
+
+	if (sideParam == 991 && nodeParam > 4)   return true;
+        if (sideParam == 9920 && nodeParam > 4)  return true;
+        if (sideParam == 9902 && nodeParam > 4)  return true;
+	if (sideParam == 993 && (nodeParam > 8 || nodeParam < 6))   return true;
+	if (sideParam == 91 && (nodeParam > 8|| nodeParam < 6))   return true;
+	if (sideParam == 92 && nodeParam > 4)   return true;
+	if (sideParam == 94 && nodeParam < 8)   return true;
+	if (sideParam == 95 && nodeParam < 8)   return true;
+	if (sideParam == 96 && nodeParam == 4)   return true;
+	if (sideParam == 97 && nodeParam == 12)   return true;
+	if (sideParam == 98 && nodeParam == 12)   return true;
+	if (sideParam == 99 && nodeParam == 12)   return true;
+	if (sideParam == 910 && (nodeParam > 8 || nodeParam < 7))   return true;
+	if (sideParam == 911 && (nodeParam < 6 || nodeParam > 8))   return true;
+	if (sideParam == 912 && nodeParam > 6)   return true;
+	if (sideParam == 913 && nodeParam != 6)   return true;
+	if (sideParam == 914 && nodeParam != 6)   return true;
+	if (sideParam == 915 && nodeParam > 6)   return true;
+	if (sideParam == 916 && nodeParam > 4)   return true;
+	if (sideParam == 917 && nodeParam > 4)   return true;
+	if (sideParam == 918 && nodeParam < 6)   return true;
+	if (sideParam == 919 && nodeParam < 8)   return true;
+	if (sideParam == 920 && nodeParam < 6)   return true;
+	if (sideParam == 921 && nodeParam < 6)   return true;
+	if (sideParam == 922 && nodeParam < 6)   return true;
+	if (sideParam == 923 && nodeParam < 8)   return true;
+	if (sideParam == 924 && nodeParam > 8 )   return true;
+	if (sideParam == 925 && nodeParam > 8 )   return true;
+	if (sideParam == 926 && (nodeParam < 6 || nodeParam > 8 ))   return true;
+	if (sideParam == 927 &&  nodeParam > 8 )   return true;
+	if (sideParam == 928 &&  nodeParam > 8 )   return true;
+	if (sideParam == 929 &&  nodeParam > 8 )   return true;
+	if (sideParam == 930 && (nodeParam < 7 || nodeParam > 8 ))   return true;
+	if (sideParam == 931 && (nodeParam < 7 || nodeParam > 8 ))   return true;
+	if (sideParam == 932 && (nodeParam < 7 || nodeParam > 8 ))   return true;
+	if (sideParam == 933 && (nodeParam < 6 || nodeParam > 8 ))   return true;
+	if (sideParam == 934 && nodeParam > 6 )   return true;
+	if (sideParam == 935 && (nodeParam < 6 || nodeParam > 6 ))   return true;
+	if (sideParam == 936 &&  nodeParam > 6 )   return true;
+	if (sideParam == 937 &&  nodeParam > 6 )   return true;
+	if (sideParam == 938 &&  nodeParam > 6 )   return true;
+	if (sideParam == 939 && (nodeParam < 6 || nodeParam > 6 ))   return true;
+	if (sideParam == 940 &&  nodeParam > 4 )   return true;
+	if (sideParam == 941 &&  nodeParam > 4 )   return true;
+	if (sideParam == 942 &&  nodeParam > 4 )   return true;
+	if (sideParam == 943 &&  nodeParam > 6 )   return true;
+	if (sideParam == 944 && (nodeParam < 6 || nodeParam > 8 ))   return true;
+	if (sideParam == 945 && nodeParam < 6 )   return true;
+	if (sideParam == 946 && nodeParam < 8 )   return true;
+	if (sideParam == 947 && nodeParam < 6 )   return true;
+	if (sideParam == 948 && nodeParam < 9)   return true;
+	if (sideParam == 949 && nodeParam < 9)   return true;
+	if (sideParam == 950 && nodeParam < 8)   return true;
+	if (sideParam == 951 && (nodeParam < 6 || nodeParam > 8 ))   return true;
+	if (sideParam == 952 && (nodeParam < 6 || nodeParam > 8 ))   return true;
+	if (sideParam == 953 && (nodeParam < 7 || nodeParam > 8 ))   return true;
+	if (sideParam == 954 && (nodeParam < 7 || nodeParam > 8 ))   return true;
+	if (sideParam == 955 && (nodeParam < 6 || nodeParam > 6 ))   return true;
+	if (sideParam == 956 && nodeParam > 6)   return true;
+	if (sideParam == 957 && (nodeParam < 6 || nodeParam > 6 ))   return true;
+
+	if (sideParam == 1222222222 && nodeParam < 12)   return true;
+	if (sideParam == 122222222 && nodeParam < 12)   return true;
+	if (sideParam == 12222222 && nodeParam < 12)   return true;
+	if (sideParam == 1222222 && nodeParam < 12)   return true;
+	if (sideParam == 122222 && nodeParam < 8)   return true;
+	if (sideParam == 12222 && nodeParam < 8)   return true;
+	if (sideParam == 1222 && nodeParam < 6)   return true;
+	if (sideParam == 122 && nodeParam < 6)   return true;
+	if (sideParam == 99910 && nodeParam > 6)   return true;
+	if (sideParam == 99901 && nodeParam > 6)   return true;
+	if (sideParam == 99920 && (nodeParam < 6 || nodeParam > 8 ))   return true;
+	if (sideParam == 99902 && (nodeParam < 6 || nodeParam > 8 ))   return true;
+	if (sideParam == 99930 && nodeParam < 6 )   return true;
+	if (sideParam == 99903 && nodeParam < 6 )   return true;
+	if (sideParam == 994 && (nodeParam < 6 || nodeParam > 6 ))   return true;
+	if (sideParam == 995 && (nodeParam < 6 || nodeParam > 8 ))   return true;
+	if (sideParam == 996 && nodeParam < 8 )   return true;
+	if (sideParam == 997 && (nodeParam < 8 || nodeParam > 8 ))   return true;
+	if (sideParam == 998 && nodeParam < 8 )   return true;
+	if (sideParam == 999 && nodeParam < 9 )   return true;
+	if (sideParam == 9910 && (nodeParam < 6 || nodeParam > 6 ))   return true;
+	if (sideParam == 9911 && (nodeParam < 7 || nodeParam > 8 ))   return true;
+	if (sideParam == 9912 && nodeParam < 6 )   return true;
+	if (sideParam == 9913 && nodeParam > 8 )   return true;
+	if (sideParam == 9914 && (nodeParam < 6 || nodeParam > 8 ))   return true;
+	if (sideParam == 9915 && nodeParam < 8)   return true;
+	if (sideParam == 9916 && (nodeParam < 6 || nodeParam > 8 ))   return true;
+	if (sideParam == 9917 && (nodeParam < 6 || nodeParam > 6 ))   return true;
+	
+
+        
+        // ================================================
+        return false;
+    }
+
+    // 포트까지 특정해서 금지 (해당 포트 조합일 때만 금지)
+    static inline bool isBannedPortPair_(int sideParam, int nodeParam,
+                                         Port sidePort, Port nodePort) {
+        // ====== 여기에 포트까지 특정 금지 조합 하드코딩 ======
+	//
+	    if (sideParam == 32 && nodeParam > 4
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    
+	    if (sideParam == 23 && nodeParam > 4
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    
+	    if (sideParam == 23 && nodeParam > 8
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    
+	    if (sideParam == 32 && nodeParam > 8
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+
+	    if (sideParam == 42 && nodeParam > 4
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    
+	    if (sideParam == 24 && nodeParam > 4
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+
+	    if (sideParam == 42 && nodeParam > 8
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+
+	    if (sideParam == 24 && nodeParam > 8
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+
+
+
+
+
+       
+        // ================================================
+        return false;
+    }
+
 };
 
