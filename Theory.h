@@ -701,7 +701,11 @@ private:
 	if (sideParam == 1 && nodeParam > 4)   return true;
 	if (sideParam == 22 && nodeParam > 6)   return true;
 	if (sideParam == 33 && nodeParam > 8)   return true;
+	if (sideParam == 44 && (nodeParam > 8 || nodeParam < 6))   return true;
+	if (sideParam == 55 && nodeParam < 6)   return true;
 	
+
+
 
 	if (sideParam == 991 && nodeParam > 4)   return true;
         if (sideParam == 9920 && nodeParam > 4)  return true;
@@ -827,6 +831,44 @@ private:
 
 	    if (sideParam == 24 && nodeParam > 8
 			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    
+	    if (sideParam == 43 && nodeParam > 6
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    
+	    if (sideParam == 43 && (nodeParam < 6 || nodeParam > 8)
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    
+	    if (sideParam == 34 && nodeParam > 6
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    
+	    if (sideParam == 34 && (nodeParam < 6 || nodeParam > 8)
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    
+	    if (sideParam == 53 && (nodeParam > 6 || nodeParam < 6)
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    
+	    if (sideParam == 53 && nodeParam < 6
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    
+	    if (sideParam == 35 && (nodeParam > 6 || nodeParam < 6)  
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    
+	    if (sideParam == 35 && nodeParam < 6 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    
+	    if (sideParam == 54 && (nodeParam > 8 || nodeParam < 6)
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    
+	    if (sideParam == 54 && nodeParam < 6
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    
+	    if (sideParam == 45 && (nodeParam > 8 || nodeParam < 6)  
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    
+	    if (sideParam == 45 && nodeParam < 6 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+
+
 
 
 
