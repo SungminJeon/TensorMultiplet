@@ -49,7 +49,7 @@ int main() {
 
 	for (int i = 0; i < Nparams; i++)
 	{
-		for ( int n: { 4, 6, 8, 12 } )
+		for ( int n: { 4, 6, 7, 8, 12 } )
 		{
 
 			TheoryGraph G;
@@ -83,12 +83,12 @@ int main() {
 		}
 	}
 
-
+/*
 	for (int i = 0; i < Nparams; i++)
 	{
 		for (int j = 0; j <= i; j++)
 		{
-			for ( int n: { 4, 6, 8, 12 } )
+			for ( int n: { 4, 6, 7, 12 } )
 			{
 
 				TheoryGraph G;
@@ -132,7 +132,7 @@ int main() {
 
 			for (int k = 0; k <= j; k++)
 			{
-				for ( int n: { 4, 6, 8, 12 } )
+				for ( int n: { 4, 6, 7, 12 } )
 				{
 
 					TheoryGraph G;
@@ -173,7 +173,7 @@ int main() {
 		}
 	}
 	
-
+*/
 
 	std::cout << "total SCFT s-n: " << num << std::endl;
        	std::cout << "total SCFT s-n-s: " << num2 << std::endl;
