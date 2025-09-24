@@ -41,6 +41,8 @@ inline Tensor build_tensor(const Spec& sp){
 			else if (sp.param == 12222222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
 			else if (sp.param == 122222222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
 			else if (sp.param == 1222222222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
+			else if (sp.param == 12222222222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
+			
 			// interiors
 			else if (sp.param == 11 ) { t.AL(1,1); }
 			else if (sp.param == 22 ) { t.AL(2,2); }
@@ -698,7 +700,6 @@ private:
         // 예시들 — 필요에 맞게 바꿔/추가
 	
 	if (sideParam == 11 && nodeParam > 4)   return true;
-	if (sideParam == 1 && nodeParam > 4)   return true;
 	if (sideParam == 22 && nodeParam > 6)   return true;
 	if (sideParam == 33 && nodeParam > 8)   return true;
 	if (sideParam == 44 && (nodeParam > 8 || nodeParam < 6))   return true;
@@ -768,6 +769,7 @@ private:
 	if (sideParam == 956 && nodeParam > 6)   return true;
 	if (sideParam == 957 && (nodeParam < 6 || nodeParam > 6 ))   return true;
 
+	if (sideParam == 12222222222 && nodeParam < 12)   return true;
 	if (sideParam == 1222222222 && nodeParam < 12)   return true;
 	if (sideParam == 122222222 && nodeParam < 12)   return true;
 	if (sideParam == 12222222 && nodeParam < 12)   return true;
