@@ -219,5 +219,15 @@ int main() {
 	std::cout << "total SCFT s-n: " << num << std::endl;
        	std::cout << "total SCFT s-n-s: " << num2 << std::endl;
 	std::cout << "total SCFT s-n-s: " << num3 << std::endl;	
+	std::cout << "nparams,params " << sizeof(params) << "   " << sizeof(params[0]) << std::endl;
+	
+	
+
+	for (int i =0; i < Nparams; i++)
+	{
+
+		std::cout << params[i] << std::endl;
+
+	}
 
 }

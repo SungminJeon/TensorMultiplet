@@ -116,7 +116,7 @@ inline Tensor build_tensor(const Spec& sp){
 			else if (sp.param == 918) {t.AT(-5); t.AT(-1); t.AT(-3); t.AT(-2); t.AT(-2); t.AT(-1); }
 			else if (sp.param == 919) {t.AT(-3); t.AT(-2); t.AT(-1); t.AT(-5); t.AT(-1); t.AT(-3); t.AT(-2); t.AT(-2); t.AT(-1); }
 			else if (sp.param == 920) {t.AT(-2); t.AT(-3); t.AT(-1); t.AT(-5); t.AT(-1); t.AT(-3); t.AT(-2); t.AT(-2); t.AT(-1); }
-			else if (sp.param == 921) {t.AT(-2); t.AT(-3); t.AT(-2); t.AT(-1); t.AT(-5); t.AT(-1); t.AT(-3); t.AT(-2); t.AT(-2); t.AT(-1); }
+			else if (sp.param == 921) {t.AT(-2); t.AT(-2); t.AT(-3); t.AT(-1); t.AT(-5); t.AT(-1); t.AT(-3); t.AT(-2); t.AT(-2); t.AT(-1); }
 			else if (sp.param == 922) {t.AT(-3); t.AT(-1); t.AT(-5); t.AT(-1); t.AT(-3); t.AT(-2); t.AT(-2); t.AT(-1); }
 			else if (sp.param == 923) {t.AT(-2); t.AT(-3); t.AT(-2); t.AT(-1); t.AT(-5); t.AT(-1); t.AT(-3); t.AT(-2); t.AT(-2); t.AT(-1); }
 			else if (sp.param == 924) {t.AT(-5); t.AT(-1); t.AT(-3); t.AT(-2); t.AT(-1); }
@@ -844,13 +844,13 @@ private:
 	    if (sideParam == 34 && (nodeParam < 6 || nodeParam > 8)
 			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 	    
-	    if (sideParam == 53 && (nodeParam > 6 || nodeParam < 6)
+	    if (sideParam == 53 && nodeParam > 6
 			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 	    
 	    if (sideParam == 53 && nodeParam < 6
 			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 	    
-	    if (sideParam == 35 && (nodeParam > 6 || nodeParam < 6)  
+	    if (sideParam == 35 && nodeParam > 6   
 			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 	    
 	    if (sideParam == 35 && nodeParam < 6 
