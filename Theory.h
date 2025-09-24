@@ -701,7 +701,7 @@ private:
 	
 	if (sideParam == 11 && nodeParam > 4)   return true;
 	if (sideParam == 22 && nodeParam > 6)   return true;
-	if (sideParam == 33 && nodeParam > 8)   return true;
+	if (sideParam == 33 && nodeParam > 6)   return true;
 	if (sideParam == 44 && (nodeParam > 8 || nodeParam < 6))   return true;
 	if (sideParam == 55 && nodeParam < 6)   return true;
 	
