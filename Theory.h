@@ -41,7 +41,7 @@ inline Tensor build_tensor(const Spec& sp){
 			else if (sp.param == 12222222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
 			else if (sp.param == 122222222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
 			else if (sp.param == 1222222222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
-			else if (sp.param == 12222222222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
+			else if (sp.param == 1122222222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
 			
 			// interiors
 			else if (sp.param == 11 ) { t.AL(1,1); }
@@ -769,15 +769,15 @@ private:
 	if (sideParam == 956 && nodeParam > 6)   return true;
 	if (sideParam == 957 && (nodeParam < 6 || nodeParam > 6 ))   return true;
 
-	if (sideParam == 12222222222 && nodeParam < 12)   return true;
-	if (sideParam == 1222222222 && nodeParam < 12)   return true;
-	if (sideParam == 122222222 && nodeParam < 12)   return true;
-	if (sideParam == 12222222 && nodeParam < 12)   return true;
-	if (sideParam == 1222222 && nodeParam < 12)   return true;
+	if (sideParam == 1122222222 && nodeParam < 12)   return true;
+	if (sideParam == 1222222222 && nodeParam < 11)   return true;
+	if (sideParam == 122222222 && nodeParam < 10)   return true;
+	if (sideParam == 12222222 && nodeParam < 9)   return true;
+	if (sideParam == 1222222 && nodeParam < 8)   return true;
 	if (sideParam == 122222 && nodeParam < 7)   return true;
-	if (sideParam == 12222 && nodeParam < 7)   return true;
-	if (sideParam == 1222 && nodeParam < 6)   return true;
-	if (sideParam == 122 && nodeParam < 6)   return true;
+	if (sideParam == 12222 && nodeParam < 6)   return true;
+	if (sideParam == 1222 && nodeParam < 5)   return true;
+	if (sideParam == 122 && nodeParam < 4)   return true;
 	if (sideParam == 99910 && nodeParam > 6)   return true;
 	if (sideParam == 99901 && nodeParam > 6)   return true;
 	if (sideParam == 99920 && (nodeParam < 6 || nodeParam > 8 ))   return true;
@@ -828,10 +828,10 @@ private:
 	    if (sideParam == 24 && nodeParam > 4
 			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
-	    if (sideParam == 42 && nodeParam > 8
+	    if (sideParam == 42 && nodeParam < 6
 			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
-	    if (sideParam == 24 && nodeParam > 8
+	    if (sideParam == 24 && nodeParam < 6
 			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 	    
 	    if (sideParam == 43 && nodeParam > 6

@@ -10,9 +10,9 @@ int main() {
 	//low topology SCFT first.. we want to get the full list of SCFT by computer sweeping
 	
 
-	long int params[] = {
+	int params[] = {
 		// 기본 AT 꼬리 패턴
-		1, 12, 122, 1222, 12222, 122222, 1222222, 12222222, 122222222, 1222222222, 12222222222,
+		1, 12, 122, 1222, 12222, 122222, 1222222, 12222222, 122222222, 1222222222, 1122222222,
 
 
 		// interiors
