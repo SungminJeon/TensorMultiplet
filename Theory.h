@@ -871,6 +871,25 @@ private:
 	    if (sideParam == 45 && nodeParam < 6 
 			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 
+	    if (sideParam == 99910 && nodeParam > 4  
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+
+	    if (sideParam == 99901 && nodeParam > 4 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 99920 && nodeParam > 4  
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+
+	    if (sideParam == 99902 && nodeParam > 4 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+
+	    if (sideParam == 99930 && nodeParam > 4  
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+
+	    if (sideParam == 99903 && nodeParam > 4 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+
+
+
 
 
 
