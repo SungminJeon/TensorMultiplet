@@ -47,9 +47,9 @@ int main() {
 	int num2 = 0;
 	int num3 = 0;
 
-	for (int i = 0; i < Nparams; i++)
+	for (int n: { 4, 6, 7, 8, 12 })
 	{
-		for ( int n: { 4, 6, 7, 8, 12 } )
+		for ( int i = 0; i < Nparams; i++)
 		{
 
 			TheoryGraph G;
