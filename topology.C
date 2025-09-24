@@ -81,7 +81,7 @@ int main() {
 
 					const Eigen::MatrixXi IF = glued;
 
-					std::ofstream ofs("scft_IFs.txt", std::ios::app); // append 모드
+					std::ofstream ofs("SCFT_Sg.txt", std::ios::app); // append 모드
 					if (!ofs) {
 						std::cerr << "[!] cannot open output file\n";
 					} else {
@@ -137,6 +137,25 @@ int main() {
 						num2++;
 						std::cout << "SCFT found " << std::endl;
 						std::cout << g.GetIntersectionForm() << std::endl;
+
+						const Eigen::MatrixXi IF = glued;
+
+						std::ofstream ofs("SCFT_SgS.txt", std::ios::app); // append 모드
+						if (!ofs) {
+							std::cerr << "[!] cannot open output file\n";
+						} else {
+							for (int r = 0; r < IF.rows(); ++r) {
+								for (int c = 0; c < IF.cols(); ++c) {
+									if (c) ofs << ' ';     // 공백 구분
+									ofs << IF(r, c);
+								}
+								ofs << '\n';
+							}
+							ofs << '\n';  // 행렬 사이에 빈 줄
+						}
+
+
+
 
 						std::cout << "=== Graph Edges ===\n";
 						G.printLinearWithSides();
