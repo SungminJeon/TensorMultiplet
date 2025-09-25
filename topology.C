@@ -110,7 +110,7 @@ int main() {
 	{
 		for (int j = 0; j <= i; j++)
 		{
-			for ( int n: { 4, 6, 7, 12 } )
+			for ( int n: { 4, 6, 7, 8, 12 } )
 			{
 
 				TheoryGraph G;
@@ -166,7 +166,7 @@ int main() {
 		}
 	}
 
-	/*
+	
 	for (int i = 0; i < Nparams; i++)
 	{
 		for (int j = 0; j <= i; j++)
@@ -174,7 +174,7 @@ int main() {
 
 			for (int k = 0; k <= j; k++)
 			{
-				for ( int n: { 4, 6, 7, 12 } )
+				for ( int n: { 4, 6, 7, 8, 12 } )
 				{
 
 					TheoryGraph G;
@@ -203,6 +203,25 @@ int main() {
 						if ( g.NullDirection() == 0 && g.TimeDirection() == 0)
 						{
 							num3++;
+
+
+							const Eigen::MatrixXi IF = glued;
+
+							std::ofstream ofs("SCFT_S{S,g}S.txt", std::ios::app); // append 모드
+							if (!ofs) {
+								std::cerr << "[!] cannot open output file\n";
+							} else {
+								for (int r = 0; r < IF.rows(); ++r) {
+									for (int c = 0; c < IF.cols(); ++c) {
+										if (c) ofs << ' ';     // 공백 구분
+										ofs << IF(r, c);
+									}
+									ofs << '\n';
+								}
+								ofs << '\n';  // 행렬 사이에 빈 줄
+							}
+
+
 							std::cout << "SCFT found " << std::endl;
 							std::cout << g.GetIntersectionForm() << std::endl;
 
@@ -214,7 +233,7 @@ int main() {
 			}
 		}
 	}
-	*/
+	
 
 
 	std::cout << "total SCFT s-n: " << num << std::endl;
@@ -224,11 +243,5 @@ int main() {
 	
 	
 
-	for (int i =0; i < Nparams; i++)
-	{
-
-		std::cout << params[i] << std::endl;
-
-	}
-
+	
 }
