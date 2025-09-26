@@ -42,12 +42,25 @@ int main() {
 		946, 947, 948, 949, 950, 951, 952, 953, 954, 955, 956, 957
 	};
 
+
 	int Nparams = sizeof(params) / sizeof(params[0]);
 
+
+	int instantons[] = {
+
+	1, 12, 122, 1222, 12222, 122222, 1222222, 12222222, 122222222, 1222222222, 1122222222,
+
+	};
+
+	int Ninsts = sizeof(instantons) /sizeof(instantons[0]);
+
+
+	
 	int num = 0;
 	int num2 = 0;
 	int num3 = 0;
-
+	int num4 = 0;
+/*
 	for (int n: { 4, 6, 7, 8, 12 })
 	{
 		for ( int i = 0; i < Nparams; i++)
@@ -233,12 +246,99 @@ int main() {
 			}
 		}
 	}
-	
+*/	
+	for (int i = 0; i < Nparams; i++)
+	{
+
+		for (int j = 0; j <= i; j++)
+		{
+			std::cout << "processing.................. " << std::endl;
+
+			for (int k = 0; k <= j; k++)
+			{
+				for ( int n: { 4, 6, 7, 8, 12 } )
+				{
+
+					int aux;
+					if ( k <= Ninsts)
+					{
+						aux = k;
+					}
+					else 
+					{
+						aux = Ninsts-1;
+					}
+
+					for (int l = 0; l <= aux ; l++)
+					{
 
 
-	std::cout << "total SCFT s-n: " << num << std::endl;
-       	std::cout << "total SCFT s-n-s: " << num2 << std::endl;
-	std::cout << "total SCFT s-n-s: " << num3 << std::endl;	
+						TheoryGraph G;
+						Tensor g;
+
+
+						auto S1 = G.add(s(params[i]));   // 사이드 링크 #1  (AT(-1), AT(-2)로 구성)
+						auto N = G.add(n_(n));  
+						auto S2 = G.add(s(params[j]));
+						auto S3 = G.add(s(params[k]));
+						auto Inst = G.add(s(instantons[l]));
+
+						try {G.connect(S1, N);} catch (const std::invalid_argument&) {continue;}
+						try {G.connect(S2, N);} catch (const std::invalid_argument&) {continue;}
+						try {G.connect(S3, N);} catch (const std::invalid_argument&) {continue;}
+						try {G.connect(Inst, N);} catch (const std::invalid_argument&) {continue;}
+
+
+
+						Eigen::MatrixXi glued = G.ComposeIF_UnitGluing();
+
+						g.SetIF(glued);
+						g.Setb0Q();
+
+						if ( g.TimeDirection() == 0 && g.NullDirection() == 0)
+						{
+							g.ForcedBlowdown();
+							if ( g.NullDirection() == 0 && g.TimeDirection() == 0)
+							{
+								num4++;
+
+
+								const Eigen::MatrixXi IF = glued;
+
+								std::ofstream ofs("SCFT_S4.txt", std::ios::app); // append 모드
+								if (!ofs) {
+									std::cerr << "[!] cannot open output file\n";
+								} else {
+									for (int r = 0; r < IF.rows(); ++r) {
+										for (int c = 0; c < IF.cols(); ++c) {
+											if (c) ofs << ' ';     // 공백 구분
+											ofs << IF(r, c);
+										}
+										ofs << '\n';
+									}
+									ofs << '\n';  // 행렬 사이에 빈 줄
+								}
+
+
+								std::cout << "SCFT found " << std::endl;
+								std::cout << g.GetIntersectionForm() << std::endl;
+
+								std::cout << "=== Graph Edges ===\n";
+								G.printLinearWithSides();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+
+	std::cout << "total SCFT Sg: " << num << std::endl;
+       	std::cout << "total SCFT SgS: " << num2 << std::endl;
+	std::cout << "total SCFT S{S,g}S: " << num3 << std::endl;	
+	std::cout << "total SCFT S{S,g,I}S: " << num4 << std::endl;	
 	std::cout << "nparams,params " << sizeof(params) << "   " << sizeof(params[0]) << std::endl;
 	
 	
