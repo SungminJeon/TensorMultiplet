@@ -60,7 +60,7 @@ int main() {
 	int num2 = 0;
 	int num3 = 0;
 	int num4 = 0;
-/*
+
 	for (int n: { 4, 6, 7, 8, 12 })
 	{
 		for ( int i = 0; i < Nparams; i++)
@@ -246,7 +246,7 @@ int main() {
 			}
 		}
 	}
-*/	
+/*	
 	for (int i = 0; i < Nparams; i++)
 	{
 
@@ -333,7 +333,7 @@ int main() {
 		}
 	}
 
-
+*/
 
 	std::cout << "total SCFT Sg: " << num << std::endl;
        	std::cout << "total SCFT SgS: " << num2 << std::endl;
