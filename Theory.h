@@ -30,19 +30,32 @@ inline Tensor build_tensor(const Spec& sp){
 	switch (sp.kind){
 		case Kind::SideLink:
 			// s(12) 등 파라미터 내용은 현재 무시: 곡선 2개만 만든다.
-			// instantons
+			// instantons : notation 88(blowdown induced) 
 			if (sp.param == 1) {t.AT(-1);}
-			else if (sp.param == 12 ) {t.AT(-2); t.AT(-1);}
-			else if (sp.param == 122 ) {t.AT(-2); t.AT(-2); t.AT(-1);}	
-			else if (sp.param == 1222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}	
-			else if (sp.param == 12222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}	
-			else if (sp.param == 122222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}	
-			else if (sp.param == 1222222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}	
-			else if (sp.param == 12222222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
-			else if (sp.param == 122222222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
-			else if (sp.param == 1222222222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
-			else if (sp.param == 1122222222 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
+			else if (sp.param == 882 ) {t.AT(-2); t.AT(-1);}
+			else if (sp.param == 883 ) {t.AT(-2); t.AT(-2); t.AT(-1);}	
+			else if (sp.param == 884 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}	
+			else if (sp.param == 885 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}	
+			else if (sp.param == 886 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}	
+			else if (sp.param == 887 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}	
+			else if (sp.param == 8881 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
+			else if (sp.param == 889 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
+			else if (sp.param == 8810 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
+			else if (sp.param == 8811 ) {t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-1);}
+		
+
+			else if (sp.param == 288 ) {t.AT(-1); t.AT(-2);}
+			else if (sp.param == 388 ) {t.AT(-1); t.AT(-2); t.AT(-2);}	
+			else if (sp.param == 488 ) {t.AT(-1); t.AT(-2); t.AT(-2); t.AT(-2);}	
+			else if (sp.param == 588 ) {t.AT(-1); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2);}	
+			else if (sp.param == 688 ) {t.AT(-1); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2);}	
+			else if (sp.param == 788 ) {t.AT(-1); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2);}	
+			else if (sp.param == 1888 ) {t.AT(-1); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2);}
+			else if (sp.param == 988 ) {t.AT(-1); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2);}
+			else if (sp.param == 1088 ) {t.AT(-1); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2);}
+			else if (sp.param == 1188 ) {t.AT(-1); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2); t.AT(-2);}
 			
+
 			// interiors
 			else if (sp.param == 11 ) { t.AL(1,1); }
 			else if (sp.param == 22 ) { t.AL(2,2); }
@@ -770,15 +783,26 @@ private:
 	if (sideParam == 956 && nodeParam > 6)   return true;
 	if (sideParam == 957 && (nodeParam < 6 || nodeParam > 6 ))   return true;
 
-	if (sideParam == 1122222222 && nodeParam < 12)   return true;
-	if (sideParam == 1222222222 && nodeParam < 11)   return true;
-	if (sideParam == 122222222 && nodeParam < 10)   return true;
-	if (sideParam == 12222222 && nodeParam < 9)   return true;
-	if (sideParam == 1222222 && nodeParam < 8)   return true;
-	if (sideParam == 122222 && nodeParam < 7)   return true;
-	if (sideParam == 12222 && nodeParam < 6)   return true;
-	if (sideParam == 1222 && nodeParam < 5)   return true;
-	if (sideParam == 122 && nodeParam < 4)   return true;
+	if (sideParam == 1188 && nodeParam < 12)   return true;
+	if (sideParam == 1088 && nodeParam < 11)   return true;
+	if (sideParam == 988 && nodeParam < 10)   return true;
+	if (sideParam == 1888 && nodeParam < 9)   return true;
+	if (sideParam == 788 && nodeParam < 8)   return true;
+	if (sideParam == 688 && nodeParam < 7)   return true;
+	if (sideParam == 588 && nodeParam < 6)   return true;
+	if (sideParam == 488 && nodeParam < 5)   return true;
+	if (sideParam == 388 && nodeParam < 4)   return true;
+	if (sideParam == 8811 && nodeParam < 12)   return true;
+	if (sideParam == 8810 && nodeParam < 11)   return true;
+	if (sideParam == 889 && nodeParam < 10)   return true;
+	if (sideParam == 8881 && nodeParam < 9)   return true;
+	if (sideParam == 887 && nodeParam < 8)   return true;
+	if (sideParam == 886 && nodeParam < 7)   return true;
+	if (sideParam == 885 && nodeParam < 6)   return true;
+	if (sideParam == 884 && nodeParam < 5)   return true;
+	if (sideParam == 883 && nodeParam < 4)   return true;
+	
+	
 	if (sideParam == 99910 && nodeParam > 6)   return true;
 	if (sideParam == 99901 && nodeParam > 6)   return true;
 	if (sideParam == 99920 && (nodeParam < 6 || nodeParam > 8 ))   return true;
@@ -887,6 +911,53 @@ private:
 
 	    if (sideParam == 99903 && nodeParam > 3 
 			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+
+	    if (sideParam == 288 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 388 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 488 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 588 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 688 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 788 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 1888 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 988 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 1088 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 1188 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+
+	    if (sideParam == 882 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 883 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 884 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 885 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 886 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 887 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 8881 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 889 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 8810 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 8811 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+
+
+
+
+
 
 
 
