@@ -1112,6 +1112,6 @@ static inline bool isBannedPairIN_(int interiorParam, int nodeParam) {
 
 	return false;
 
-
+	}
 };
 
