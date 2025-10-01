@@ -863,255 +863,221 @@ private:
 	    if (sideParam == 9916 && (nodeParam < 6 || nodeParam > 8 ))   return true;
 	    if (sideParam == 9917 && (nodeParam < 6 || nodeParam > 6 ))   return true;
 
+	    return false;
+    }
 
-	    static inline bool isBannedPair_(int sideParam, int nodeParam) {
+    // 포트까지 특정해서 금지 (해당 포트 조합일 때만 금지)
+    static inline bool isBannedPortPair_(int sideParam, int nodeParam, Port sidePort, Port nodePort) {
+	    // ====== 여기에 포트까지 특정 금지 조합 하드코딩 ======
+	    //
+	    if (sideParam == 32 && nodeParam > 4
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+
+	    if (sideParam == 23 && nodeParam > 4
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+
+	    if (sideParam == 23 && nodeParam > 8
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+
+	    if (sideParam == 32 && nodeParam > 8
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+
+	    if (sideParam == 42 && nodeParam > 4
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+
+	    if (sideParam == 24 && nodeParam > 4
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+
+	    if (sideParam == 42 && nodeParam < 6
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+
+	    if (sideParam == 24 && nodeParam < 6
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+
+	    if (sideParam == 43 && nodeParam > 6
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+
+	    if (sideParam == 43 && (nodeParam < 6 || nodeParam > 8)
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+
+	    if (sideParam == 34 && nodeParam > 6
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+
+	    if (sideParam == 34 && (nodeParam < 6 || nodeParam > 8)
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+
+	    if (sideParam == 53 && nodeParam > 6
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+
+	    if (sideParam == 53 && nodeParam < 6
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+
+	    if (sideParam == 35 && nodeParam > 6   
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+
+	    if (sideParam == 35 && nodeParam < 6 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+
+	    if (sideParam == 54 && (nodeParam > 8 || nodeParam < 6)
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+
+	    if (sideParam == 54 && nodeParam < 6
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
-		    // 예시들 — 필요에 맞게 바꿔/추가
+	    if (sideParam == 45 && (nodeParam > 8 || nodeParam < 6)  
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
-		    if (sideParam == 11 && nodeParam > 4)   return true;
-		    if (sideParam == 22 && nodeParam > 6)   return true;
-		    if (sideParam == 33 && nodeParam > 8)   return true;
-		    if (sideParam == 331 && nodeParam > 6)   return true;
-		    if (sideParam == 44 && (nodeParam > 8 || nodeParam < 6))   return true;
-		    if (sideParam == 55 && nodeParam < 6)   return true;
+	    if (sideParam == 45 && nodeParam < 6 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 
+	    if (sideParam == 99910 && nodeParam > 3  
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
+	    if (sideParam == 99901 && nodeParam > 3 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 99920 && nodeParam > 3  
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
+	    if (sideParam == 99902 && nodeParam > 3 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 
-		    if (sideParam == 991 && nodeParam > 4)   return true;
-		    if (sideParam == 9920 && nodeParam > 4)  return true;
-		    if (sideParam == 9902 && nodeParam > 4)  return true;
-		    if (sideParam == 993 && (nodeParam > 8 || nodeParam < 6))   return true;
-		    if (sideParam == 91 && (nodeParam > 8|| nodeParam < 6))   return true;
-		    if (sideParam == 92 && nodeParam > 4)   return true;
-		    if (sideParam == 94 && nodeParam < 7)   return true;
-		    if (sideParam == 95 && nodeParam < 7)   return true;
-		    if (sideParam == 96 && nodeParam < 6)   return true;
-		    if (sideParam == 97 && nodeParam > 8)   return true;
-		    if (sideParam == 98 && nodeParam > 8)   return true;
-		    if (sideParam == 99 && nodeParam > 8)   return true;
-		    if (sideParam == 910 && (nodeParam > 8 || nodeParam < 7))   return true;
-		    if (sideParam == 911 && (nodeParam < 6 || nodeParam > 8))   return true;
-		    if (sideParam == 912 && nodeParam > 6)   return true;
-		    if (sideParam == 913 && nodeParam != 6)   return true;
-		    if (sideParam == 914 && nodeParam != 6)   return true;
-		    if (sideParam == 915 && nodeParam > 6)   return true;
-		    // ================================================
-		    return false;
-	    }
-
-	    // 포트까지 특정해서 금지 (해당 포트 조합일 때만 금지)
-	    static inline bool isBannedPortPair_(int sideParam, int nodeParam, Port sidePort, Port nodePort) {
-		    // ====== 여기에 포트까지 특정 금지 조합 하드코딩 ======
-		    //
-		    if (sideParam == 32 && nodeParam > 4
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-
-		    if (sideParam == 23 && nodeParam > 4
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-
-		    if (sideParam == 23 && nodeParam > 8
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-
-		    if (sideParam == 32 && nodeParam > 8
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-
-		    if (sideParam == 42 && nodeParam > 4
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-
-		    if (sideParam == 24 && nodeParam > 4
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-
-		    if (sideParam == 42 && nodeParam < 6
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-
-		    if (sideParam == 24 && nodeParam < 6
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-
-		    if (sideParam == 43 && nodeParam > 6
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-
-		    if (sideParam == 43 && (nodeParam < 6 || nodeParam > 8)
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-
-		    if (sideParam == 34 && nodeParam > 6
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-
-		    if (sideParam == 34 && (nodeParam < 6 || nodeParam > 8)
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-
-		    if (sideParam == 53 && nodeParam > 6
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-
-		    if (sideParam == 53 && nodeParam < 6
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-
-		    if (sideParam == 35 && nodeParam > 6   
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-
-		    if (sideParam == 35 && nodeParam < 6 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-
-		    if (sideParam == 54 && (nodeParam > 8 || nodeParam < 6)
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-
-		    if (sideParam == 54 && nodeParam < 6
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-
-		    if (sideParam == 45 && (nodeParam > 8 || nodeParam < 6)  
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-
-		    if (sideParam == 45 && nodeParam < 6 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-
-		    if (sideParam == 99910 && nodeParam > 3  
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-
-		    if (sideParam == 99901 && nodeParam > 3 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-		    if (sideParam == 99920 && nodeParam > 3  
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-
-		    if (sideParam == 99902 && nodeParam > 3 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-
-		    if (sideParam == 99930 && nodeParam > 3  
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-
-		    if (sideParam == 99903 && nodeParam > 3 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-
-		    if (sideParam == 288 && nodeParam > 0 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-		    if (sideParam == 388 && nodeParam > 0 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-		    if (sideParam == 488 && nodeParam > 0 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-		    if (sideParam == 588 && nodeParam > 0 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-		    if (sideParam == 688 && nodeParam > 0 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-		    if (sideParam == 788 && nodeParam > 0 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-		    if (sideParam == 1888 && nodeParam > 0 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-		    if (sideParam == 988 && nodeParam > 0 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-		    if (sideParam == 1088 && nodeParam > 0 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
-		    if (sideParam == 1188 && nodeParam > 0 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 99930 && nodeParam > 3  
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
-		    if (sideParam == 882 && nodeParam > 0 
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-		    if (sideParam == 883 && nodeParam > 0 
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-		    if (sideParam == 884 && nodeParam > 0 
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-		    if (sideParam == 885 && nodeParam > 0 
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-		    if (sideParam == 886 && nodeParam > 0 
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-		    if (sideParam == 887 && nodeParam > 0 
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-		    if (sideParam == 8881 && nodeParam > 0 
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-		    if (sideParam == 889 && nodeParam > 0 
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-		    if (sideParam == 8810 && nodeParam > 0 
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
-		    if (sideParam == 8811 && nodeParam > 0 
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 99903 && nodeParam > 3 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 
+	    if (sideParam == 288 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 388 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 488 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 588 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 688 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 788 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 1888 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 988 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 1088 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 1188 && nodeParam > 0 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 
+	    if (sideParam == 882 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 883 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 884 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 885 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 886 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 887 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 8881 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 889 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 8810 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 8811 && nodeParam > 0 
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
-		    // ================================================
-		    return false;
-	    }
 
-	    static inline bool isBannedPortPairIN_(int sideParam, int nodeParam,
-			    Port sidePort, Port nodePort) {
 
-		    if (sideParam == 32 && nodeParam > 4
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    // ================================================
+	    return false;
+    }
 
-		    if (sideParam == 23 && nodeParam > 4
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
+    static inline bool isBannedPortPairIN_(int sideParam, int nodeParam,
+		    Port sidePort, Port nodePort) {
 
-		    if (sideParam == 23 && nodeParam > 8
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 32 && nodeParam > 4
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 
-		    if (sideParam == 32 && nodeParam > 8
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 23 && nodeParam > 4
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
-		    if (sideParam == 42 && nodeParam > 4
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 23 && nodeParam > 8
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 
-		    if (sideParam == 24 && nodeParam > 4
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 32 && nodeParam > 8
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
-		    if (sideParam == 42 && nodeParam < 6
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 42 && nodeParam > 4
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 
-		    if (sideParam == 24 && nodeParam < 6
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 24 && nodeParam > 4
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
-		    if (sideParam == 43 && nodeParam > 6
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 42 && nodeParam < 6
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
-		    if (sideParam == 43 && (nodeParam < 6 || nodeParam > 8)
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 24 && nodeParam < 6
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 
-		    if (sideParam == 34 && nodeParam > 6
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 43 && nodeParam > 6
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 
-		    if (sideParam == 34 && (nodeParam < 6 || nodeParam > 8)
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 43 && (nodeParam < 6 || nodeParam > 8)
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
-		    if (sideParam == 53 && nodeParam > 6
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 34 && nodeParam > 6
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
-		    if (sideParam == 53 && nodeParam < 6
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 34 && (nodeParam < 6 || nodeParam > 8)
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 
-		    if (sideParam == 35 && nodeParam > 6   
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 53 && nodeParam > 6
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 
-		    if (sideParam == 35 && nodeParam < 6 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 53 && nodeParam < 6
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
-		    if (sideParam == 54 && (nodeParam > 8 || nodeParam < 6)
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 35 && nodeParam > 6   
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
-		    if (sideParam == 54 && nodeParam < 6
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 35 && nodeParam < 6 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 
-		    if (sideParam == 45 && (nodeParam > 8 || nodeParam < 6)  
-				    && sidePort == Port::Left && nodePort == Port::Right) return true;
+	    if (sideParam == 54 && (nodeParam > 8 || nodeParam < 6)
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 
-		    if (sideParam == 45 && nodeParam < 6 
-				    && sidePort == Port::Right && nodePort == Port::Left) return true;
+	    if (sideParam == 54 && nodeParam < 6
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
+	    if (sideParam == 45 && (nodeParam > 8 || nodeParam < 6)  
+			    && sidePort == Port::Left && nodePort == Port::Right) return true;
 
+	    if (sideParam == 45 && nodeParam < 6 
+			    && sidePort == Port::Right && nodePort == Port::Left) return true;
 
-		    return false;
-	    }
 
-// 사이드-노드 "전체 금지" (포트 상관없이 금지)
-static inline bool isBannedPairIN_(int interiorParam, int nodeParam) {
 
-	// 예시들 — 필요에 맞게 바꿔/추가
+	    return false;
+    }
 
-	if (interiorParam == 11 && nodeParam > 4)   return true;
-	if (interiorParam == 22 && nodeParam > 6)   return true;
-	if (interiorParam == 33 && nodeParam > 8)   return true;
-	if (interiorParam == 331 && nodeParam > 6)   return true;
-	if (interiorParam == 44 && (nodeParam > 8 || nodeParam < 6))   return true;
-	if (interiorParam == 55 && nodeParam < 6)   return true;
+    // 사이드-노드 "전체 금지" (포트 상관없이 금지)
+    static inline bool isBannedPairIN_(int interiorParam, int nodeParam) {
 
+	    // 예시들 — 필요에 맞게 바꿔/추가
 
-	return false;
+	    if (interiorParam == 11 && nodeParam > 4)   return true;
+	    if (interiorParam == 22 && nodeParam > 6)   return true;
+	    if (interiorParam == 33 && nodeParam > 8)   return true;
+	    if (interiorParam == 331 && nodeParam > 6)   return true;
+	    if (interiorParam == 44 && (nodeParam > 8 || nodeParam < 6))   return true;
+	    if (interiorParam == 55 && nodeParam < 6)   return true;
 
-	}
+
+	    return false;
+
+    }
 };
 
