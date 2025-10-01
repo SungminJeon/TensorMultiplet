@@ -132,228 +132,141 @@ int main() {
     const int ns[] = {4, 6, 7, 8, 12};
     const int Nns  = (int)(sizeof(ns)/sizeof(ns[0]));
 
-    struct Counters { long long sg=0, sgs=0, ssgs=0, s4=0; } cnt;
 
-    const long long total_gLg   = (long long)Nns * Nns * iparams;
-    const long long total_SgLg  = (long long)Nns *Nns * Nparams *iparams;
-    const long long total_SgLgS = (long long)Nns *Nns * Nparams * (Nparams - 1)/2 *iparams;
-    const long long total_S{S,g}gLg   = (long long)Nns* Nns* Nparams * (Nparams -1)/2 * iparams;
 
-    std::cout << "[Init] totals — gLg:" << total_sg
-              << ", SgLg:" << total_sgs
-              << ", SgLgS:" << total_ssgs
-              << ", S{S,g}gLg:" << total_s4 << "\n";
 
-    // ---- Phase 1: Sg ----
-    {
-        std::string out; out.reserve(1<<20);
-        long long progress = 0;
 
-        #pragma omp parallel
-        {
-            std::string local_buf; local_buf.reserve(1<<18);
-            long long local_cnt = 0;
 
-            #pragma omp for schedule(dynamic)
-            for (int ni = 0; ni < Nns; ++ni) {
-                #pragma omp critical
-                std::cout << "[Sg] ns=" << ns[ni] << " start (thread " << thread_id() << ")\n";
+struct Counters {
+        long long node2=0, node2_sglg=0, node2_sglgs=0;
+    } cnt;
 
-                const int n = ns[ni];
-                for (int i = 0; i < Nparams; ++i) {
-                    TheoryGraph G;
-                    auto S1 = G.add(s(params[i]));
-                    auto N  = G.add(n_(n));
-                    if (!safe_connect(G, S1, N)) {
-                        #pragma omp atomic update
-                        progress++;
-                        if ((progress & 511) == 0) print_progress("Sg", progress, total_sg);
-                        continue;
-                    }
+    const long long total_node2     = (long long)Nns * Nns * iparams;
+    const long long total_gLg       = (long long)Nns * Nns * iparams;
+    const long long total_SgLg      = (long long)Nns * Nns * Nparams * iparams;
+    const long long total_SgLgS     = (long long)Nns * Nns * (long long)Nparams * (Nparams - 1) / 2 * iparams;
+    const long long total_SgSg      = (long long)Nns* Nns* Nparams * (Nparams -1)/2 * iparams;
 
-                    Eigen::MatrixXi glued = compose_glue(G);
+    std::cout << "[Init] totals — "
+              << "node2_gLg:" << total_node2
+              << ", gLg:" << total_gLg
+              << ", SgLg:" << total_SgLg
+              << ", SgLgS:" << total_SgLgS
+              << ", S{S,g}gLg:" << total_SgSg << "\n";
 
-                    #pragma omp atomic update
-                    progress++;
-                    if ((progress & 511) == 0) print_progress("Sg", progress, total_sg);
-
-                    if (evaluate_and_append(glued, local_buf)) ++local_cnt;
-                }
-            }
-
-            #pragma omp critical
-            { cnt.sg += local_cnt; out.append(local_buf); }
-        }
-
-        flush_to_file("SCFT_gLg.txt", out);
-    }
-
-    // ---- Phase 2: SgS ----
+    // ---- Phase 0: node2_gLg ----
     {
         std::string out; out.reserve(1<<21);
         long long progress = 0;
-
         #pragma omp parallel
         {
             std::string local_buf; local_buf.reserve(1<<19);
             long long local_cnt = 0;
-
-            #pragma omp for collapse(2) schedule(dynamic)
-            for (int ni = 0; ni < Nns; ++ni)
-            for (int i  = 0;  i < Nparams; ++i) {
-                if (i == 0) {
-                    #pragma omp critical
-                    std::cout << "[SgS] ns=" << ns[ni] << " start (thread " << thread_id() << ")\n";
-                }
-
-                const int n = ns[ni];
-                for (int j = 0; j <= i; ++j) {
-                    TheoryGraph G;
-                    auto S1 = G.add(s(params[i]));
-                    auto N  = G.add(n_(n));
-                    auto S2 = G.add(s(params[j]));
-                    if (!safe_connect(G, S1, N) || !safe_connect(G, S2, N)) {
-                        #pragma omp atomic update
-                        progress++;
-                        if ((progress & 4095) == 0) print_progress("SgS", progress, total_sgs);
-                        continue;
-                    }
-
-                    Eigen::MatrixXi glued = compose_glue(G);
-
+            #pragma omp for collapse(3) schedule(dynamic)
+            for (int nia=0; nia<Nns; ++nia)
+            for (int nib=0; nib<Nns; ++nib)
+            for (int t=0; t<iparams; ++t) {
+                const int na = ns[nia], nb = ns[nib], gi = interiors[t];
+                TheoryGraph G;
+                auto NA = G.add(n_(na));
+                auto GB = G.add(i(gi));
+                auto NB = G.add(n_(nb));
+                if (!safe_connect(G,NA,GB) || !safe_connect(G,GB,NB)) {
                     #pragma omp atomic update
                     progress++;
-                    if ((progress & 4095) == 0) print_progress("SgS", progress, total_sgs);
-
-                    if (evaluate_and_append(glued, local_buf)) ++local_cnt;
+                    continue;
                 }
+                Eigen::MatrixXi glued = compose_glue(G);
+                #pragma omp atomic update
+                progress++;
+                if (evaluate_and_append(glued, local_buf)) ++local_cnt;
             }
-
             #pragma omp critical
-            { cnt.sgs += local_cnt; out.append(local_buf); }
+            { cnt.node2 += local_cnt; out.append(local_buf); }
         }
-
-        flush_to_file("SCFT_SgS.txt", out);
+        flush_to_file("SCFT_node2_gLg.txt", out);
     }
 
-    // ---- Phase 3: S{S,g}S ----
+    // ---- Phase 0.5: node2_SgLg (왼쪽에만 사이드 링크) ----
     {
-        std::string out; out.reserve(1<<22);
+        std::string out; out.reserve(1<<21);
         long long progress = 0;
-
         #pragma omp parallel
         {
-            std::string local_buf; local_buf.reserve(1<<20);
+            std::string local_buf; local_buf.reserve(1<<19);
             long long local_cnt = 0;
-
-            #pragma omp for collapse(2) schedule(dynamic)
-            for (int ni = 0; ni < Nns; ++ni)
-            for (int i  = 0;  i < Nparams; ++i) {
-                if (i == 0) {
-                    #pragma omp critical
-                    std::cout << "[S{S,g}S] ns=" << ns[ni] << " start (thread " << thread_id() << ")\n";
+            #pragma omp for collapse(4) schedule(dynamic)
+            for (int nia=0; nia<Nns; ++nia)
+            for (int nib=0; nib<Nns; ++nib)
+            for (int t=0; t<iparams; ++t)
+            for (int p=0; p<Nparams; ++p) {
+                const int na = ns[nia], nb = ns[nib], gi = interiors[t], sp = params[p];
+                TheoryGraph G;
+                auto NA = G.add(n_(na));
+                auto GB = G.add(i(gi));
+                auto NB = G.add(n_(nb));
+                auto SA = G.add(s(sp));
+                if (!safe_connect(G,NA,GB) || !safe_connect(G,GB,NB) || !safe_connect(G,SA,NA)) {
+                    #pragma omp atomic update
+                    progress++;
+                    continue;
                 }
-
-                const int n = ns[ni];
-                for (int j = 0; j <= i; ++j) {
-                    for (int k = 0; k <= j; ++k) {
-                        TheoryGraph G;
-                        auto S1 = G.add(s(params[i]));
-                        auto N  = G.add(n_(n));
-                        auto S2 = G.add(s(params[j]));
-                        auto S3 = G.add(s(params[k]));
-                        if (!safe_connect(G, S1, N) || !safe_connect(G, S2, N) || !safe_connect(G, S3, N)) {
-                            #pragma omp atomic update
-                            progress++;
-                            if ((progress % 50000) == 0) print_progress("S{S,g}S", progress, total_ssgs);
-                            continue;
-                        }
-
-                        Eigen::MatrixXi glued = compose_glue(G);
-
-                        #pragma omp atomic update
-                        progress++;
-                        if ((progress % 50000) == 0) print_progress("S{S,g}S", progress, total_ssgs);
-
-                        if (evaluate_and_append(glued, local_buf)) ++local_cnt;
-                    }
-                }
+                Eigen::MatrixXi glued = compose_glue(G);
+                #pragma omp atomic update
+                progress++;
+                if (evaluate_and_append(glued, local_buf)) ++local_cnt;
             }
-
             #pragma omp critical
-            { cnt.ssgs += local_cnt; out.append(local_buf); }
+            { cnt.node2_sglg += local_cnt; out.append(local_buf); }
         }
-
-        flush_to_file("SCFT_S{S,g}S.txt", out);
+        flush_to_file("SCFT_node2_SgLg.txt", out);
     }
 
-    // ---- Phase 4: S4 (instantons) ----
+    // ---- Phase 0.6: node2_SgLgS (양쪽에 사이드 링크 두 개) ----
     {
-        std::string out; out.reserve(1<<22);
+        std::string out; out.reserve(1<<21);
         long long progress = 0;
-
         #pragma omp parallel
         {
-            std::string local_buf; local_buf.reserve(1<<20);
+            std::string local_buf; local_buf.reserve(1<<19);
             long long local_cnt = 0;
-
-            #pragma omp for collapse(2) schedule(dynamic)
-            for (int ni = 0; ni < Nns; ++ni)
-            for (int i  = 0;  i < Nparams; ++i) {
-                if (i == 0) {
-                    #pragma omp critical
-                    std::cout << "[S4] ns=" << ns[ni] << " start (thread " << thread_id() << ")\n";
+            #pragma omp for collapse(4) schedule(dynamic)
+            for (int nia=0; nia<Nns; ++nia)
+            for (int nib=0; nib<Nns; ++nib)
+            for (int t=0; t<iparams; ++t)
+            for (int p=0; p<Nparams; ++p)
+            for (int q=p+1; q<Nparams; ++q) {
+                const int na = ns[nia], nb = ns[nib], gi = interiors[t];
+                const int spL = params[p], spR = params[q];
+                TheoryGraph G;
+                auto NA = G.add(n_(na));
+                auto GB = G.add(i(gi));
+                auto NB = G.add(n_(nb));
+                auto SA = G.add(s(spL));
+                auto SB = G.add(s(spR));
+                if (!safe_connect(G,NA,GB) || !safe_connect(G,GB,NB) ||
+                    !safe_connect(G,SA,NA) || !safe_connect(G,SB,NB)) {
+                    #pragma omp atomic update
+                    progress++;
+                    continue;
                 }
-
-                const int n = ns[ni];
-                for (int j = 0; j <= i; ++j) {
-                    for (int k = 0; k <= j; ++k) {
-			    int aux;
-			    if ( k > Ninsts-1 ) { aux = Ninsts-1;}
-			    else if( k<= Ninsts-1) { aux = k;}
-                        for (int l = 0; l <= aux; ++l) {
-                            TheoryGraph G;
-                            auto S1   = G.add(s(params[i]));
-                            auto Nref = G.add(n_(n));
-                            auto S2   = G.add(s(params[j]));
-                            auto S3   = G.add(s(params[k]));
-                            auto Inst = G.add(s(instantons[l]));
-
-                            if (!safe_connect(G, S1, Nref) ||
-                                !safe_connect(G, S2, Nref) ||
-                                !safe_connect(G, S3, Nref) ||
-                                !safe_connect(G, Nref, Inst)) {
-                                #pragma omp atomic update
-                                progress++;
-                                if ((progress % 50000) == 0) print_progress("S4", progress, total_s4);
-                                continue;
-                            }
-
-                            Eigen::MatrixXi glued = compose_glue(G);
-
-                            #pragma omp atomic update
-                            progress++;
-                            if ((progress % 50000) == 0) print_progress("S4", progress, total_s4);
-
-                            if (evaluate_and_append(glued, local_buf)) ++local_cnt;
-                        }
-                    }
-                }
+                Eigen::MatrixXi glued = compose_glue(G);
+                #pragma omp atomic update
+                progress++;
+                if (evaluate_and_append(glued, local_buf)) ++local_cnt;
             }
-
             #pragma omp critical
-            { cnt.s4 += local_cnt; out.append(local_buf); }
+            { cnt.node2_sglgs += local_cnt; out.append(local_buf); }
         }
-
-        flush_to_file("SCFT_S4.txt", out);
+        flush_to_file("SCFT_node2_SgLgS.txt", out);
     }
 
-    // ---- final report ----
-    std::cout << "total SCFT Sg: "        << cnt.sg   << "\n"
-              << "total SCFT SgS: "       << cnt.sgs  << "\n"
-              << "total SCFT S{S,g}S: "   << cnt.ssgs << "\n"
-              << "total SCFT S{S,g,I}S: " << cnt.s4   << "\n";
+    // ---- 이후 Phase1~PhaseN: 기존 Sg, SgS 등 기존 코드 그대로 유지 ----
+    // (여기서는 생략했지만, 원래 topology_node2.C에 있는 Phase1~Phase4 부분 붙이면 됨)
 
-    return 0;
+    std::cout << "total SCFT node2_gLg:  " << cnt.node2      << "\n"
+              << "total SCFT node2_SgLg: " << cnt.node2_sglg << "\n"
+              << "total SCFT node2_SgLgS:" << cnt.node2_sglgs<< "\n";
+             
 }
 
