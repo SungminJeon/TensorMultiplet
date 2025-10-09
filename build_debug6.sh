@@ -8,7 +8,7 @@ set -e
 CXX=g++
 CXXFLAGS="-std=c++17 -O2 -Wall -Wextra"
 OUT=debug6                # 실행 파일 이름
-SRC=("debug6.C" "Theory.C")   # 소스 파일 목록
+SRC=("debug6.C" "Tensor.C")   # 소스 파일 목록
 
 # Eigen 헤더 경로(보통 /usr/include/eigen3)
 EIGEN_INC=$(pkg-config --cflags eigen3 2>/dev/null || echo "-I/usr/include/eigen3")

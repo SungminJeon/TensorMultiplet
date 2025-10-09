@@ -558,7 +558,7 @@ bool Tensor::Blowdown5(int n) 			//THIS METHOD IS FOR BLOWING DOWN b0Q COMPONENT
 							v.push_back(k);
 							vcont.push_back(intersection_form(n-1,k));
 							b0_comp[k]+=intersection_form(n-1,k);
-							B(k,k) += intersection_form(n-1,k);					
+							B(k,k) += intersection_form(n-1,k) * intersection_form(n-1,k);					
 
 						}
 						if ( k > n-1 )
@@ -566,7 +566,7 @@ bool Tensor::Blowdown5(int n) 			//THIS METHOD IS FOR BLOWING DOWN b0Q COMPONENT
 							v.push_back(k-1);
 							vcont.push_back(intersection_form(n-1,k));
 							b0_comp[k-1]+=intersection_form(n-1,k);
-							B(k-1,k-1) += intersection_form(n-1,k);
+							B(k-1,k-1) += intersection_form(n-1,k) * intersection_form(n-1,k);
 						}
 					}
 					
@@ -633,7 +633,7 @@ bool Tensor::Blowdown5(int n) 			//THIS METHOD IS FOR BLOWING DOWN b0Q COMPONENT
 							v.push_back(k);
 							vcont.push_back(intersection_form(n-1,k));
 							b0_comp[k]+=intersection_form(n-1,k);
-							B(k,k) += intersection_form(n-1,k);					
+							B(k,k) += intersection_form(n-1,k) * intersection_form(n-1,k);					
 
 						}
 						if ( k > n-1 )
@@ -641,7 +641,7 @@ bool Tensor::Blowdown5(int n) 			//THIS METHOD IS FOR BLOWING DOWN b0Q COMPONENT
 							v.push_back(k-1);
 							vcont.push_back(intersection_form(n-1,k));
 							b0_comp[k-1]+=intersection_form(n-1,k);
-							B(k-1,k-1) +=intersection_form(n-1,k);
+							B(k-1,k-1) +=intersection_form(n-1,k) * intersection_form(n-1,k);
 						}
 					}
 				}
