@@ -765,14 +765,14 @@ private:
 	    if (sideParam == 9920 && nodeParam > 4)  return true;
 	    if (sideParam == 9902 && nodeParam > 4)  return true;
 	    if (sideParam == 993 && (nodeParam > 8 || nodeParam < 6))   return true;
-	    if (sideParam == 91 && (nodeParam > 8|| nodeParam < 6))   return true;
+	    if (sideParam == 91 && (nodeParam > 8|| nodeParam < 8))   return true;
 	    if (sideParam == 92 && nodeParam > 4)   return true;
 	    if (sideParam == 94 && nodeParam < 7)   return true;
 	    if (sideParam == 95 && nodeParam < 7)   return true;
 	    if (sideParam == 96 && nodeParam < 6)   return true;
 	    if (sideParam == 97 && nodeParam > 8)   return true;
 	    if (sideParam == 98 && nodeParam > 8)   return true;
-	    if (sideParam == 99 && nodeParam > 8)   return true;
+	    if (sideParam == 99 && (nodeParam > 8 || nodeParam < 6))   return true;
 	    if (sideParam == 910 && (nodeParam > 8 || nodeParam < 7))   return true;
 	    if (sideParam == 911 && (nodeParam < 6 || nodeParam > 8))   return true;
 	    if (sideParam == 912 && nodeParam > 6)   return true;

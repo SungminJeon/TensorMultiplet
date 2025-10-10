@@ -1,4 +1,0 @@
-professor Hamada's notation => intersection_form
-then compare the result of mine and the table of intersection_form obtained from the above process..
-
-this method captures all possiblities??... for simple SCFTs yes.. but..

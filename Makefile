@@ -1,22 +1,37 @@
-CXX = g++
-CXXFLAGS = -std=c++17 -O3 -fopenmp -Wall -Wextra
-INCLUDES = -I/usr/include/eigen3   # Eigen 헤더 경로
+#────────────────────────────────────────
+# Makefile — manually specify build targets
+#────────────────────────────────────────
 
-# 실행 파일 이름
-TARGET = topology_node2
+CXX      = g++
+CXXFLAGS = -std=c++17 -O3 -Wall -Wextra -fopenmp -DNDEBUG
+INCLUDES = -I/usr/include/eigen3 -I.
 
-# 소스
-SRCS = topology_node2.C Tensor.C
-OBJS = $(SRCS:.C=.o)
+# 공용 코어
+CORE_SRC = Tensor.C
+CORE_OBJ = $(CORE_SRC:.C=.o)
+CORE_LIB = libcore.a
 
-all: $(TARGET)
+# 👇 여기서 수동으로 빌드할 타깃을 지정
+TARGETS = topology_opt topology_node2
 
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ $^
+# ────────────────────────────────────────
+all: $(CORE_LIB) $(TARGETS)
+
+# 각 실행파일에 대응되는 소스 (.C 파일명 동일)
+$(TARGETS): %: %.o $(CORE_LIB)
+	@echo "[+] Linking $@"
+	$(CXX) $(CXXFLAGS) $< -L. -lcore -o $@
+
+$(CORE_LIB): $(CORE_OBJ)
+	@echo "[+] Archiving $@"
+	ar rcs $@ $^
 
 %.o: %.C
+	@echo "[+] Compiling $<"
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(TARGETS) $(CORE_OBJ) $(CORE_LIB) *.o *.txt
+
+.PHONY: all clean
 

@@ -1,64 +1,49 @@
-// topology_node2_scft.cpp
-// 목적: 두 노드(g–L–g), SgLg, SgLgS 전수 탐색 → IF 구성 → SCFT 판정(블로우다운 포함) → "통과 개수" 집계
-// 빌드 예:
-//   g++ -std=c++17 -O3 -Wall -Wextra -I/usr/include/eigen3 \
-//       topology_node2_scft.cpp Tensor.C Theory.C -o topology_node2
-// 실행 예:
-//   ./topology_node2           # 카운트만
-//   ./topology_node2 dump      # 통과한 IF 스냅샷을 SCFT_node2_*.txt로 저장
+// topology_node2.C — g-L-g families with optional side-links (S)
+//   Phase 1: gLg
+//   Phase 2: SgLg
+//   Phase 3: SgLgS
+//   Phase 4: SSgLg
 //
-// 메모:
-//  - 이 파일은 Tensor/Theory 구현에 의존합니다. (SetIF/Setb0Q/TimeDirection/NullDirection/ForcedBlowdown, ComposeIF_* 등)
+// Build tips:
+//   g++ -std=c++17 -O3 -march=native -flto -fopenmp -DNDEBUG -DEIGEN_NO_DEBUG \
+//       -I/usr/include/eigen3 -I. topology_node2.C -o topology_node2
+//
+// Runtime tips (Linux):
+//   export OMP_NUM_THREADS=$(nproc)
+//   export OMP_PROC_BIND=close
+//   export OMP_PLACES=cores
+//   export OMP_DYNAMIC=false
 
 #ifndef USE_UNIT_GLUING
-#define USE_UNIT_GLUING 1    // 1: ComposeIF_UnitGluing(), 0: ComposeIF_Gluing()
+#define USE_UNIT_GLUING 1
 #endif
 
-#include <algorithm>
-#include <cstdint>
-#include <fstream>
-#include <iomanip>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
+
+#ifdef _OPENMP
+  #include <omp.h>
+#endif
 
 #include <Eigen/Dense>
 #include "Tensor.h"
 #include "Theory.h"
 
-// ---------------- 단순 유틸 ----------------
-static inline void print_progress(const char* name, long long done, long long total) {
-    if (total <= 0) return;
-    const long long step = std::max(1LL, total / 100); // 1% 단위
-    if ((done % step) == 0 || done == total) {
-        const double pct = 100.0 * double(done) / double(total);
-        std::cerr << "[" << name << "] " << done << "/" << total
-                  << " (" << std::fixed << std::setprecision(1) << pct << "%)\n";
-    }
+// ---------- helpers ----------
+
+static inline int thread_id() noexcept {
+#ifdef _OPENMP
+    return omp_get_thread_num();
+#else
+    return 0;
+#endif
 }
 
-static inline void append_to_file(const std::string& path, const std::string& buf) {
-    if (buf.empty()) return;
-    std::ofstream ofs(path, std::ios::app);
-    if (!ofs) { std::cerr << "[!] cannot open: " << path << "\n"; return; }
-    ofs << buf;
-}
-
-// TheoryGraph::connect() 예외를 안전히 잡기 위한 래퍼
-template <class A, class B>
-static inline bool safe_connect(TheoryGraph& G, A a, B b) noexcept {
+static inline bool safe_connect(TheoryGraph &G, NodeRef a, NodeRef b) noexcept {
     try { G.connect(a, b); return true; }
     catch (const std::invalid_argument&) { return false; }
-}
-
-// IF → SCFT 판정 (블로우다운 포함)
-static inline bool scft_pass(const Eigen::MatrixXi& IF) {
-    Tensor T;
-    T.SetIF(IF);
-    T.Setb0Q();
-    if (T.TimeDirection() != 0 || T.NullDirection() != 0) return false;
-    T.ForcedBlowdown();
-    return T.TimeDirection() == 0 && T.NullDirection() == 0;
 }
 
 static inline Eigen::MatrixXi compose_glue(const TheoryGraph& G) {
@@ -69,25 +54,51 @@ static inline Eigen::MatrixXi compose_glue(const TheoryGraph& G) {
 #endif
 }
 
-// IF 직렬화(공백 구분, 줄 바꿈; 블록마다 빈 줄 하나)
-static inline void serialize_IF(const Eigen::MatrixXi& IF, std::string& out) {
-    const int R = IF.rows(), C = IF.cols();
+// Save PRE-blowdown IF if it passes (time=null=0) both before and after blowdown.
+static inline bool evaluate_and_append(const Eigen::MatrixXi &glued,
+                                       std::string &out_buf) {
+    Tensor g;
+    g.SetIF(glued);
+    g.Setb0Q();
+
+    if (g.TimeDirection() != 0 || g.NullDirection() != 0) return false;
+
+    const Eigen::MatrixXi IF0 = g.GetIntersectionForm();
+
+    g.ForcedBlowdown();
+    if (g.TimeDirection() != 0 || g.NullDirection() != 0) return false;
+
+    const int R = IF0.rows(), C = IF0.cols();
     for (int r = 0; r < R; ++r) {
         for (int c = 0; c < C; ++c) {
-            if (c) out.push_back(' ');
-            out.append(std::to_string(IF(r, c)));
+            if (c) out_buf.push_back(' ');
+            out_buf.append(std::to_string(IF0(r, c)));
         }
-        out.push_back('\n');
+        out_buf.push_back('\n');
     }
-    out.push_back('\n');
+    out_buf.push_back('\n');
+    return true;
 }
 
-// ---------------- 메인 ----------------
-int main(int argc, char** argv) {
-    const bool dump = (argc >= 2 && std::string(argv[1]) == "dump");
+static inline void flush_to_file(const char *path, const std::string &buf) {
+    if (buf.empty()) return;
+    std::ofstream ofs(path, std::ios::app);
+    if (!ofs) { std::cerr << "[!] cannot open: " << path << "\n"; return; }
+    ofs << buf;
+}
 
-    // 파라미터 테이블 (이전 대화 기준)
-    const int PARAMS[] = {
+static inline void print_progress(const char* phase, long long cur, long long tot) {
+    if (tot == 0) return;
+    const double pct = 100.0 * double(cur) / double(tot);
+    std::cout << "[" << phase << "] " << cur << "/" << tot << " (" << pct << "%)\n";
+}
+
+int main() {
+    std::cout.setf(std::ios::unitbuf);
+
+    // ---- parameter tables ----
+    // Side-link S parameter set (예시: topology_opt와 동일 세트)
+    const int params[] = {
         1, 882, 883, 884, 885, 886, 887, 8881, 889, 8810, 8811,
         22, 33, 44, 55, 331, 32, 23, 42, 24, 43, 34, 53, 35, 54, 45,
         991, 9920, 9902, 993,
@@ -100,144 +111,261 @@ int main(int argc, char** argv) {
         9915, 9916, 9917,
         946, 947, 948, 949, 950, 951, 952, 953, 954, 955, 956, 957
     };
-    const int INTERIORS[] = { 11,22,33,44,55,331,32,23,42,24,43,34,53,35,54,45 };
-    const int NS[]        = { 4,6,7,8,12 };
+    const int Nparams = (int)(sizeof(params)/sizeof(params[0]));
 
-    const int Nparams = int(sizeof(PARAMS)    / sizeof(PARAMS[0]));
-    const int Nipar   = int(sizeof(INTERIORS) / sizeof(INTERIORS[0]));
-    const int Nns     = int(sizeof(NS)        / sizeof(NS[0]));
+    // Interior-link L parameter set (예시)
+    const int interiors[] = {
+        11, 22, 33, 44, 55, 331, 32, 23, 42, 24, 43, 34, 53, 35, 54, 45
+    };
+    const int Nipar = (int)(sizeof(interiors)/sizeof(interiors[0]));
 
-    // 토탈(진행률 표시에 사용)
-    const long long total_node2 = 1LL * Nns * Nns * Nipar;
-    const long long total_sglg  = 1LL * Nns * Nns * Nparams * Nipar;
-    const long long total_sglgs = 1LL * Nns * Nns * (long long)Nparams * (Nparams - 1) / 2 * Nipar;
+    // Node g choices (center nodes)
+    const int ns[] = {4, 6, 7, 8, 12};
+    const int Nns  = (int)(sizeof(ns)/sizeof(ns[0]));
 
-    std::cout << "[Init] totals — "
-              << "node2_gLg:" << total_node2
-              << ", SgLg:"    << total_sglg
-              << ", SgLgS:"   << total_sglgs
-              << std::endl;
+    // ----- totals (combinatorics matched with loop bounds) -----
+    // choose unordered node pair (n1<=n2)
+    const long long Cnn = (long long)Nns * (Nns + 1) / 2;
+    const long long P   = (long long)Nparams;
+    const long long P2  = P * (P + 1) / 2; // two S with repetition (j>=k)
 
-    if (dump) {
-        std::ofstream("SCFT_node2_gLg.txt",  std::ios::trunc).close();
-        std::ofstream("SCFT_node2_SgLg.txt", std::ios::trunc).close();
-        std::ofstream("SCFT_node2_SgLgS.txt",std::ios::trunc).close();
-    }
+    const long long total_gLg    = Cnn * (long long)Nipar;
+    const long long total_SgLg   = Cnn * (long long)Nipar * P;
+    const long long total_SgLgS  = Cnn * (long long)Nipar * P2;
+    const long long total_SSgLg  = Cnn * (long long)Nipar * P2;
 
-    long long cnt_node2 = 0, cnt_sglg = 0, cnt_sglgs = 0;
+    std::cout << "[Init] totals — gLg:" << total_gLg
+              << ", SgLg:" << total_SgLg
+              << ", SgLgS:" << total_SgLgS
+              << ", SSgLg:" << total_SSgLg << "\n";
 
-    // -------- Phase 0: node2_gLg (두 노드 + interior 하나) --------
+    struct Counters { long long gLg=0, SgLg=0, SgLgS=0, SSgLg=0; } cnt;
+
+    // ======================
+    // Phase 1: gLg
+    // ======================
     {
-        std::string out; out.reserve(1<<21);
-        long long done = 0;
+        std::string out; out.reserve(1<<20);
+        long long progress = 0;
 
-        for (int ia=0; ia<Nns; ++ia)
-        for (int ib=0; ib<=ia; ++ib)
-        for (int t=0; t<Nipar; ++t) {
-            const int na = NS[ia], nb = NS[ib], gi = INTERIORS[t];
+        #pragma omp parallel
+        {
+            std::string local_buf; local_buf.reserve(1<<18);
+            long long local_cnt = 0;
 
-            TheoryGraph G;
-            auto NA = G.add(n_(na));
-            auto GB = G.add(i(gi));   // 주의: i_()가 아니라 i() 네이밍 가정
-            auto NB = G.add(n_(nb));
-            if (!safe_connect(G, NA, GB) || !safe_connect(G, GB, NB)) {
-                ++done; print_progress("node2_gLg", done, total_node2); continue;
+            #pragma omp for collapse(2) schedule(dynamic)
+            for (int inter = 0; inter < Nipar; ++inter)
+            for (int il = 0; il < Nns; ++il) {
+                if (il == 0) {
+                    #pragma omp critical
+                    std::cout << "[gLg] L=" << interiors[inter] << " start (thread " << thread_id() << ")\n";
+                }
+                for (int j = 0; j <= il; ++j) { // n2 <= n1 to avoid duplicates
+                    TheoryGraph G;
+                    auto N1 = G.add(n_(ns[il]));
+                    auto I  = G.add(i(interiors[inter]));
+                    auto N2 = G.add(n_(ns[j]));
+
+                    if (!safe_connect(G, N1, I) || !safe_connect(G, I, N2)) {
+                        #pragma omp atomic update
+                        progress++;
+                        if ((progress & 8191) == 0) print_progress("gLg", progress, total_gLg);
+                        continue;
+                    }
+
+                    Eigen::MatrixXi glued = compose_glue(G);
+
+                    #pragma omp atomic update
+                    progress++;
+                    if ((progress & 8191) == 0) print_progress("gLg", progress, total_gLg);
+
+                    if (evaluate_and_append(glued, local_buf)) ++local_cnt;
+                }
             }
 
-            Eigen::MatrixXi IF = compose_glue(G);
-            if (scft_pass(IF)) {
-                ++cnt_node2;
-                if (dump) serialize_IF(IF, out);
-            }
-
-            ++done; print_progress("node2_gLg", done, total_node2);
+            #pragma omp critical
+            { cnt.gLg += local_cnt; out.append(local_buf); }
         }
 
-        if (dump) append_to_file("SCFT_node2_gLg.txt", out);
-        std::cout << "[Done] node2_gLg: " << cnt_node2
-                  << (dump ? " (dumped)" : "") << std::endl;
+        flush_to_file("SCFT_gLg.txt", out);
     }
 
-    // -------- Phase 0.5: node2_SgLg (한쪽 노드에 사이드 링크 1개) --------
+    // ======================
+    // Phase 2: SgLg  (S on left g)
+    // ======================
     {
         std::string out; out.reserve(1<<21);
-        long long done = 0;
+        long long progress = 0;
 
-        for (int ia=0; ia<Nns; ++ia)
-        for (int ib=0; ib<Nns; ++ib)
-        for (int t=0; t<Nipar; ++t)
-        for (int p=0; p<Nparams; ++p) {
-            const int na = NS[ia], nb = NS[ib], gi = INTERIORS[t], sp = PARAMS[p];
+        #pragma omp parallel
+        {
+            std::string local_buf; local_buf.reserve(1<<19);
+            long long local_cnt = 0;
 
-            TheoryGraph G;
-            auto NA = G.add(n_(na));
-            auto GB = G.add(i(gi));
-            auto NB = G.add(n_(nb));
-            auto SA = G.add(s(sp));   // 주의: s_()가 아니라 s() 네이밍 가정
+            #pragma omp for collapse(3) schedule(dynamic)
+            for (int inter = 0; inter < Nipar; ++inter)
+            for (int il = 0; il < Nns; ++il)
+            for (int j = 0; j < Nns; ++j) {
+                if (j == 0) {
+                    #pragma omp critical
+                    std::cout << "[SgLg] L=" << interiors[inter] << ", n1=" << ns[il]
+                              << " start (thread " << thread_id() << ")\n";
+                }
+                for (int p = 0; p < Nparams; ++p) {
+                    TheoryGraph G;
+                    auto S  = G.add(s(params[p]));
+                    auto N1 = G.add(n_(ns[il]));
+                    auto I  = G.add(i(interiors[inter]));
+                    auto N2 = G.add(n_(ns[j]));
 
-            if (!safe_connect(G, NA, GB) || !safe_connect(G, GB, NB) || !safe_connect(G, SA, NA)) {
-                ++done; print_progress("node2_SgLg", done, total_sglg); continue;
+                    if (!safe_connect(G, S,  N1) ||
+                        !safe_connect(G, N1, I)  ||
+                        !safe_connect(G, I, N2)) {
+                        #pragma omp atomic update
+                        progress++;
+                        if ((progress % 50000) == 0) print_progress("SgLg", progress, total_SgLg);
+                        continue;
+                    }
+
+                    Eigen::MatrixXi glued = compose_glue(G);
+
+                    #pragma omp atomic update
+                    progress++;
+                    if ((progress % 50000) == 0) print_progress("SgLg", progress, total_SgLg);
+
+                    if (evaluate_and_append(glued, local_buf)) ++local_cnt;
+                }
             }
 
-            Eigen::MatrixXi IF = compose_glue(G);
-            if (scft_pass(IF)) {
-                ++cnt_sglg;
-                if (dump) serialize_IF(IF, out);
-            }
-
-            ++done; print_progress("node2_SgLg", done, total_sglg);
+            #pragma omp critical
+            { cnt.SgLg += local_cnt; out.append(local_buf); }
         }
 
-        if (dump) append_to_file("SCFT_node2_SgLg.txt", out);
-        std::cout << "[Done] node2_SgLg: " << cnt_sglg
-                  << (dump ? " (dumped)" : "") << std::endl;
+        flush_to_file("SCFT_SgLg.txt", out);
     }
 
-    // -------- Phase 0.6: node2_SgLgS (양쪽 노드에 서로 다른 사이드 링크 2개; p<q) --------
+    // ======================
+    // Phase 3: SgLgS  (S on both sides)
+    // ======================
     {
         std::string out; out.reserve(1<<22);
-        long long done = 0;
+        long long progress = 0;
 
-        for (int ia=0; ia<Nns; ++ia)
-        for (int ib=0; ib<=ia; ++ib)
-        for (int t=0; t<Nipar; ++t)
-        for (int p=0; p<Nparams; ++p) {
-            for (int q=p+1; q<Nparams; ++q) {
-                const int na = NS[ia], nb = NS[ib], gi = INTERIORS[t];
-                const int spL = PARAMS[p], spR = PARAMS[q];
+        #pragma omp parallel
+        {
+            std::string local_buf; local_buf.reserve(1<<20);
+            long long local_cnt = 0;
 
-                TheoryGraph G;
-                auto NA = G.add(n_(na));
-                auto GB = G.add(i(gi));
-                auto NB = G.add(n_(nb));
-                auto SA = G.add(s(spL));
-                auto SB = G.add(s(spR));
-
-                if (!safe_connect(G, NA, GB) || !safe_connect(G, GB, NB) ||
-                    !safe_connect(G, SA, NA) || !safe_connect(G, SB, NB)) {
-                    ++done; print_progress("node2_SgLgS", done, total_sglgs); continue;
+            #pragma omp for collapse(3) schedule(dynamic)
+            for (int inter = 0; inter < Nipar; ++inter)
+            for (int il = 0; il < Nns; ++il)
+            for (int j = 0; j < Nns; ++j) {
+                if (j == 0) {
+                    #pragma omp critical
+                    std::cout << "[SgLgS] L=" << interiors[inter] << ", n1=" << ns[il]
+                              << " start (thread " << thread_id() << ")\n";
                 }
+                for (int pL = 0; pL < Nparams; ++pL) {
+                    for (int pR = 0; pR <= pL; ++pR) { // repetition-combination
+                        TheoryGraph G;
+                        auto SL = G.add(s(params[pL]));
+                        auto SR = G.add(s(params[pR]));
+                        auto N1 = G.add(n_(ns[il]));
+                        auto I  = G.add(i(interiors[inter]));
+                        auto N2 = G.add(n_(ns[j]));
 
-                Eigen::MatrixXi IF = compose_glue(G);
-                if (scft_pass(IF)) {
-                    ++cnt_sglgs;
-                    if (dump) serialize_IF(IF, out);
+                        if (!safe_connect(G, SL, N1) ||
+                            !safe_connect(G, N1, I)  ||
+                            !safe_connect(G, I, N2)  ||
+                            !safe_connect(G, SR, N2)) {
+                            #pragma omp atomic update
+                            progress++;
+                            if ((progress % 50000) == 0) print_progress("SgLgS", progress, total_SgLgS);
+                            continue;
+                        }
+
+                        Eigen::MatrixXi glued = compose_glue(G);
+
+                        #pragma omp atomic update
+                        progress++;
+                        if ((progress % 50000) == 0) print_progress("SgLgS", progress, total_SgLgS);
+
+                        if (evaluate_and_append(glued, local_buf)) ++local_cnt;
+                    }
                 }
-
-                ++done; print_progress("node2_SgLgS", done, total_sglgs);
             }
+
+            #pragma omp critical
+            { cnt.SgLgS += local_cnt; out.append(local_buf); }
         }
 
-        if (dump) append_to_file("SCFT_node2_SgLgS.txt", out);
-        std::cout << "[Done] node2_SgLgS: " << cnt_sglgs
-                  << (dump ? " (dumped)" : "") << std::endl;
+        flush_to_file("SCFT_SgLgS.txt", out);
     }
 
-    // 최종 요약
-    std::cout << "\n=== TOTAL (SCFT-passed) ===\n"
-              << "node2_gLg :  " << cnt_node2  << "\n"
-              << "node2_SgLg:  " << cnt_sglg   << "\n"
-              << "node2_SgLgS: " << cnt_sglgs  << "\n";
+    // ======================
+    // Phase 4: SSgLg  (two S on left g)
+    // ======================
+    {
+        std::string out; out.reserve(1<<22);
+        long long progress = 0;
+
+        #pragma omp parallel
+        {
+            std::string local_buf; local_buf.reserve(1<<20);
+            long long local_cnt = 0;
+
+            #pragma omp for collapse(3) schedule(dynamic)
+            for (int inter = 0; inter < Nipar; ++inter)
+            for (int il = 0; il < Nns; ++il)
+            for (int j = 0; j < Nns; ++j) {
+                if (j == 0) {
+                    #pragma omp critical
+                    std::cout << "[SSgLg] L=" << interiors[inter] << ", n1=" << ns[il]
+                              << " start (thread " << thread_id() << ")\n";
+                }
+                for (int p1 = 0; p1 < Nparams; ++p1) {
+                    for (int p2 = 0; p2 <= p1; ++p2) { // two S on left side
+                        TheoryGraph G;
+                        auto S1 = G.add(s(params[p1]));
+                        auto S2 = G.add(s(params[p2]));
+                        auto N1 = G.add(n_(ns[il]));
+                        auto I  = G.add(i(interiors[inter]));
+                        auto N2 = G.add(n_(ns[j]));
+
+                        if (!safe_connect(G, S1, N1) ||
+                            !safe_connect(G, S2, N1) ||
+                            !safe_connect(G, N1, I)  ||
+                            !safe_connect(G, I, N2)) {
+                            #pragma omp atomic update
+                            progress++;
+                            if ((progress % 50000) == 0) print_progress("SSgLg", progress, total_SSgLg);
+                            continue;
+                        }
+
+                        Eigen::MatrixXi glued = compose_glue(G);
+
+                        #pragma omp atomic update
+                        progress++;
+                        if ((progress % 50000) == 0) print_progress("SSgLg", progress, total_SSgLg);
+
+                        if (evaluate_and_append(glued, local_buf)) ++local_cnt;
+                    }
+                }
+            }
+
+            #pragma omp critical
+            { cnt.SSgLg += local_cnt; out.append(local_buf); }
+        }
+
+        flush_to_file("SCFT_SSgLg.txt", out);
+    }
+
+    // ---- final report ----
+    std::cout << "total SCFT gLg: "    << cnt.gLg   << "\n"
+              << "total SCFT SgLg: "   << cnt.SgLg  << "\n"
+              << "total SCFT SgLgS: "  << cnt.SgLgS << "\n"
+              << "total SCFT SSgLg: "  << cnt.SSgLg << "\n";
+
     return 0;
 }
 
