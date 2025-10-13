@@ -120,7 +120,7 @@ int main() {
     const int Nipar = (int)(sizeof(interiors)/sizeof(interiors[0]));
 
     // Node g choices (center nodes)
-    const int ns[] = {4, 6, 8, 12};
+    const int ns[] = {4, 6, 7, 8, 12};
     const int Nns  = (int)(sizeof(ns)/sizeof(ns[0]));
 
     // ----- totals (combinatorics matched with loop bounds) -----
