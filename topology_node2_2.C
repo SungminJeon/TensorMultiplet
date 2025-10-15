@@ -1,9 +1,9 @@
-// topology_node2_2_with_progress.C
-// - 진행률: (g,l,i) 삼중 루프 기준 % 표시
-// - tried: attachments까지 적용된 "그래프 1건 시도" 카운트
-// - I(instantons)는 의도대로 s(v)로 추가 (파라미터로 구분)
-// - S는 항상 (S, host) 순서로 connect → "왼쪽 포트" 규칙 유지
-// - multiset+exact 규칙 유지, n_attaches 불일치 수정(필요 스펙에서 반영)
+// topology_node2_2_attSym.C
+// - 노드 대칭 OFF (스펙별로 필요시만)
+// - S-부착 쌍에만 선택적 대칭(attach_sym) 강제: 중복 절반 제거
+// - SS 규칙은 ordered로(순서 유지), 그 외는 multiset로(무순서)
+// - 부착 조합은 run_topology 시작 시 1회 사전계산 후 재사용 → 속도 개선
+// - 진행률: (g,l,i) 삼중 루프 단위 + tried(실제 시도 수)
 
 #include "Theory.h"
 #include <cstdio>
@@ -32,17 +32,18 @@ struct BaseEdge  { int u, v; };
 struct AttachRule {
   int   host_idx;    // 어느 노드에 붙이는지 (노드 인덱스)
   LKind kind;        // 붙일 타입(S/L/I)
-  int   max_count;   // 몇 개 붙일지 (multiset일 때는 정확히 max_count)
-  bool  multiset;    // 중복 조합 허용
-  bool  exact;       // 정확히 max_count개(=true) / 0..max_count개(=false)
+  int   max_count;   // multiset: 정확히 max_count개 / ordered: 길이==max_count
+  bool  multiset;    // true: 무순서(multiset), false: 순서(ordered)
+  bool  exact;       // 보통 true (정확히 max_count)
 };
 
-struct UnorderedPair { int a, b; }; // 대칭쌍 (예: 좌/우 g 교환)
+struct UnorderedPair { int a, b; }; // (노드) 대칭쌍
+struct AttachSymPair { int li, ri; }; // (부착) 대칭쌍: 규칙 인덱스 (li, ri)
 
 // ---- 토폴로지 스펙 ----
 struct TopoSpec {
   // 파라미터 뱅크
-  ParamBank gbank, lbank, sbank, ibank; // G, L(interior), S, I(instanton)
+  ParamBank gbank, lbank, sbank, ibank; // G, L(interior=L), S, I(instanton)
 
   // 베이스 그래프
   const BaseNode* nodes; int n_nodes;
@@ -51,8 +52,11 @@ struct TopoSpec {
   // 부착(옵션)
   const AttachRule* attaches; int n_attaches;
 
-  // 대칭(옵션)
+  // (노드) 대칭(옵션)
   const UnorderedPair* unordered_pairs; int n_unordered;
+
+  // ✅ (부착) 대칭(옵션): 지정한 규칙 쌍에만 대칭을 강제
+  const AttachSymPair* attach_syms; int n_attach_syms;
 
   // 출력
   const char* out_path;
@@ -81,6 +85,17 @@ static void gen_multiset_combos(const int* vals, int N, int k,
   }
 }
 
+// ordered 길이 k 시퀀스(중복/순서 허용)
+static void gen_ordered_seqs(const int* vals, int N, int k,
+                             std::vector<std::vector<int>>& out){
+  std::vector<int> cur;
+  std::function<void()> dfs = [&](){
+    if ((int)cur.size()==k){ out.push_back(cur); return; }
+    for (int i=0;i<N;++i){ cur.push_back(vals[i]); dfs(); cur.pop_back(); }
+  };
+  dfs();
+}
+
 static inline void append_matrix(const Eigen::MatrixXi& M, std::string& buf){
   for (int r=0;r<M.rows();++r){
     for (int c=0;c<M.cols();++c){
@@ -92,13 +107,13 @@ static inline void append_matrix(const Eigen::MatrixXi& M, std::string& buf){
   buf.push_back('\n'); // 블록 사이 빈 줄
 }
 
-// NOTE: 요구사항대로 I는 is(v)가 아니라 s(v)로 추가한다.
+// NOTE: 요구대로 I는 is(v)가 아니라 s(v)로 추가한다.
 static inline NodeRef addNode(TheoryGraph& G, LKind k, int v){
   switch(k){
     case LKind::G: return G.add(n_(v));  // gauge
     case LKind::L: return G.add(i(v));   // interior link (표기는 L, 구현은 i(v))
     case LKind::S: return G.add(s(v));   // side
-    case LKind::I: return G.add(s(v));   // instanton(파라미터로 구분)
+    case LKind::I: return G.add(s(v));   // instanton(파라미터로만 구분)
   }
   return NodeRef{-1};
 }
@@ -113,6 +128,23 @@ static inline bool pass_filter_pre_and_post_zero_zero(const Eigen::MatrixXi& pre
   return (T.TimeDirection()==0 && T.NullDirection()==0);
 }
 
+// ----------------------- (부착) 대칭 헬퍼 -----------------------
+static inline bool lex_leq(const std::vector<int>& A, const std::vector<int>& B){
+  const int n = (int)A.size();
+  for (int i=0;i<n;++i){
+    if (A[i] < B[i]) return true;
+    if (A[i] > B[i]) return false;
+  }
+  return true;
+}
+static inline bool can_attach_sym(const AttachRule& L, const AttachRule& R){
+  // 같은 S, multiset(무순서), exact, 같은 길이
+  return (L.kind==LKind::S && R.kind==LKind::S
+       && L.multiset && R.multiset
+       && L.exact && R.exact
+       && L.max_count==R.max_count);
+}
+
 // ----------------------- 진행 카운터(전역) -----------------------
 static std::atomic<long long> triple_done{0};  // (g,l,i) 완료 건수
 static std::atomic<long long> tried{0};        // 실제 그래프 1건 시도 건수
@@ -120,7 +152,7 @@ static std::atomic<long long> tried{0};        // 실제 그래프 1건 시도 �
 // ----------------------- 공용 러너 -----------------------
 void run_topology(const TopoSpec& S){
   // 노드 위치 파악
-  std::vector<int> g_pos, l_pos, i_pos; // instanton은 i_pos에 수집
+  std::vector<int> g_pos, l_pos, i_pos; // instanton은 i_pos
   g_pos.reserve(S.n_nodes); l_pos.reserve(S.n_nodes); i_pos.reserve(S.n_nodes);
   for (int ni=0; ni<S.n_nodes; ++ni){
     if (S.nodes[ni].kind==LKind::G) g_pos.push_back(ni);
@@ -129,7 +161,7 @@ void run_topology(const TopoSpec& S){
   }
   const int NG = (int)g_pos.size();
   const int NL = (int)l_pos.size();
-  const int NI = (int)i_pos.size(); // instanton count
+  const int NI = (int)i_pos.size();
 
   // 삼중 루프 분모(없으면 1로 보정)
   const long long GG = (long long)std::pow((double)S.gbank.N, NG);
@@ -140,6 +172,46 @@ void run_topology(const TopoSpec& S){
   // 카운터 리셋(스펙별)
   triple_done.store(0, std::memory_order_relaxed);
   tried.store(0, std::memory_order_relaxed);
+
+  // === 부착 조합 사전계산 (스펙 고정) ===
+  std::vector<std::vector<std::vector<int>>> choices(S.n_attaches);
+  for (int r=0; r<S.n_attaches; ++r){
+    const auto& R = S.attaches[r];
+    std::vector<std::vector<int>> one;
+    if (R.max_count==0){
+      one.push_back({});
+    } else if (R.multiset){
+      // multiset + exact(보통) → 정확히 k개
+      if (R.exact){
+        gen_multiset_combos(S.sbank.vals, S.sbank.N, R.max_count, one);
+        for (auto& v: one) std::sort(v.begin(), v.end()); // 비내림 보장
+      } else {
+        one.push_back({});
+        for (int k=1;k<=R.max_count;k++){
+          std::vector<std::vector<int>> tmp;
+          gen_multiset_combos(S.sbank.vals, S.sbank.N, k, tmp);
+          for (auto& v: tmp) std::sort(v.begin(), v.end());
+          one.insert(one.end(), tmp.begin(), tmp.end());
+        }
+      }
+    } else {
+      // ordered
+      if (R.exact){
+        gen_ordered_seqs(S.sbank.vals, S.sbank.N, R.max_count, one);
+      } else {
+        one.push_back({});
+        for (int k=1;k<=R.max_count;k++){
+          std::vector<std::vector<int>> tmp;
+          gen_ordered_seqs(S.sbank.vals, S.sbank.N, k, tmp);
+          one.insert(one.end(), tmp.begin(), tmp.end());
+        }
+      }
+    }
+    choices[r] = std::move(one);
+  }
+  const auto& W0 = (S.n_attaches>=1?choices[0]:std::vector<std::vector<int>>{{}});
+  const auto& W1 = (S.n_attaches>=2?choices[1]:std::vector<std::vector<int>>{{}});
+  const auto& W2 = (S.n_attaches>=3?choices[2]:std::vector<std::vector<int>>{{}});
 
   std::string out; out.reserve(1<<24);
   long long accepted = 0;
@@ -172,7 +244,7 @@ void run_topology(const TopoSpec& S){
             for (int k=0;k<NI;k++){ isel[k] = (int)(t % S.ibank.N); t /= S.ibank.N; }
           }
 
-          // --- 대칭성 필터 ---
+          // --- (노드) 대칭성 필터 (스펙에 있으면만) ---
           bool sym_ok = true;
           for (int u=0; u<S.n_unordered; ++u){
             const int a = S.unordered_pairs[u].a;
@@ -185,7 +257,6 @@ void run_topology(const TopoSpec& S){
             if (va!=-1 && vb!=-1 && !(vb<=va)) { sym_ok=false; break; }
           }
           if (!sym_ok){
-            // (g,l,i) 1건 종료 → 진행 표시
             auto done = triple_done.fetch_add(1, std::memory_order_relaxed) + 1;
             if ((done % 50 == 0) && MASTER_THREAD){
               double pct = 100.0 * (double)done / (double)TRIPLE_TOTAL;
@@ -196,58 +267,27 @@ void run_topology(const TopoSpec& S){
             continue;
           }
 
-          // --- 부착 선택지 생성 ---
-          std::vector<std::vector<std::vector<int>>> choices(S.n_attaches);
-          for (int r=0; r<S.n_attaches; ++r){
-            const auto& R = S.attaches[r];
-            std::vector<std::vector<int>> one;
-            if (R.max_count==0){
-              one.push_back({});
-            } else if (R.multiset){
-              if (R.exact){
-                std::vector<std::vector<int>> tmp;
-                gen_multiset_combos(S.sbank.vals, S.sbank.N, R.max_count, tmp); // 정확히 k
-                one.insert(one.end(), tmp.begin(), tmp.end());
-              } else {
-                for (int k=0;k<=R.max_count;k++){
-                  std::vector<std::vector<int>> tmp;
-                  gen_multiset_combos(S.sbank.vals, S.sbank.N, k, tmp);        // 0..k
-                  one.insert(one.end(), tmp.begin(), tmp.end());
-                }
-              }
-            } else {
-              // (ordered) exact만 쓰는 경우가 대부분. exact 아니면 0..k
-              if (R.exact){
-                std::vector<int> cur;
-                std::function<void()> dfs = [&](){
-                  if ((int)cur.size()==R.max_count){ one.push_back(cur); return; }
-                  for (int i=0;i<S.sbank.N;++i){ cur.push_back(S.sbank.vals[i]); dfs(); cur.pop_back(); }
-                };
-                dfs();
-              } else {
-                one.push_back({}); // 0개
-                for (int kk=1; kk<=R.max_count; ++kk){
-                  std::vector<int> cur;
-                  std::function<void()> dfs = [&](){
-                    if ((int)cur.size()==kk){ one.push_back(cur); return; }
-                    for (int i=0;i<S.sbank.N;++i){ cur.push_back(S.sbank.vals[i]); dfs(); cur.pop_back(); }
-                  };
-                  dfs();
-                }
-              }
-            }
-            choices[r] = std::move(one);
-          }
-
-          // 최대 3규칙까지 펼침 (필요시 늘려도 됨)
-          const auto& W0 = (S.n_attaches>=1?choices[0]:std::vector<std::vector<int>>{{}});
-          const auto& W1 = (S.n_attaches>=2?choices[1]:std::vector<std::vector<int>>{{}});
-          const auto& W2 = (S.n_attaches>=3?choices[2]:std::vector<std::vector<int>>{{}});
-
+          // --- 부착 조합 곱 전개 ---
           for (const auto& A0: W0)
           for (const auto& A1: W1)
           for (const auto& A2: W2)
           {
+            // ✅ (부착) 대칭 필터: 스펙에 등록된 쌍만 검사
+            const std::vector<int>* PACKS[3] = { &A0, &A1, &A2 };
+            bool attach_sym_ok = true;
+            for (int p=0; p<S.n_attach_syms; ++p){
+              int li = S.attach_syms[p].li;
+              int ri = S.attach_syms[p].ri;
+              if (li < S.n_attaches && ri < S.n_attaches){
+                const AttachRule& L = S.attaches[li];
+                const AttachRule& R = S.attaches[ri];
+                if (can_attach_sym(L,R)){
+                  if (!lex_leq(*PACKS[ri], *PACKS[li])) { attach_sym_ok=false; break; }
+                }
+              }
+            }
+            if (!attach_sym_ok) continue;
+
             TheoryGraph G;
             std::vector<NodeRef> ref(S.n_nodes);
 
@@ -258,8 +298,8 @@ void run_topology(const TopoSpec& S){
               switch (S.nodes[ni].kind){
                 case LKind::G: v = (NG? S.gbank.vals[gsel[gi_ptr++]] : 0); break;
                 case LKind::L: v = (NL? S.lbank.vals[lsel[li_ptr++]] : 0); break;
-                case LKind::I: v = (NI? S.ibank.vals[isel[ii_ptr++]] : 0); break; // instanton도 값은 ibank에서
-                case LKind::S: v = 0; break; // base에 S는 거의 안 씀
+                case LKind::I: v = (NI? S.ibank.vals[isel[ii_ptr++]] : 0); break;
+                case LKind::S: v = 0; break;
               }
               ref[ni] = addNode(G, S.nodes[ni].kind, v);
             }
@@ -269,52 +309,39 @@ void run_topology(const TopoSpec& S){
             for (int e=0; e<S.n_edges; ++e){
               ok &= connect_safe(G, ref[S.edges[e].u], ref[S.edges[e].v]);
             }
-            if (!ok) goto AFTER_TRY; // 실패 시 tried 증가 없이 스킵
+            if (!ok) continue;
 
-            // attachments
+            // attachments (multiset은 이미 정렬된 벡터)
             for (int r=0; r<S.n_attaches; ++r){
               const auto& R = S.attaches[r];
               const auto& pack = (r==0?A0:(r==1?A1:A2));
-
-              auto sorted = pack;
-              if (R.multiset) std::sort(sorted.begin(), sorted.end());
-              // exact 안전장치
-              if (R.exact && (int)sorted.size()!=R.max_count){ ok=false; break; }
-
-              for (int p: sorted){
+              if (R.exact && (int)pack.size()!=R.max_count){ ok=false; break; }
+              for (int p: pack){
                 NodeRef a = addNode(G, R.kind, p);
-                // (S(or I), host) 순서 → S는 항상 왼쪽 포트로 붙음
-                if (!connect_safe(G, a, ref[R.host_idx])) { ok=false; break; }
+                if (!connect_safe(G, a, ref[R.host_idx])) { ok=false; break; } // (S(or I), host) 순서 → S는 왼쪽
               }
               if (!ok) break;
             }
-            if (!ok) goto AFTER_TRY;
+            if (!ok) continue;
 
-            // === 그래프 1건 "시도" 카운트 ===
+            // === 그래프 1건 시도 카운트 ===
             tried.fetch_add(1, std::memory_order_relaxed);
 
             // IF & 필터
-            {
-              Eigen::MatrixXi preIF = G.ComposeIF_UnitGluing();
-              if (pass_filter_pre_and_post_zero_zero(preIF)){
-                append_matrix(preIF, local);
-                ++loc_acc;
-              }
+            Eigen::MatrixXi preIF = G.ComposeIF_UnitGluing();
+            if (pass_filter_pre_and_post_zero_zero(preIF)){
+              append_matrix(preIF, local);
+              ++loc_acc;
             }
-
-            AFTER_TRY:
-            ; // label target
           } // attachments product
 
           // (g,l,i) 1건 처리 완료 → 진행률 증가 & 표시
-          {
-            auto done = triple_done.fetch_add(1, std::memory_order_relaxed) + 1;
-            if ((done % 50 == 0) && MASTER_THREAD){
-              double pct = 100.0 * (double)done / (double)TRIPLE_TOTAL;
-              std::printf("\r[%.2f%%] triples %lld / %lld  (tried=%lld)",
-                          pct, done, TRIPLE_TOTAL, tried.load(std::memory_order_relaxed));
-              std::fflush(stdout);
-            }
+          auto done = triple_done.fetch_add(1, std::memory_order_relaxed) + 1;
+          if ((done % 50 == 0) && MASTER_THREAD){
+            double pct = 100.0 * (double)done / (double)TRIPLE_TOTAL;
+            std::printf("\r[%.2f%%] triples %lld / %lld  (tried=%lld)",
+                        pct, done, TRIPLE_TOTAL, tried.load(std::memory_order_relaxed));
+            std::fflush(stdout);
           }
         } // i
       } // l
@@ -332,7 +359,7 @@ void run_topology(const TopoSpec& S){
               S.out_path, accepted, tried.load(std::memory_order_relaxed));
 }
 
-// ================= 파라미터 테이블 (프로젝트 값 유지) =================
+// ================= 파라미터 테이블 =================
 static constexpr int G_BANK[] = {4,6,7,8,12};
 static constexpr int L_BANK[] = {
   11,22,33,44,55,331,32,23,42,24,43,34,53,35,54,45
@@ -355,10 +382,10 @@ static constexpr int I_BANK[] = {1, 882, 883,884,885,886,887,8881,889,8810,8811}
 // ================= 베이스 스켈레톤 =================
 static constexpr BaseNode NODES_GLG[] = { {LKind::G},{LKind::L},{LKind::G} };
 static constexpr BaseEdge EDGES_GLG[] = { {0,1},{1,2} };
-static constexpr UnorderedPair SYM_LR_G[] = { {0,2} };  // 좌/우 g 교환(필요 시)
+static constexpr UnorderedPair SYM_LR_G[] = { {0,2} };
 
 // ================= 스펙들 =================
-// (A) g–L–g : 부착 없음 (대칭 ON 예시)
+// (A) g–L–g : 부착 없음 (여긴 노드 대칭 ON 예시)
 static const TopoSpec SPEC_gLg {
   {G_BANK, int(sizeof(G_BANK)/sizeof(G_BANK[0]))},
   {L_BANK, int(sizeof(L_BANK)/sizeof(L_BANK[0]))},
@@ -366,11 +393,12 @@ static const TopoSpec SPEC_gLg {
   {I_BANK, int(sizeof(I_BANK)/sizeof(I_BANK[0]))},
   NODES_GLG, 3, EDGES_GLG, 2,
   nullptr, 0,
-  SYM_LR_G, 1,
+  SYM_LR_G, 1,                // 노드 대칭 ON
+  nullptr, 0,                 // 부착 대칭 없음
   "SCFT_gLg.txt"
 };
 
-// (B) SgLg : 왼쪽 g(0)에 S 정확히 1개 (비대칭 → 대칭 OFF)
+// (B) SgLg : 왼쪽 g(0)에 S 정확히 1개 (비대칭 → 노드 대칭 OFF)
 static constexpr AttachRule ATT_SgLg[] = { {0, LKind::S, 1, true, true} };
 static const TopoSpec SPEC_SgLg {
   {G_BANK, int(sizeof(G_BANK)/sizeof(G_BANK[0]))},
@@ -379,25 +407,33 @@ static const TopoSpec SPEC_SgLg {
   {I_BANK, int(sizeof(I_BANK)/sizeof(I_BANK[0]))},
   NODES_GLG, 3, EDGES_GLG, 2,
   ATT_SgLg, 1,
-  nullptr, 0,
+  nullptr, 0,                 // 노드 대칭 OFF
+  nullptr, 0,                 // 부착 대칭 없음
   "SCFT_SgLg.txt"
 };
 
-// (C) SgLgS 
-static constexpr AttachRule ATT_SgLgS[] = { {0, LKind::S, 1, true, true}, {2, LKind::S, 1, true, true} };
+// (C) SgLgS : 좌/우 g에 S 1개씩, 노드 대칭 OFF + 부착-대칭 (0,1) ON
+static constexpr AttachRule ATT_SgLgS[] = {
+  {0, LKind::S, 1, true, true},
+  {2, LKind::S, 1, true, true}
+};
+static constexpr AttachSymPair ATT_SYM_SgLgS[] = { {0,1} }; // 오른쪽<=왼쪽만 유지
 static const TopoSpec SPEC_SgLgS {
   {G_BANK, int(sizeof(G_BANK)/sizeof(G_BANK[0]))},
   {L_BANK, int(sizeof(L_BANK)/sizeof(L_BANK[0]))},
   {S_BANK, int(sizeof(S_BANK)/sizeof(S_BANK[0]))},
   {I_BANK, int(sizeof(I_BANK)/sizeof(I_BANK[0]))},
   NODES_GLG, 3, EDGES_GLG, 2,
-  ATT_SgLgS, 2,           // 규칙 2개
-  SYM_LR_G, 1,            // 좌/우 g 교환 대칭 허용
+  ATT_SgLgS, 2,
+  nullptr, 0,                 // 노드 대칭 OFF
+  ATT_SYM_SgLgS, 1,           // 부착-대칭 ON
   "SCFT_SgLgS.txt"
 };
 
-// (D) SSgLg : 왼쪽 g(0)에 S 정확히 2개 (비대칭 → 대칭 OFF)
-static constexpr AttachRule ATT_SSgLg[] = { {0, LKind::S, 2, true, true} };
+// (D) SSgLg : 왼쪽 g(0)에 S 정확히 2개(순서 필요) → ordered
+static constexpr AttachRule ATT_SSgLg[] = {
+  {0, LKind::S, 2, false, true} // ordered
+};
 static const TopoSpec SPEC_SSgLg {
   {G_BANK, int(sizeof(G_BANK)/sizeof(G_BANK[0]))},
   {L_BANK, int(sizeof(L_BANK)/sizeof(L_BANK[0]))},
@@ -405,28 +441,33 @@ static const TopoSpec SPEC_SSgLg {
   {I_BANK, int(sizeof(I_BANK)/sizeof(I_BANK[0]))},
   NODES_GLG, 3, EDGES_GLG, 2,
   ATT_SSgLg, 1,
-  nullptr, 0,
+  nullptr, 0,                 // 노드 대칭 OFF
+  nullptr, 0,                 // 부착 대칭 없음
   "SCFT_SSgLg.txt"
 };
 
-// (E) SSgLgS : 왼쪽 g에 S=2, 오른쪽 g에 S=1 (비대칭 → 대칭 OFF)
-static constexpr AttachRule ATT_SSgLgS[] = { {0, LKind::S, 2, true, true}, {2, LKind::S, 1, true, true} };
+// (E) SSgLgS : 왼쪽 g에 S=2(ordered), 오른쪽 g에 S=1(multiset)
+static constexpr AttachRule ATT_SSgLgS[] = {
+  {0, LKind::S, 2, false, true}, // ordered
+  {2, LKind::S, 1, true,  true}  // multiset
+};
 static const TopoSpec SPEC_SSgLgS {
   {G_BANK, int(sizeof(G_BANK)/sizeof(G_BANK[0]))},
   {L_BANK, int(sizeof(L_BANK)/sizeof(L_BANK[0]))},
   {S_BANK, int(sizeof(S_BANK)/sizeof(S_BANK[0]))},
   {I_BANK, int(sizeof(I_BANK)/sizeof(I_BANK[0]))},
   NODES_GLG, 3, EDGES_GLG, 2,
-  ATT_SSgLgS, 2,          // 규칙 2개
-  nullptr, 0,
+  ATT_SSgLgS, 2,
+  nullptr, 0,                 // 노드 대칭 OFF
+  nullptr, 0,                 // 부착 대칭 없음
   "SCFT_SSgLgS.txt"
 };
 
-// (F) SSgLIgS : 왼쪽 g S=2, 오른쪽 g S=1 + 오른쪽 g에 instanton 1개 (비대칭 → 대칭 OFF)
+// (F) SSgLIgS : 왼쪽 g S=2(ordered), 오른쪽 g S=1(multiset) + 오른쪽 instanton 1
 static constexpr AttachRule ATT_SSgLIgS[] = {
-  {0, LKind::S, 2, true, true},   // left g: 2 S
-  {2, LKind::S, 1, true, true},   // right g: 1 S
-  {2, LKind::I, 1, true, true}    // right g: 1 instanton (I도 s(v)로 추가됨)
+  {0, LKind::S, 2, false, true}, // ordered
+  {2, LKind::S, 1, true,  true}, // multiset
+  {2, LKind::I, 1, true,  true}  // instanton(표기는 L로 출력되지만 내부는 s(v))
 };
 static const TopoSpec SPEC_SSgLIgS {
   {G_BANK, int(sizeof(G_BANK)/sizeof(G_BANK[0]))},
@@ -434,8 +475,9 @@ static const TopoSpec SPEC_SSgLIgS {
   {S_BANK, int(sizeof(S_BANK)/sizeof(S_BANK[0]))},
   {I_BANK, int(sizeof(I_BANK)/sizeof(I_BANK[0]))},
   NODES_GLG, 3, EDGES_GLG, 2,
-  ATT_SSgLIgS, 3,         // 규칙 3개
-  nullptr, 0,
+  ATT_SSgLIgS, 3,
+  nullptr, 0,                 // 노드 대칭 OFF
+  nullptr, 0,                 // 부착 대칭 없음
   "SCFT_SgLIgS.txt"
 };
 
