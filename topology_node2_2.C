@@ -269,7 +269,7 @@ static constexpr UnorderedPair SYM_LR_G[] = { {0,2} };  // can be choosed for to
 
 
 
-static constexpr AttachRule ATT_SSgLgS[] = { {0, LKind::S, 2, true, true} {0,Lkind::S,2,true,true };
+static constexpr AttachRule ATT_SSgLgS[] = { {0, LKind::S, 2, true, true} {0,Lkind::S,2,true,true }};
 static const TopoSpec SPEC_SSgLgS {
 	{G_BANK, int(sizeof(G_BANK)/sizeof(G_BANK[0]))},
 		{L_BANK, int(sizeof(L_BANK)/sizeof(L_BANK[0]))},
@@ -281,7 +281,7 @@ static const TopoSpec SPEC_SSgLgS {
 		"SCFT_SSgLgS.txt"
 };
 
-static constexpr AttachRule ATT_SSgLIgS[] = { {0,LKind::S,2,true,true}, {2,LKind::S,1,true,true}, {2,LKind::I,1,true,true };
+static constexpr AttachRule ATT_SSgLIgS[] = { {0,LKind::S,2,true,true}, {2,LKind::S,1,true,true}, {2,LKind::I,1,true,true} };
 static const TopoSpec SPEC_SSgLIgS {
 	{G_BANK, int(sizeof(G_BANK)/sizeof(G_BANK[0]))},
 		{L_BANK, int(sizeof(L_BANK)/sizeof(L_BANK[0]))},
