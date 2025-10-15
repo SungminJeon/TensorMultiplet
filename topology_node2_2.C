@@ -383,8 +383,8 @@ static const TopoSpec SPEC_SgLg {
   "SCFT_SgLg.txt"
 };
 
-// (C) SgLgS : 양쪽 g(0,2)에 각각 S 정확히 2개 (대칭 ON 가능)
-static constexpr AttachRule ATT_SgLgS[] = { {0, LKind::S, 2, true, true}, {2, LKind::S, 2, true, true} };
+// (C) SgLgS 
+static constexpr AttachRule ATT_SgLgS[] = { {0, LKind::S, 1, true, true}, {2, LKind::S, 1, true, true} };
 static const TopoSpec SPEC_SgLgS {
   {G_BANK, int(sizeof(G_BANK)/sizeof(G_BANK[0]))},
   {L_BANK, int(sizeof(L_BANK)/sizeof(L_BANK[0]))},
