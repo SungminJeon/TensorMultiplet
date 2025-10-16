@@ -444,9 +444,35 @@ static constexpr int S_BANK[] = {
 static constexpr int I_BANK[] = {1, 882, 883,884,885,886,887,8881,889,8810,8811};
 
 // ================= 베이스 스켈레톤 =================
+//
+// node 2
 static constexpr BaseNode NODES_GLG[] = { {LKind::G},{LKind::L},{LKind::G} };
 static constexpr BaseEdge EDGES_GLG[] = { {0,1},{1,2} };
 static constexpr UnorderedPair SYM_LR_G[] = { {0,2} };
+// node 3
+static constexpr BaseNode NODES_G3[] = { {LKind::G},{LKind::L},{LKind::G}, {LKind::L}, {LKind::G}};
+static constexpr BaseEdge EDGES_G3[] = { {0,1},{1,2},{2,3},{3,4} };
+static constexpr UnorderedPair SYM_LR_G3[] = { {0,4} };
+// node 4
+static constexpr BaseNode NODES_G4[] = { {LKind::G},{LKind::L},{LKind::G}, {LKind::L}, {LKind::G},{LKind::L}, {LKind::G}};
+static constexpr BaseEdge EDGES_G4[] = { {0,1},{1,2},{2,3},{3,4},{4,5},{5,6} };
+static constexpr UnorderedPair SYM_LR_G4[] = { {0,6} };
+// node 5
+static constexpr BaseNode NODES_G5[] = { {LKind::G},{LKind::L},{LKind::G}, {LKind::L}, {LKind::G},{LKind::L}, {LKind::G},{LKind::L}, {LKind::G}};
+static constexpr BaseEdge EDGES_G5[] = { {0,1},{1,2},{2,3},{3,4},{4,5},{5,6},{6,7},{7,8} };
+static constexpr UnorderedPair SYM_LR_G5[] = { {0,8} };
+// node 6
+static constexpr BaseNode NODES_G6[] = { {LKind::G},{LKind::L},{LKind::G}, {LKind::L}, {LKind::G},{LKind::L}, {LKind::G},{LKind::L}, {LKind::G},{LKind::L},{LKind::G}};
+static constexpr BaseEdge EDGES_G6[] = { {0,1},{1,2},{2,3},{3,4},{4,5},{5,6},{6,7},{7,8},{8,9},{9,10} };
+static constexpr UnorderedPair SYM_LR_G6[] = { {0,10} };
+// node 7
+static constexpr BaseNode NODES_G7[] = { {LKind::G},{LKind::L},{LKind::G}, {LKind::L}, {LKind::G},{LKind::L}, {LKind::G},{LKind::L}, {LKind::G},{LKind::L},{LKind::G},{LKind::L},{LKind::G}};
+static constexpr BaseEdge EDGES_G7[] = { {0,1},{1,2},{2,3},{3,4},{4,5},{5,6},{6,7},{7,8},{8,9},{9,10},{10,11},{11,12} };
+static constexpr UnorderedPair SYM_LR_G7[] = { {0,12} };
+
+
+
+
 
 // ================= 스펙들 =================
 static const TopoSpec SPEC_gLg {
@@ -461,6 +487,69 @@ static const TopoSpec SPEC_gLg {
   "SCFT_gLg.txt"
 };
 
+// node 3
+static const TopoSpec SPEC_g3 {
+  {G_BANK, int(sizeof(G_BANK)/sizeof(G_BANK[0]))},
+  {L_BANK, int(sizeof(L_BANK)/sizeof(L_BANK[0]))},
+  {S_BANK, int(sizeof(S_BANK)/sizeof(S_BANK[0]))},
+  {I_BANK, int(sizeof(I_BANK)/sizeof(I_BANK[0]))},
+  NODES_G3, 5, EDGES_G3, 4,
+  nullptr, 0,
+  SYM_LR_G3, 1,
+  nullptr, 0,
+  "SCFT_gLgLg.txt"
+};
+// node 4
+static const TopoSpec SPEC_g4 {
+  {G_BANK, int(sizeof(G_BANK)/sizeof(G_BANK[0]))},
+  {L_BANK, int(sizeof(L_BANK)/sizeof(L_BANK[0]))},
+  {S_BANK, int(sizeof(S_BANK)/sizeof(S_BANK[0]))},
+  {I_BANK, int(sizeof(I_BANK)/sizeof(I_BANK[0]))},
+  NODES_G4, 7, EDGES_G4, 6,
+  nullptr, 0,
+  SYM_LR_G4, 1,
+  nullptr, 0,
+  "SCFT_gLgLgLg.txt"
+};
+// node 5
+static const TopoSpec SPEC_g5 {
+  {G_BANK, int(sizeof(G_BANK)/sizeof(G_BANK[0]))},
+  {L_BANK, int(sizeof(L_BANK)/sizeof(L_BANK[0]))},
+  {S_BANK, int(sizeof(S_BANK)/sizeof(S_BANK[0]))},
+  {I_BANK, int(sizeof(I_BANK)/sizeof(I_BANK[0]))},
+  NODES_G5, 9, EDGES_G5, 8,
+  nullptr, 0,
+  SYM_LR_G5, 1,
+  nullptr, 0,
+  "SCFT_gLgLgLgLg.txt"
+};
+// node 6
+static const TopoSpec SPEC_g6 {
+  {G_BANK, int(sizeof(G_BANK)/sizeof(G_BANK[0]))},
+  {L_BANK, int(sizeof(L_BANK)/sizeof(L_BANK[0]))},
+  {S_BANK, int(sizeof(S_BANK)/sizeof(S_BANK[0]))},
+  {I_BANK, int(sizeof(I_BANK)/sizeof(I_BANK[0]))},
+  NODES_G6, 11, EDGES_G6, 10,
+  nullptr, 0,
+  SYM_LR_G6, 1,
+  nullptr, 0,
+  "SCFT_gLgLgLgLgLg.txt"
+};
+// node 7
+static const TopoSpec SPEC_g7 {
+  {G_BANK, int(sizeof(G_BANK)/sizeof(G_BANK[0]))},
+  {L_BANK, int(sizeof(L_BANK)/sizeof(L_BANK[0]))},
+  {S_BANK, int(sizeof(S_BANK)/sizeof(S_BANK[0]))},
+  {I_BANK, int(sizeof(I_BANK)/sizeof(I_BANK[0]))},
+  NODES_G7, 13, EDGES_GLG, 12,
+  nullptr, 0,
+  SYM_LR_G7, 1,
+  nullptr, 0,
+  "SCFT_gLgLgLgLgLgLg.txt"
+};
+
+
+// SgLg
 static constexpr AttachRule ATT_SgLg[] = { {0, LKind::S, 1, true, true} };
 static const TopoSpec SPEC_SgLg {
   {G_BANK, int(sizeof(G_BANK)/sizeof(G_BANK[0]))},
@@ -473,6 +562,8 @@ static const TopoSpec SPEC_SgLg {
   nullptr, 0,
   "SCFT_SgLg.txt"
 };
+
+//SgLgS
 
 static constexpr AttachRule ATT_SgLgS[] = {
   {0, LKind::S, 1, true, true},
@@ -491,6 +582,7 @@ static const TopoSpec SPEC_SgLgS {
   "SCFT_SgLgS.txt"
 };
 
+// SSgLg
 static constexpr AttachRule ATT_SSgLg[] = {
   {0, LKind::S, 2, false, true} // ordered k=2 → K2 정책 적용
 };
@@ -506,6 +598,7 @@ static const TopoSpec SPEC_SSgLg {
   "SCFT_SSgLg.txt"
 };
 
+//SSgLgS
 static constexpr AttachRule ATT_SSgLgS[] = {
   {0, LKind::S, 2, false, true}, // ordered k=2
   {2, LKind::S, 1, true,  true}
@@ -522,6 +615,7 @@ static const TopoSpec SPEC_SSgLgS {
   "SCFT_SSgLgS.txt"
 };
 
+//SSgLIgS
 static constexpr AttachRule ATT_SSgLIgS[] = {
   {0, LKind::S, 2, false, true}, // ordered k=2
   {2, LKind::S, 1, true,  true},
@@ -544,8 +638,16 @@ int main(){
   //run_topology(SPEC_SgLg);
   //run_topology(SPEC_SgLgS);
   //run_topology(SPEC_SSgLg);
-  run_topology(SPEC_SSgLgS);
-  run_topology(SPEC_SSgLIgS);
+  run_topology(SPEC_g3);
+  run_topology(SPEC_g4);
+  run_topology(SPEC_g5);
+  run_topology(SPEC_g6);
+  run_topology(SPEC_g7);
+  
+
+
+
+
   return 0;
 }
 
