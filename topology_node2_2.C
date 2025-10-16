@@ -327,7 +327,7 @@ void run_topology(const TopoSpec& S){
             // === 그래프 1건 시도 카운트 ===
             tried.fetch_add(1, std::memory_order_relaxed);
 
-            // IF & 필터
+	                // IF & 필터
             Eigen::MatrixXi preIF = G.ComposeIF_UnitGluing();
             if (pass_filter_pre_and_post_zero_zero(preIF)){
               append_matrix(preIF, local);
@@ -337,7 +337,7 @@ void run_topology(const TopoSpec& S){
 
           // (g,l,i) 1건 처리 완료 → 진행률 증가 & 표시
           auto done = triple_done.fetch_add(1, std::memory_order_relaxed) + 1;
-          if ((done % 50 == 0) && MASTER_THREAD){
+          if ((done % 1 == 0) && MASTER_THREAD){
             double pct = 100.0 * (double)done / (double)TRIPLE_TOTAL;
             std::printf("\r[%.2f%%] triples %lld / %lld  (tried=%lld)",
                         pct, done, TRIPLE_TOTAL, tried.load(std::memory_order_relaxed));
@@ -482,8 +482,8 @@ static const TopoSpec SPEC_SSgLIgS {
 };
 
 int main(){
-  run_topology(SPEC_gLg);
-  run_topology(SPEC_SgLg);
+  //run_topology(SPEC_gLg);
+  //run_topology(SPEC_SgLg);
   run_topology(SPEC_SgLgS);
   run_topology(SPEC_SSgLg);
   run_topology(SPEC_SSgLgS);
