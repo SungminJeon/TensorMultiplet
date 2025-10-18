@@ -10,12 +10,14 @@
 #include <sstream>
 #include <unordered_map>
 
-// ---- 종류 & 스펙 헬퍼 ----
-enum class Kind { SideLink, InteriorLink, Node };
+// ---- 종류 & 스펙 헬퍼, side, interior, node, external... custom port 필요함.
+
+enum class Kind { SideLink, InteriorLink, Node, External };
 struct Spec { Kind kind; int param; };
 inline Spec s(int p){ return {Kind::SideLink,     p}; }
 inline Spec i(int p){ return {Kind::InteriorLink, p}; }
-inline Spec n_(int p){ return {Kind::Node,        p}; }
+inline Spec n(int p){ return {Kind::Node,        p}; }
+inline Spec e(int p){ return {Kind::External,     p}; }
 
 // ---- 0x0 행렬 안전 출력 (크래시 방지용) ----
 template <class M>
@@ -203,6 +205,9 @@ inline Tensor build_tensor(const Spec& sp){
 				break;       
 			}
 		case Kind::Node:
+			t.AT(-sp.param);
+			break;
+		case Kind::External:
 			t.AT(-sp.param);
 			break;
 	}
