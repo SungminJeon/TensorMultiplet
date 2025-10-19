@@ -159,7 +159,7 @@ int main() {
                 for (int i = 0; i < Nparams; ++i) {
                     TheoryGraph G;
                     auto S1 = G.add(s(params[i]));
-                    auto N  = G.add(n_(n));
+                    auto N  = G.add(n(n));
                     if (!safe_connect(G, S1, N)) {
                         #pragma omp atomic update
                         progress++;
@@ -206,7 +206,7 @@ int main() {
                 for (int j = 0; j <= i; ++j) {
                     TheoryGraph G;
                     auto S1 = G.add(s(params[i]));
-                    auto N  = G.add(n_(n));
+                    auto N  = G.add(n(n));
                     auto S2 = G.add(s(params[j]));
                     if (!safe_connect(G, S1, N) || !safe_connect(G, S2, N)) {
                         #pragma omp atomic update
@@ -255,7 +255,7 @@ int main() {
                     for (int k = 0; k <= j; ++k) {
                         TheoryGraph G;
                         auto S1 = G.add(s(params[i]));
-                        auto N  = G.add(n_(n));
+                        auto N  = G.add(n(n));
                         auto S2 = G.add(s(params[j]));
                         auto S3 = G.add(s(params[k]));
                         if (!safe_connect(G, S1, N) || !safe_connect(G, S2, N) || !safe_connect(G, S3, N)) {
@@ -310,7 +310,7 @@ int main() {
                         for (int l = 0; l <= aux; ++l) {
                             TheoryGraph G;
                             auto S1   = G.add(s(params[i]));
-                            auto Nref = G.add(n_(n));
+                            auto Nref = G.add(n(n));
                             auto S2   = G.add(s(params[j]));
                             auto S3   = G.add(s(params[k]));
                             auto Inst = G.add(s(instantons[l]));
