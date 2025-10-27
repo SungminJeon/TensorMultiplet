@@ -48,9 +48,9 @@ static inline bool evaluate_and_append(
     const Eigen::MatrixXi IF0 = g.GetIntersectionForm();
 
     // validate with blowdown (not saved)
-    g.ForcedBlowdown();
-    if (g.TimeDirection() != 0 || g.NullDirection() != 0)
-        return false;
+    //g.ForcedBlowdown();
+    //if (g.TimeDirection() != 0 || g.NullDirection() != 0)
+    //    return false;
 
     const int R = IF0.rows(), C = IF0.cols();
     char buf[32];
@@ -375,15 +375,282 @@ void run_Sg_sweep() {
 			<< " | total Sg found: " << Sg_found << '\n';
 	
 }
+// SSgS
+void run_SSgS_sweep() {
+
+	std::cout << "running " << std::endl;
+	long long SSgS_found = 0;  // adjust variable for your topology : topology_found
+	long long SSgS_total_sweep = 0; // adjust variable for your topology : topology_total_sweep
+
+	std::string out;
+	out.reserve(1 << 20);
+
+	for (int side1 = 0; side1 < numS; ++side1) //notation : side1, side2,.. 
+	{
+		const int sval = S_BANK[side1]; //notation sval.
+
+		// S -> g rule
+		auto gv = allowed(S, sval);   // IntView {data, size}
+	if (gv.empty()) continue;
+
+	for (std::size_t j = 0; j < gv.size; ++j) 
+	{
+		for ( int side2 = 0; side2<=side1; ++side2)
+		{
+			for ( int side3 = 0; side3 <=side2; ++side3) 
+			{
+				const int gval = gv.data[j];
+				const int sval2 = S_BANK[side2];
+				const int sval3 = S_BANK[side3];
+				++SSgS_total_sweep; // adjust : topology_total_sweep
+
+				// adjust : topology_total sweep
+				if ((SSgS_total_sweep % 1000) == 0) {
+					std::cout << "[SSgS] sweep count: " << SSgS_total_sweep << '\n';
+				}
+
+				// type connection structure
+				TheoryGraph G;
+				auto s1 = G.add(s(sval));
+				auto g1 = G.add(n(gval));
+				auto s2 = G.add(s(sval2));
+				auto s3 = G.add(s(sval3));
+
+				//	std::cout << " s(val) " << sval << std::endl;
+				//	std::cout << " g(val) " << gval << std::endl;
 
 
+				if( !safe_connect(G,s1,g1) || !safe_connect(G,s2,g1) || !safe_connect(G,s3,g1)) {continue;}
+
+
+				const Eigen::MatrixXi glued = compose_glue(G);
+
+				// 행렬 직렬화 → 즉시 out에 append
+				const bool ok = evaluate_and_append(glued, [&](std::string_view sv){
+						out.append(sv.data(), sv.size());
+						});
+				if (ok) ++SSgS_found; // adjust :: topology_found
+			}
+		}
+	}
+	}
+
+	// 파일로 저장
+	{
+		std::ofstream fout("SCFT_SSgS.txt", std::ios::out); //adjust : SCFT/LST_topology.txt
+		fout << out;
+	}
+
+	std::cout << "[SSgS] total sweep: " << SSgS_total_sweep // adjust : topology
+		<< " | total SSgS found: " << SSgS_found << '\n'; 
+
+}
+
+void run_SgS_sweep() {
+
+		std::cout << "running " << std::endl;
+		long long SgS_found = 0;
+		long long SgS_total_sweep = 0;
+
+		std::string out;
+		out.reserve(1 << 20);
+
+		for (int side1 = 0; side1 < numS; ++side1) 
+		{
+			const int sval = S_BANK[side1];
+
+			// S -> g rule
+			auto gv = allowed(S, sval);   // IntView {data, size}
+		if (gv.empty()) continue;
+
+		for (std::size_t j = 0; j < gv.size; ++j) 
+		{
+			for ( int side2 = 0; side2<=side1; ++side2)
+			{
+			const int gval = gv.data[j];
+			const int sval2 = S_BANK[side2];
+			++SgS_total_sweep;
+
+			if ((SgS_total_sweep % 1000) == 0) {
+				std::cout << "[Sg] sweep count: " << SgS_total_sweep << '\n';
+			}
+
+			TheoryGraph G;
+			auto s1 = G.add(s(sval));
+			auto g1 = G.add(n(gval));
+			auto s2 = G.add(s(sval2));
+
+			std::cout << " s(val) " << sval << std::endl;
+			std::cout << " g(val) " << gval << std::endl;
+			
+
+			if( !safe_connect(G,s1,g1) || !safe_connect(G,s2,g1)) {continue;}
+
+
+			const Eigen::MatrixXi glued = compose_glue(G);
+
+			// 행렬 직렬화 → 즉시 out에 append
+			const bool ok = evaluate_and_append(glued, [&](std::string_view sv){
+					out.append(sv.data(), sv.size());
+					});
+			if (ok) ++SgS_found;
+		}
+		}
+		}
+
+		// 파일로 저장
+		{
+			std::ofstream fout("SCFT_SgS.txt", std::ios::out);
+			fout << out;
+		}
+
+		std::cout << "[SgS] total sweep: " << SgS_total_sweep
+			<< " | total SgS found: " << SgS_found << '\n';
+	
+}
+
+
+
+void run_gLgLgLgLg_sweep() {
+
+	std::cout << "running " << std::endl;
+	long long gLgLgLgLg_found = 0;
+	long long gLgLgLgLg_sweep = 0;
+
+	std::string out;
+	out.reserve(1 << 20);
+
+	for (int node1 = 0; node1 < numG; ++node1) 
+	{
+		const int g1val = G_BANK[node1];
+
+		// S -> g rule
+		auto gv = allowed(g, g1val);   // IntView {data, size}
+	if (gv.empty()) continue;
+
+	for (std::size_t j = 0; j < gv.size; ++j) 
+	{
+
+		const int l1val = gv.data[j];
+
+		auto lv = allowed(L,l1val);
+
+		if (lv.empty()) continue;
+
+		for ( int node2 = 0; node2 < lv.size; ++node2)
+		{
+			const int g2val = lv.data[node2];
+
+			auto gv2 = allowed(g, g2val);
+			if(gv2.empty()) continue;
+
+			for (int l2 =0; l2 < gv2.size; ++l2)
+			{
+				const int l2val = gv2.data[l2];
+
+				auto lv2 = allowed(L, l2val);
+				if(lv2.empty())	continue;
+
+				for (int node3 = 0; node3 < lv2.size; node3++)
+				{
+					const int g3val = lv2.data[node3];
+
+					auto gv3 = allowed(g, g3val);
+					if(gv3.empty()) continue;
+
+					for (int l3 = 0; l3 < gv3.size; l3++)
+					{
+						const int l3val = gv3.data[l3];
+
+						auto lv3 = allowed(L, l3val);
+						if(lv3.empty()) continue;
+						for (int node4=0; node4< lv3.size; node4++)
+						{
+							const int g4val = lv3.data[node4];
+
+							auto gv4 = allowed(g, g4val);
+							if (gv4.empty()) continue;
+							for (int l4 = 0; l4 < gv4.size; l4++)
+							{
+								const int l4val = gv4.data[l4];
+
+								auto lv4 = allowed(L, l4val);
+								if(lv4.empty()) continue;
+
+								for (int g5 = 0; g5 < lv4.size; g5++)
+								{
+									const int g5val = lv4.data[g5];
+
+									TheoryGraph G;
+
+									auto G1 = G.add(n(g1val));
+									auto L1 = G.add(i(l1val));
+									auto G2 = G.add(n(g2val));
+									auto L2 = G.add(i(l2val));
+									auto G3 = G.add(n(g3val));
+									auto L3 = G.add(i(l3val));
+									auto G4 = G.add(n(g4val));
+									auto L4 = G.add(i(l4val));
+									auto G5 = G.add(n(g5val));
+
+
+									if (!safe_connect(G,G1,L1) || !safe_connect(G,L1,G2) || !safe_connect(G,G2,L2) || !safe_connect(G,L2,G3) || !safe_connect(G,G3,L3) || !safe_connect(G,L3,G4) || !safe_connect(G,G4,L4) || !safe_connect(G,L4,G5)) {continue;}
+
+
+									gLgLgLgLg_sweep++;
+									if (gLgLgLgLg_sweep % 1000 == 0) {std::cout << "processing: " << gLgLgLgLg_sweep << std::endl;}
+
+
+
+
+
+
+
+									const Eigen::MatrixXi glued = compose_glue(G);
+
+									// 행렬 직렬화 → 즉시 out에 append
+									const bool ok = evaluate_and_append(glued, [&](std::string_view sv){
+											out.append(sv.data(), sv.size());
+											});
+									if (ok) ++gLgLgLgLg_found;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	}
+	// 파일로 저장
+	{
+		std::ofstream fout("SCFT_gLgLgLgLg.txt", std::ios::out);
+		fout << out;
+	}
+
+	std::cout << "[g5] total sweep: " << gLgLgLgLg_sweep
+		<< " | total g5 found: " << gLgLgLgLg_found << '\n';
+
+
+
+
+
+
+
+
+
+
+}
 
 int main() {
 
 
 
 	run_Sg_sweep();
+	run_SgS_sweep();
 
+	//run_SSgS_sweep();
+	run_gLgLgLgLg_sweep();
 	std::cout << "dfjkajfkld " << std::endl;
 
 }

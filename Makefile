@@ -12,7 +12,7 @@ CORE_OBJ = $(CORE_SRC:.C=.o)
 CORE_LIB = libcore.a
 
 # 👇 여기서 수동으로 빌드할 타깃을 지정
-TARGETS = topology_node2_2 topology_fast
+TARGETS = topology_node2_2 topology_fast topology_test 
 
 # ────────────────────────────────────────
 all: $(CORE_LIB) $(TARGETS)
