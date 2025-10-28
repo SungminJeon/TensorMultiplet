@@ -21,21 +21,33 @@ int Topology::addBlockRight(LKind kind, int param) {
 }
 
 
+// === Topology.cpp — patch ===
+// ... 기존 include/코드 유지 ...
 
-int Topology::addDecoration(LKind kind, int param) {
-    // S -> side_links, I -> instantons
+int Topology::addDecoration(LKind kind, int param, int blockidx) {
     switch (kind) {
         case LKind::S: {
             side_links.push_back(SideLinks{param});
-            return static_cast<int>(side_links.size()) - 1;
+            // 방금 추가한 sidelink의 인덱스는 size()-1
+            const int sid = static_cast<int>(side_links.size()) - 1;
+            s_connection.push_back({blockidx, sid});
+            return sid;
         }
         case LKind::I: {
             instantons.push_back(Instantons{param});
-            return static_cast<int>(instantons.size()) - 1;
+            const int iid = static_cast<int>(instantons.size()) - 1;
+            i_connection.push_back({blockidx, iid});
+            return iid;
         }
         default:
-            return -1; // g, L은 decoration이 아님
+            return -1;
     }
+}
+
+// 헤더는 void GetBlock(int j) 이라서, 구현도 void로 맞춤 (공개필드 직접 쓰는걸 권장)
+void Topology::GetBlock(int /*j*/) {
+    // 헤더 시그니처를 바꿀 수 없으니 빈 구현으로 둠.
+    // 실제로는 public 멤버 'block[j]'를 직접 사용하세요.
 }
 
 // 연결 정보 일괄 설정(기존 것을 덮어씀)
@@ -79,27 +91,6 @@ void Topology::InitializeGluings() {
     l_connection.clear();
     s_connection.clear();
     i_connection.clear();
-}
-
-// ========== 제거(Subtract) ==========
-// kind에 따라 해당 컨테이너에서 position 인덱스 원소를 제거
-void Topology::Subtract(LKind kind, int position) {
-    auto erase_at = [&](auto& vec, int pos) {
-        if (pos < 0 || pos >= static_cast<int>(vec.size())) return; // 무시
-        vec.erase(vec.begin() + pos);
-    };
-    switch (kind) {
-        case LKind::g:
-        case LKind::L:
-        case LKind::S: // S는 block과 decoration 양쪽 가능하나, 여기선 block 기준
-            erase_at(block, position);
-            break;
-        case LKind::I:
-            // instanton 컨테이너에서 지우려면 주석 해제:
-            // erase_at(instantons, position);
-            erase_at(block, position);
-            break;
-    }
 }
 
 // ========== 질의 ==========

@@ -58,7 +58,7 @@ struct Topology {
     // === 유틸 함수들 (구현은 .cpp) ===
     int  addBlock(LKind kind, int param);
     int  addBlockRight(LKind kind, int param);
-    int  addDecoration(LKind kind, int param);
+    int  addDecoration(LKind kind, int param, int blockidx);
     int  LinkingBlocks(std::vector<InteriorStructure> lcon);
     int LinkingSideLinks(std::vector<SideLinkStructure> scon);
     int LinkingInstantonStructure(std::vector<InstantonStructure> icon);
@@ -67,6 +67,7 @@ struct Topology {
     void InitializeBlocks();
     void InitializeDecorations();
     void InitializeGluings();
+    void GetBlock(int j);
     
 
 
